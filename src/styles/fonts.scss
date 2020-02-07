@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=fallback");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css");
+
+// @font-face {
+//   font-family: "Proxima Nova";
+//   font-weight: 300;
+//   src: url("../fonts/Proxima-Thin.otf");
+// }
+
+@font-face {
+  font-family: "Proxima Nova";
+  font-weight: 400;
+  src: url("https://cdn.jsdelivr.net/npm/font-proxima-nova@1.0.1/fonts/ProximaNova-Regular.woff");
+}
+
+// @font-face {
+//   font-family: "Proxima Nova";
+//   font-weight: 500;
+//   src: url("../fonts/Proxima-Medium.otf");
+// }
+
+@font-face {
+  font-family: "Proxima Nova";
+  font-weight: 600;
+  src: url("https://cdn.jsdelivr.net/npm/font-proxima-nova@1.0.1/fonts/ProximaNova-Semibold.woff");
+}
+
+@font-face {
+  font-family: "Proxima Nova";
+  font-weight: 700;
+  src: url("https://cdn.jsdelivr.net/npm/font-proxima-nova@1.0.1/fonts/ProximaNova-Bold.woff");
+}
+
+html {
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, Helvetica,
+    sans-serif;
+}
+
+@supports (font-variation-settings: normal) {
+  html {
+    font-family: "Montserrat", -apple-system, BlinkMacSystemFont, Helvetica,
+      sans-serif;
+  }
+}
