@@ -263,16 +263,11 @@ const Contact = ({ meta, blog, contact }) => (
               </Text>
             </Box>
             <Box flex="1" textAlign="right">
-              <Heading
-                as="h1"
-                letterSpacing="5px"
-                fontFamily="Montserrat"
-                fontSize="24px"
-              >
-                OUR JOURNAL
-              </Heading>
               <Text py="10px" paddingRight="20px" fontFamily="Montserrat">
-                GET IN TOUCH
+                FOLLOW US
+              </Text>
+              <Text py="10px" paddingRight="20px" fontFamily="Montserrat">
+                LOREM IPSUM DOLOR SIT AMET
               </Text>
             </Box>
           </Flex>
@@ -292,7 +287,7 @@ const Contact = ({ meta, blog, contact }) => (
                 _after={{
                   content: "''",
                   display: "flex",
-                  height: "2px",
+                  height: "1px",
                   width: "50px",
                   backgroundColor: "#e9c8bc",
                   margin: "20px auto"
@@ -358,7 +353,6 @@ export default ({ data }) => {
 
   const meta = data.site.siteMetadata;
 
-  console.log(contact);
   if (!blog) return null;
 
   return <Contact contact={contact.node} blog={blog.node} meta={meta} />;

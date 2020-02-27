@@ -226,7 +226,7 @@ const Blog = ({ meta, blog, posts }) => (
                 _after={{
                   content: "''",
                   display: "flex",
-                  height: "2px",
+                  height: "1px",
                   width: "50px",
                   backgroundColor: "#e9c8bc",
                   my: "20px"
@@ -257,7 +257,6 @@ export default ({ data }) => {
 
   const meta = data.site.siteMetadata;
 
-  console.log(blog);
   if (!blog) return null;
 
   return <Blog blog={blog.node} posts={posts} meta={meta} />;

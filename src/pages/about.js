@@ -78,6 +78,30 @@ const PhilosophyText = styled(Text)`
   }
 `;
 
+const StyledFlex = styled(Flex)`
+  p {
+    margin: 0;
+  }
+`;
+
+const HoverFlex = styled(Flex)`
+  transition: all 0.3s;
+
+  &:hover {
+    .details-container {
+      color: white;
+
+      .position {
+        opacity: 1;
+      }
+    }
+
+    .description {
+      opacity: 1;
+    }
+  }
+`;
+
 const About = ({ meta, about }) => (
   <>
     <Helmet
@@ -281,7 +305,7 @@ const About = ({ meta, about }) => (
                 _after={{
                   content: "''",
                   display: "block",
-                  height: "2px",
+                  height: "1px",
                   width: "50px",
                   backgroundColor: "#e9c8bc",
                   my: "20px"
@@ -352,28 +376,113 @@ const About = ({ meta, about }) => (
                             src={item.employee_picture.url}
                             objectFit="cover"
                             width="100%"
+                            height="100%"
                           />
                         </LazyLoad>
                       </Box>
-                      <Flex
+                      <HoverFlex
                         gridArea={gridAreas[index].text}
                         justifyContent="center"
                         alignItems="flex-end"
-                        paddingBottom="40px"
+                        position="relative"
                       >
-                        {RichText.render(item.employee_name)}
-                      </Flex>
+                        <Box
+                          className="description"
+                          position="absolute"
+                          height="100%"
+                          width="100%"
+                          backgroundColor={colors.njabDarkPink}
+                          textTransform="initial"
+                          color="white"
+                          top="0"
+                          padding="30px"
+                          opacity="0"
+                          transition="all 0.3s"
+                        >
+                          <Box
+                            overflow="scroll"
+                            height="calc(100% - 80px)"
+                            width="100%"
+                          >
+                            {RichText.render(item.employee_description)}
+                          </Box>
+                        </Box>
+                        <StyledFlex
+                          className="details-container"
+                          height="80px"
+                          justifyContent="flex-end"
+                          pb="20px"
+                          alignItems="center"
+                          flexDirection="column"
+                        >
+                          <Box zIndex="2">
+                            {RichText.render(item.employee_name)}
+                          </Box>
+                          <Text
+                            zIndex="2"
+                            className="position"
+                            as="em"
+                            fontFamily="Montserrat"
+                            opacity="0"
+                            margin="0"
+                          >
+                            {RichText.render(item.employee_position)}
+                          </Text>
+                        </StyledFlex>
+                      </HoverFlex>
                     </>
                   ) : (
                     <>
-                      <Flex
+                      <HoverFlex
                         gridArea={gridAreas[index].text}
                         justifyContent="center"
                         alignItems="flex-end"
-                        paddingBottom="40px"
+                        position="relative"
                       >
-                        {RichText.render(item.employee_name)}
-                      </Flex>
+                        <Box
+                          className="description"
+                          position="absolute"
+                          height="100%"
+                          width="100%"
+                          backgroundColor={colors.njabDarkPink}
+                          textTransform="initial"
+                          color="white"
+                          top="0"
+                          padding="30px"
+                          opacity="0"
+                          transition="all 0.3s"
+                        >
+                          <Box
+                            overflow="scroll"
+                            height="calc(100% - 80px)"
+                            width="100%"
+                          >
+                            {RichText.render(item.employee_description)}
+                          </Box>
+                        </Box>
+                        <StyledFlex
+                          className="details-container"
+                          height="80px"
+                          justifyContent="flex-end"
+                          pb="20px"
+                          alignItems="center"
+                          flexDirection="column"
+                        >
+                          <Box zIndex="2">
+                            {RichText.render(item.employee_name)}
+                          </Box>
+                          <Text
+                            zIndex="2"
+                            className="position"
+                            as="em"
+                            fontFamily="Montserrat"
+                            opacity="0"
+                            margin="0"
+                          >
+                            {RichText.render(item.employee_position)}
+                          </Text>
+                        </StyledFlex>
+                      </HoverFlex>
                       <Box gridArea={gridAreas[index].image}>
                         <LazyLoad placeholder={<Skeleton />}>
                           <Image
@@ -381,6 +490,7 @@ const About = ({ meta, about }) => (
                             src={item.employee_picture.url}
                             objectFit="cover"
                             width="100%"
+                            height="100%"
                           />
                         </LazyLoad>
                       </Box>
@@ -399,8 +509,9 @@ const About = ({ meta, about }) => (
 export default ({ data }) => {
   const meta = data.site.siteMetadata;
   const doc = data.prismic.allAbout_pages.edges.slice(0, 1).pop();
+  console.log(doc);
 
-  if (!doc) return null;
+  if (!doc || !meta) return null;
 
   return <About about={doc} meta={meta} />;
 };
@@ -433,6 +544,8 @@ export const query = graphql`
             team_checkerboard {
               employee_name
               employee_picture
+              employee_description
+              employee_position
             }
           }
         }

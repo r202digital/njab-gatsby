@@ -1,3 +1,7 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`
+});
+
 module.exports = {
   siteMetadata: {
     title: `Not Just a Box Events`,
@@ -25,8 +29,8 @@ module.exports = {
       resolve: "gatsby-source-prismic-graphql",
       options: {
         repositoryName: "notjustaboxevents", // (REQUIRED, replace with your own)
-        linkResolver: () => post => `/${post.uid}`
-        // omitPrismicScript: true
+        linkResolver: () => post => `/${post.uid}`,
+        omitPrismicScript: true
       }
     },
     {
@@ -66,6 +70,7 @@ module.exports = {
     },
     `gatsby-plugin-transition-link`,
     `gatsby-plugin-preact`,
+    `gatsby-plugin-typescript`,
     {
       resolve: `gatsby-plugin-html-minifier`,
       options: {

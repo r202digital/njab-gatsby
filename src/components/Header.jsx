@@ -4,7 +4,20 @@ import styled from "@emotion/styled";
 import colors from "styles/colors";
 import dimensions from "styles/dimensions";
 import Logo from "components/_ui/Logo";
-import { Box, IconButton } from "@chakra-ui/core";
+import {
+  Box,
+  IconButton,
+  useDisclosure,
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  Button,
+  Input
+} from "@chakra-ui/core";
 import { MdMenu, MdSearch } from "react-icons/md";
 
 const HeaderContainer = styled(Box)`
@@ -28,7 +41,11 @@ const HeaderContent = styled(Box)`
 `;
 
 const HeaderLinks = styled("div")`
-  display: flex;
+  display: none;
+
+  @media (min-width: ${dimensions.maxwidthTablet}px) {
+    display: flex;
+  }
 
   a {
     color: currentColor;
@@ -71,6 +88,22 @@ const HeaderLinks = styled("div")`
   }
 `;
 
+const MobileMenuLink = styled(Link)`
+  width: 100%;
+  display: block;
+  padding: 20px;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: ${colors.njabLightGray};
+
+  &:focus,
+  &:hover {
+    outline: none;
+    background-color: ${colors.njabLightPink};
+  }
+`;
+
 const Header = ({ navLinks, variant, children, background = {} }) => {
   const newNavLinks = navLinks.map(item => ({
     text: item.nav_link[0].text,
@@ -79,6 +112,9 @@ const Header = ({ navLinks, variant, children, background = {} }) => {
       : ""
   }));
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const btnRef = React.useRef();
+
   return (
     <HeaderContainer
       className={`HeaderContainer--${variant}`}
@@ -86,6 +122,45 @@ const Header = ({ navLinks, variant, children, background = {} }) => {
       backgroundSize={background.size}
       backgroundPosition={background.position}
     >
+      <Drawer
+        isOpen={isOpen}
+        placement="right"
+        onClose={onClose}
+        finalFocusRef={btnRef}
+        size="full"
+      >
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerHeader>
+            <Link to="/" className="logo-link" aria-label="NJAB Logo">
+              <Logo />
+            </Link>
+          </DrawerHeader>
+          <DrawerCloseButton
+            mt="3px"
+            mr="2px"
+            color={colors.njabDarkPink}
+            backgroundColor="transparent"
+            border="none"
+            size="lg"
+          />
+
+          <DrawerBody
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+          >
+            {newNavLinks.map(item => (
+              <MobileMenuLink activeClassName="Link--is-active" to={item.url}>
+                {item.text}
+              </MobileMenuLink>
+            ))}
+          </DrawerBody>
+
+          <DrawerFooter>{/* Insert Search Input Here */}</DrawerFooter>
+        </DrawerContent>
+      </Drawer>
       <Box background={background.highlight}>
         <HeaderContent
           className={`HeaderContent--${variant}`}
@@ -119,11 +194,15 @@ const Header = ({ navLinks, variant, children, background = {} }) => {
               border="none"
             />
             <IconButton
+              ref={btnRef}
+              onClick={onOpen}
+              className="menu-item--small"
               display={{ xs: "initial", md: "none" }}
               aria-label="Menu"
               backgroundColor="transparent"
               color={variant === "light" ? "#dd8d83" : "white"}
               icon={MdMenu}
+              border="none"
               fontSize="30px"
               _hover={{
                 backgroundColor: "transparent",

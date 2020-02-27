@@ -14,8 +14,11 @@ import DisjointedSlider from "components/DisjointedSlider";
 import Logo from "components/_ui/Logo";
 import Link from "components/_ui/Link";
 import { FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/fa";
+import { FiArrowUp } from "react-icons/fi";
+
 import { MdPersonOutline } from "react-icons/md";
 import { GoMail } from "react-icons/go";
+import { animateScroll as scroll } from "react-scroll";
 
 import {
   Image,
@@ -163,7 +166,6 @@ const RelatedSlider = styled(DisjointedSlider)`
 `;
 
 const Post = ({ post, meta, blog, allPosts }) => {
-  console.log(allPosts);
   return (
     <>
       <Helmet
@@ -226,7 +228,7 @@ const Post = ({ post, meta, blog, allPosts }) => {
               _after={{
                 content: "''",
                 display: "block",
-                height: "2px",
+                height: "1px",
                 width: "50px",
                 backgroundColor: "white",
                 my: "20px"
@@ -454,6 +456,32 @@ const Post = ({ post, meta, blog, allPosts }) => {
             ))}
           </RelatedSlider>
         </Section>
+        <Section
+          alignItems="flex-end"
+          outerProps={{
+            py: "50px"
+          }}
+        >
+          <a onClick={() => scroll.scrollToTop()}>
+            <Flex alignItems="center">
+              <Text
+                fontFamily="Montserrat"
+                color={colors.njabDarkPink}
+                fontSize="8px"
+                letterSpacing="2px"
+                margin="0"
+              >
+                BACK TO TOP
+              </Text>
+              <Box
+                as={FiArrowUp}
+                size="20px"
+                color={colors.njabDarkPink}
+                ml="10px"
+              />
+            </Flex>
+          </a>
+        </Section>
       </Layout>
     </>
   );
@@ -464,7 +492,7 @@ export default ({ data, path }) => {
 
   const postContent = data.prismic.allPosts.edges.filter(
     edge => edge.node._meta.uid === id
-  )[0].node;
+  )[0];
 
   const allPosts = data.prismic.allPosts.edges
     .filter(edge => edge.node._meta.uid !== id)
@@ -472,9 +500,16 @@ export default ({ data, path }) => {
 
   const blog = data.prismic.allBlog_pages.edges.slice(0, 1).pop();
 
+  if (!postContent) return null;
+
   const meta = data.site.siteMetadata;
   return (
-    <Post post={postContent} blog={blog.node} allPosts={allPosts} meta={meta} />
+    <Post
+      post={postContent.node}
+      blog={blog.node}
+      allPosts={allPosts}
+      meta={meta}
+    />
   );
 };
 

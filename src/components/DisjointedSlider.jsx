@@ -2,14 +2,17 @@ import React from "react";
 import { Flex, List, ListItem, Stack, Link, Text, Box } from "@chakra-ui/core";
 import Slider from "react-slick";
 import styled from "@emotion/styled";
+import colors from "styles/colors";
 
 var classNames = require("classnames");
 
 const SliderContainer = styled(Slider)`
-  display: none;
+  .slick-dots {
+    bottom: 15px;
 
-  @media (min-width: 768px) {
-    display: initial;
+    @media (min-width: 768px) {
+      bottom: -40px;
+    }
   }
 
   &.pink-dots {
@@ -17,14 +20,25 @@ const SliderContainer = styled(Slider)`
       li {
         button {
           &:before {
-            color: #9c8881;
+            color: ${colors.njabDotsPinkLight};
+            opacity: 1;
+            font-size: 8px;
+
+            @media (min-width: 768px) {
+              color: #9c8881;
+              opacity: 0.5;
+              font-size: 6px;
+            }
           }
         }
 
         &.slick-active {
           button {
             &:before {
-              color: #d89a8d;
+              color: ${colors.njabDarkPink};
+              @media (min-width: 768px) {
+                color: #d89a8d;
+              }
             }
           }
         }
@@ -34,6 +48,8 @@ const SliderContainer = styled(Slider)`
 `;
 
 const SliderContainerMobile = styled(SliderContainer)`
+  display: initial;
+
   @media (min-width: 768px) {
     display: none;
   }
@@ -62,12 +78,27 @@ const DisjointedSlider = ({
         slidesToScroll={1}
         centerMode
         appendDots={dots => <List bottom="-40px">{dots}</List>}
+        responsive={[
+          {
+            breakpoint: 768,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              centerMode: false,
+              initialSlide: 0
+            }
+          }
+        ]}
         {...props}
       >
         {children}
       </SliderContainer>
-      <SliderContainerMobile
-        className={`disjoint-slider-mobile ${pinkDots && "pink-dots"}`}
+      {/* <SliderContainerMobile
+        className={classNames([
+          "disjoint-slider-mobile",
+          { "pink-dots": pinkDots },
+          ...classes
+        ])}
         arrows={false}
         dots={true}
         infinite={true}
@@ -79,7 +110,7 @@ const DisjointedSlider = ({
         {...mobileProps}
       >
         {children}
-      </SliderContainerMobile>
+      </SliderContainerMobile> */}
     </>
   );
 };

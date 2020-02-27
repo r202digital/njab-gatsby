@@ -7,6 +7,7 @@ var classNames = require("classnames");
 const Logo = ({ hideHeading = false, variant = "light" }) => (
   <div className={classNames("logo")}>
     <Image
+      color="white"
       className="lazyload"
       data-src={variant === "light" ? njabLogoPink : njabLogoWhite}
       src={variant === "light" ? njabLogoPink : njabLogoWhite}

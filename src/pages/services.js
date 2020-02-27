@@ -229,7 +229,7 @@ const Services = ({ services, meta }) => (
               _after={{
                 content: "''",
                 display: "block",
-                height: "2px",
+                height: "1px",
                 width: "50px",
                 backgroundColor: "#e9c8bc",
                 my: "20px"
@@ -280,7 +280,7 @@ const Services = ({ services, meta }) => (
               _after={{
                 content: "''",
                 display: "block",
-                height: "2px",
+                height: "1px",
                 width: "50px",
                 backgroundColor: "#e9c8bc",
                 my: "15px",

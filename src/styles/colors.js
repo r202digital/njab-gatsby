@@ -91,9 +91,11 @@ const colors = {
   njabDarkPink: "#dd8d83",
   njabMidPink: "#e4a197",
   njabLightPink: "#f8e6e2",
+  njabLightPinkHover: "#EFD6D0",
   njabPink: "#de8e83",
   njabGray: "#413f42",
-  njabLightGray: "#707070"
+  njabLightGray: "#707070",
+  njabDotsPinkLight: "#e9c8bc"
 };
 
 export default colors;

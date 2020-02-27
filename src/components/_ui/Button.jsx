@@ -20,13 +20,13 @@ const ButtonContainer = styled(ChakraButton)`
   }
 
   &.Button--secondary {
-    background: ${colors.teal200};
-    color: ${colors.teal600};
+    background: ${colors.njabLightPink};
+    color: ${colors.njabDarkPink};
     padding: 0.95em 1.8em;
     font-size: 0.95rem;
 
     &:hover {
-      background: ${colors.teal300};
+      background: ${colors.njabLightPinkHover};
       transition: background 100ms ease-in-out;
     }
   }

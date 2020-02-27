@@ -68,8 +68,13 @@ const FooterLogo = styled("img")`
 
 const Footer = () => (
   <FooterContainer maxWidth={`${dimensions.maxwidthDesktop}px`}>
-    <Flex color="#de8e83" justifyContent="space-between" width="100%">
-      <Box flex="1">
+    <Flex
+      color="#de8e83"
+      justifyContent="space-between"
+      width="100%"
+      flexDirection={{ xs: "column", md: "row" }}
+    >
+      <Box flex="1" px={{ xs: "2rem", md: 0 }}>
         <Heading
           as="h1"
           fontSize="18px"
@@ -78,6 +83,7 @@ const Footer = () => (
           fontWeight="400"
           textTransform="uppercase"
           fontFamily={theme.fonts.body}
+          textAlign={{ xs: "center", md: "initial" }}
         >
           Say Hello
         </Heading>
@@ -85,7 +91,7 @@ const Footer = () => (
           497 Evergreen Rd. Roseville, CA 95673 +44 345 678 903
         </Text>
       </Box>
-      <Box flex="2">
+      <Box flex="2" px={{ xs: "2rem", md: "15%" }}>
         <Heading
           as="h1"
           fontSize="18px"
@@ -98,7 +104,7 @@ const Footer = () => (
         >
           Questions?
         </Heading>
-        <Box px="15%">
+        <Box>
           <InputGroup>
             <InputLeftAddon
               borderRadius="0px"
@@ -203,7 +209,7 @@ const Footer = () => (
           </InputGroup>
         </Box>
       </Box>
-      <Box flex="1">
+      <Box flex="1" px={{ xs: "2rem", md: 0 }}>
         <Heading
           as="h1"
           fontSize="18px"
@@ -212,17 +218,18 @@ const Footer = () => (
           fontWeight="400"
           textTransform="uppercase"
           fontFamily={theme.fonts.heading}
+          textAlign={{ xs: "center", md: "initial" }}
         >
           Lorem Ipsum
         </Heading>
-        <Flex display={{ xs: "block", lg: "flex" }}>
-          <List styleType="none" padding="0" mr="15px">
+        <Flex>
+          <List styleType="none" padding="0" mr="15px" flex="1">
             <ListItem>FAQ</ListItem>
             <ListItem>Terms of Use</ListItem>
             <ListItem>Privacy Policy</ListItem>
             <ListItem>Cookie Policy</ListItem>
           </List>
-          <List styleType="none" padding="0" ml="15px">
+          <List styleType="none" padding="0" ml="15px" flex="1">
             <ListItem>Contact Us</ListItem>
             <ListItem>Lorem ipsum</ListItem>
             <ListItem>Lorem ipsum</ListItem>

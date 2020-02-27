@@ -12,6 +12,7 @@ import {
 import Slider from "react-slick";
 import Container from "./Container";
 import styled from "@emotion/styled";
+import dimensions from "styles/dimensions";
 
 const Arrow = ({ className, style, onClick }) => {
   const variant = className
@@ -70,28 +71,82 @@ const Arrow = ({ className, style, onClick }) => {
   );
 };
 
+const FeaturedHeading = styled(Box)`
+  h1 {
+    font-size: 14px;
+    letter-spacing: 2px;
+    font-weight: 400;
+    margin: 0;
+  }
+`;
+
+const FeaturedSubheading = styled(Box)`
+  p {
+    font-size: 18px;
+    letter-spacing: 4px;
+    margin: 0;
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+`;
+
 const DoubleSliderContainer = styled(Box)`
   .first-slider {
-    width: 50%;
+    width: 100%;
+    z-index: 1;
+
+    @media (min-width: 768px) {
+      width: 50%;
+      z-index: 0;
+    }
   }
   .second-slider {
-    width: 65%;
+    width: 100%;
+    @media (min-width: 768px) {
+      width: 65%;
+    }
+
+    &.white-dots {
+      .slick-dots {
+        li {
+          button {
+            &:before {
+              color: #9c8881;
+              @media (min-width: 768px) {
+                color: #332525;
+              }
+            }
+          }
+
+          &.slick-active {
+            button {
+              &:before {
+                color: #d89a8d;
+                opacity: 1;
+                @media (min-width: 768px) {
+                  color: #fff;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
-  .white-dots {
+  .pink-dots {
     .slick-dots {
       li {
         button {
           &:before {
-            color: #332525;
+            color: #9c8881;
           }
         }
 
         &.slick-active {
           button {
             &:before {
-              color: #fff;
-              opacity: 1;
+              color: #d89a8d;
             }
           }
         }
@@ -101,8 +156,11 @@ const DoubleSliderContainer = styled(Box)`
 `;
 
 export default class DoubleSlider extends React.Component {
+  firstSlider = null;
+  secondSlider = null;
+
   render() {
-    const { children, items, ...props } = this.props;
+    const { children, items, title, subtitle, ...props } = this.props;
 
     return (
       <DoubleSliderContainer position="relative">
@@ -112,6 +170,8 @@ export default class DoubleSlider extends React.Component {
             color: "#de8e83"
           }}
           overflow="visible"
+          flexDirection={{ xs: "column-reverse", md: "row" }}
+          px="2em"
         >
           <Slider
             className="first-slider"
@@ -129,6 +189,14 @@ export default class DoubleSlider extends React.Component {
             beforeChange={(oldIndex, newIndex) => {
               this.secondSlider.slickGoTo(newIndex);
             }}
+            responsive={[
+              {
+                breakpoint: 768,
+                settings: {
+                  arrows: false
+                }
+              }
+            ]}
           >
             {items.map((item, index) => (
               <PseudoBox
@@ -141,15 +209,45 @@ export default class DoubleSlider extends React.Component {
               />
             ))}
           </Slider>
+          <Flex
+            color="white"
+            width={{ xs: "100%", md: "50%" }}
+            flexWrap="wrap"
+            px="0"
+            justifyContent={{ md: "flex-end" }}
+          >
+            <Box width="100%" textTransform="uppercase">
+              {title && (
+                <PseudoBox>
+                  <FeaturedHeading textAlign={{ md: "right" }}>
+                    <h1>{title}</h1>
+                  </FeaturedHeading>
+                  <Flex
+                    height="1px"
+                    width="50px"
+                    backgroundColor="#e9c8bc"
+                    my="15px"
+                    ml={{ md: "auto" }}
+                  />
+                </PseudoBox>
+              )}
+              {subtitle && (
+                <FeaturedSubheading textAlign={{ md: "right" }}>
+                  <p>{subtitle}</p>
+                </FeaturedSubheading>
+              )}
+            </Box>
+          </Flex>
         </Container>
         <Container
           maxWidth={{ md: "calc(100% - 250px)" }}
           outerContainerProps={{
             color: "#de8e83"
           }}
-          mt={{ md: "-15%" }}
+          mt={{ xs: "-100px", md: "-15%" }}
           overflow={{ xs: "hidden", md: "visible" }}
           alignItems={{ md: "flex-end" }}
+          px="0"
         >
           <Slider
             className="second-slider white-dots"
@@ -160,7 +258,9 @@ export default class DoubleSlider extends React.Component {
             speed={500}
             slidesToShow={1}
             slidesToScroll={1}
-            appendDots={dots => <List bottom="-40px">{dots}</List>}
+            appendDots={dots => (
+              <List bottom={{ xs: "25px", md: "-40px" }}>{dots}</List>
+            )}
             ref={slider => (this.secondSlider = slider)}
             beforeChange={(oldIndex, newIndex) => {
               this.firstSlider.slickGoTo(newIndex);
@@ -171,7 +271,7 @@ export default class DoubleSlider extends React.Component {
           >
             {items.map((item, index) => (
               <PseudoBox
-                height={{ xs: "300px", md: "auto" }}
+                height={{ xs: "auto", md: "auto" }}
                 justifyContent="center"
                 _focus={{ outline: "none" }}
                 position="relative"
@@ -184,8 +284,10 @@ export default class DoubleSlider extends React.Component {
                   justifyContent="center"
                   alignItems="center"
                   fontWeight="500"
-                  py={{ md: "70px" }}
-                  px={{ md: "100px" }}
+                  pt={{ xs: "130px", md: "70px" }}
+                  pb={{ xs: "75px", md: "70px" }}
+                  px={{ xs: "2em", md: "70px" }}
+                  border="5px solid white"
                 >
                   <Heading
                     as="h1"
@@ -194,6 +296,7 @@ export default class DoubleSlider extends React.Component {
                     fontSize="70px"
                     lineHeight="1"
                     color="rgba(209, 134, 122, 0.5)"
+                    fontFamily="Montserrat"
                   >
                     “
                   </Heading>
@@ -203,6 +306,8 @@ export default class DoubleSlider extends React.Component {
                     fontStyle="italic"
                     color="#414042"
                     margin="0"
+                    fontFamily="Montserrat"
+                    textAlign={{ xs: "center", md: "initial" }}
                   >
                     {item.quote}
                   </Text>

@@ -40,6 +40,7 @@ const Hero = styled(Box)`
     letter-spacing: 2px;
     font-family: Proxima Nova, -apple-system, BlinkMacSystemFont, Helvetica,
       sans-serif;
+    text-align: center;
 
     em {
       text-decoration: line-through;
@@ -145,28 +146,27 @@ const TextContainer = styled(Text)`
 
 const DisjointedSliderContainer = styled(Flex)`
   .disjoint-slider {
-    display: none;
     width: 100%;
   }
 
-  @media (min-width: 768px) {
-    .disjoint-slider {
-      display: initial;
-    }
+  // @media (min-width: 768px) {
+  //   .disjoint-slider {
+  //     display: initial;
+  //   }
 
-    .disjoint-slider-mobile {
-      display: none;
-    }
-  }
+  //   .disjoint-slider-mobile {
+  //     display: none;
+  //   }
+  // }
 `;
 
 const JournalImage = styled(Image)`
-  padding-left: 15px;
-  padding-right: 15px;
   position: absolute;
   top: 0;
   z-index: -1;
 `;
+
+const StyledImage = styled(Image)``;
 
 const RenderBody = ({ home, projects, meta, posts }) => {
   const newTestimonials = home.testimonial_carousel.map(item => ({
@@ -236,11 +236,14 @@ const RenderBody = ({ home, projects, meta, posts }) => {
       <LazyLoad placeholder={<Skeleton />}>
         <Section
           outerProps={{
-            py: "120px"
+            py: { xs: "60px", md: "120px" }
           }}
         >
-          <Flex color={colors.njabDarkPink}>
-            <Box flex="1 0 50%" textTransform="uppercase">
+          <Flex color={colors.njabDarkPink} flexWrap="wrap" mb="30px">
+            <Box
+              flex={{ default: "1 0 100%", md: "1 0 50%" }}
+              textTransform="uppercase"
+            >
               <PseudoBox
                 _after={{
                   content: "''",
@@ -259,19 +262,27 @@ const RenderBody = ({ home, projects, meta, posts }) => {
                 {RichText.render(home.featured_subheading)}
               </FeaturedSubheading>
             </Box>
-            <Box flex="1 0 50%">
+            <Box flex={{ default: "1 0 100%", md: "1 0 50%" }}>
               <FeaturedHighlight letterSpacing="1px" as="em" fontSize="14px">
                 {RichText.render(home.featured_highlight_text)}
               </FeaturedHighlight>
             </Box>
           </Flex>
-          <Flex justifyContent="space-between" alignItems="center" mb="70px">
+          <Flex
+            justifyContent="space-between"
+            alignItems="center"
+            mb={{ xs: "30px", md: "70px" }}
+            flexWrap="wrap"
+            px={{ xs: "15%", md: "0" }}
+          >
             {home.featured_images.map((item, index) => (
               <Image
-                style={{
-                  width: item.featured_image.dimensions.width,
-                  height: item.featured_image.dimensions.height
-                }}
+                py={{ xs: "15px", md: "0" }}
+                // style={{
+                //   width: item.featured_image.dimensions.width,
+                //   height: item.featured_image.dimensions.height
+                // }}
+                width={{ xs: "100%", md: "auto" }}
                 className="lazyload"
                 data-src={item.featured_image.url}
                 src={item.featured_image.url}
@@ -279,8 +290,9 @@ const RenderBody = ({ home, projects, meta, posts }) => {
               />
             ))}
           </Flex>
-          <Flex justifyContent="center">
+          <Flex justifyContent="center" px={{ xs: "10%", md: "0" }}>
             <Button
+              width={{ xs: "100%", md: "auto" }}
               color={colors.njabDarkPink}
               border="1px solid #e9c8bc"
               borderRadius="0"
@@ -300,18 +312,28 @@ const RenderBody = ({ home, projects, meta, posts }) => {
         <Section
           outerProps={{
             backgroundColor: colors.njabLightPink,
-            py: "120px"
+            pt: { xs: "60px", md: "120px" },
+            pb: { xs: "0", md: "120px" }
           }}
           maxWidth="initial"
+          fullWidth
         >
           <Flex
+            px={{
+              xs: `${dimensions.paddingHorizontalMobile}em`,
+              md: 0
+            }}
             color={colors.njabDarkPink}
             maxWidth={`${dimensions.maxwidthDesktop}px`}
-            width={`${dimensions.maxwidthDesktop}px`}
+            width="100%"
             margin="0 auto"
             mb="80px"
+            flexWrap="wrap"
           >
-            <Box flex="1 0 50%" textTransform="uppercase">
+            <Box
+              flex={{ xs: "1 0 100%", md: "1 0 50%" }}
+              textTransform="uppercase"
+            >
               <PseudoBox
                 _after={{
                   content: "''",
@@ -330,19 +352,19 @@ const RenderBody = ({ home, projects, meta, posts }) => {
                 {RichText.render(home.packages_subheading)}
               </FeaturedSubheading>
             </Box>
-            <Box flex="1 0 50%">
+            <Box flex={{ xs: "1 0 100%", md: "1 0 50%" }}>
               <FeaturedHighlight letterSpacing="1px" as="em" fontSize="14px">
                 {RichText.render(home.packages_highlight_text)}
               </FeaturedHighlight>
             </Box>
           </Flex>
-          <DisjointedSliderContainer mb="70px">
+          <DisjointedSliderContainer mb={{ md: "70px" }}>
             <DisjointedSlider pinkDots initialSlide={2}>
               {home.packages_carousel.map((item, index) => (
                 <PseudoBox
-                  height="450px"
+                  height={{ xs: "650px", md: "450px" }}
                   justifyContent="center"
-                  px="15px"
+                  px={{ md: "15px" }}
                   _focus={{ outline: "none" }}
                 >
                   <Flex
@@ -365,6 +387,7 @@ const RenderBody = ({ home, projects, meta, posts }) => {
                       textTransform="uppercase"
                       letterSpacing="2px"
                       fontSize="13px"
+                      pb={{ xs: "50px", md: "0" }}
                     >
                       {item.packages_slide_link[0].text}
                     </TextContainer>
@@ -378,23 +401,33 @@ const RenderBody = ({ home, projects, meta, posts }) => {
       <LazyLoad placeholder={<Skeleton />}>
         <Section
           outerProps={{
-            py: "120px"
+            pt: { xs: "60px", md: "120px" },
+            pb: { xs: "0", md: "120px" }
           }}
           maxWidth="initial"
+          fullWidth
         >
           <Flex
             color={colors.njabDarkPink}
             maxWidth={`${dimensions.maxwidthDesktop}px`}
-            width={`${dimensions.maxwidthDesktop}px`}
+            width="100%"
             margin="0 auto"
             mb="80px"
+            flexWrap="wrap"
+            px={{
+              xs: `${dimensions.paddingHorizontalMobile}em`,
+              md: 0
+            }}
           >
-            <Box flex="1 0 50%" textTransform="uppercase">
+            <Box
+              flex={{ xs: "1 0 100%", md: "1 0 50%" }}
+              textTransform="uppercase"
+            >
               <PseudoBox
                 _after={{
                   content: "''",
                   display: "flex",
-                  height: "2px",
+                  height: "1px",
                   width: "50px",
                   backgroundColor: "#e9c8bc",
                   my: "20px"
@@ -408,19 +441,19 @@ const RenderBody = ({ home, projects, meta, posts }) => {
                 {RichText.render(home.journal_subheading)}
               </FeaturedSubheading>
             </Box>
-            <Box flex="1 0 50%">
+            <Box flex={{ xs: "1 0 100%", md: "1 0 50%" }}>
               <FeaturedHighlight letterSpacing="1px" as="em" fontSize="14px">
                 {RichText.render(home.journal_highlight_text)}
               </FeaturedHighlight>
             </Box>
           </Flex>
-          <DisjointedSliderContainer mb="70px">
+          <DisjointedSliderContainer mb={{ md: "70px" }}>
             <DisjointedSlider pinkDots slidesToShow={1}>
               {home.journal_carousel.map((item, index) => (
                 <PseudoBox
                   height="500px"
                   justifyContent="center"
-                  px="15px"
+                  px={{ md: "15px" }}
                   _focus={{ outline: "none" }}
                   position="relative"
                 >
@@ -471,13 +504,13 @@ const RenderBody = ({ home, projects, meta, posts }) => {
                     </Heading>
                   </Flex>
                   <JournalImage
-                    className="lazyload"
+                    px={{ md: "15px" }}
                     data-src={item.journal_slide_image.url}
                     src={item.journal_slide_image.url}
                     alt={"Journal Slide Image"}
+                    width={{ xs: "auto", md: "100%" }}
                     style={{
-                      filter: "brightness(0.6)",
-                      width: "100%"
+                      filter: "brightness(0.6)"
                     }}
                   />
                 </PseudoBox>
@@ -490,27 +523,36 @@ const RenderBody = ({ home, projects, meta, posts }) => {
         <Section
           outerProps={{
             backgroundColor: colors.njabMidPink,
-            py: "120px"
+            pt: { xs: "60px", md: "120px" },
+            pb: { xs: "0", md: "120px" }
           }}
           maxWidth="initial"
+          fullWidth
         >
-          <DoubleSlider items={newTestimonials} />
+          <DoubleSlider
+            items={newTestimonials}
+            title="Lorem ipsum"
+            subtitle="What our clients say"
+          />
         </Section>
       </LazyLoad>
 
       <LazyLoad placeholder={<Skeleton />}>
         <Section
           outerProps={{
-            py: "120px"
+            py: { xs: "60px", md: "120px" }
           }}
         >
           <Flex color={colors.njabDarkPink} mb="80px">
-            <Box flex="1 0 50%" textTransform="uppercase">
+            <Box
+              flex={{ xs: "1 0 100%", md: "1 0 50%" }}
+              textTransform="uppercase"
+            >
               <PseudoBox
                 _after={{
                   content: "''",
                   display: "flex",
-                  height: "2px",
+                  height: "1px",
                   width: "50px",
                   backgroundColor: "#e9c8bc",
                   my: "20px"
@@ -523,11 +565,6 @@ const RenderBody = ({ home, projects, meta, posts }) => {
               <FeaturedSubheading>
                 {RichText.render(home.mosaic_subheading)}
               </FeaturedSubheading>
-            </Box>
-            <Box flex="1 0 50%">
-              <FeaturedHighlight letterSpacing="1px" as="em" fontSize="14px">
-                {RichText.render(home.mosaic_highlight_text)}
-              </FeaturedHighlight>
             </Box>
           </Flex>
           <Mosaic
