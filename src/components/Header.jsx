@@ -152,9 +152,7 @@ const Header = ({ navLinks, variant, children, background = {} }) => {
             alignItems="center"
           >
             {newNavLinks.map(item => (
-              <MobileMenuLink activeClassName="Link--is-active" to={item.url}>
-                {item.text}
-              </MobileMenuLink>
+              <MobileMenuLink to={item.url}>{item.text}</MobileMenuLink>
             ))}
           </DrawerBody>
 

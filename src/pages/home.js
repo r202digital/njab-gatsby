@@ -597,7 +597,8 @@ export default ({ data }) => {
       headerBackground={{
         url: doc.node.hero_background.url,
         size: "cover",
-        position: "0 calc(50% + 35px)",
+        position: { md: "0 calc(50% + 35px)" },
+
         highlight:
           "linear-gradient(180deg,rgba(0,0,0,1) 0%,rgba(255,255,255,0) 100%)"
       }}

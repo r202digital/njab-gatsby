@@ -15,12 +15,20 @@ import Skeleton from "react-loading-skeleton";
 import Section from "components/Section";
 import Checkerboard from "components/Checkerboard";
 import { RichText } from "prismic-reactjs";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
+
+import {
+  FaFacebookF,
+  FaTwitter,
+  FaInstagram,
+  FaMapMarkerAlt
+} from "react-icons/fa";
+import { FiArrowDown, FiArrowUp } from "react-icons/fi";
+import { FaChevronDown } from "react-icons/fa";
 
 import {
   Heading,
   Grid,
-  Link,
   Box,
   Text,
   Image,
@@ -31,7 +39,8 @@ import {
   Input,
   Textarea,
   Button,
-  FormControl
+  FormControl,
+  Link as ExternalLink
 } from "@chakra-ui/core";
 import leftFlower from "../images/njab/flower.png";
 import rightFlower from "../images/njab/flower2.png";
@@ -159,6 +168,40 @@ const MarkerComponent = ({ text }) => (
   </Box>
 );
 
+const PageTitle = styled(Box)`
+  h1 {
+    letter-spacing: 5px;
+    font-family: Montserrat;
+    font-size: 24px;
+    text-transform: uppercase;
+  }
+`;
+
+const PageSubtitle = styled(ScrollLink)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (min-width: 768px) {
+    justify-content: flex-start;
+  }
+  opacity: 0.75;
+  transition: all 0.3s;
+
+  &:hover {
+    opacity: 1;
+  }
+  h3 {
+    letter-spacing: 3px;
+    font-family: Montserrat;
+    font-size: 18px;
+    padding-left: 20px;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: white;
+  }
+`;
+
 const Contact = ({ meta, blog, contact }) => (
   <>
     <Helmet
@@ -204,13 +247,13 @@ const Contact = ({ meta, blog, contact }) => (
       headerBackground={{
         url: contact.hero_image.url,
         size: "cover",
-        position: "0 calc(50% + 35px)",
+        position: { md: "0 calc(50% + 35px)" },
         highlight:
           "linear-gradient(180deg,rgba(0,0,0,1) 0%,rgba(255,255,255,0) 100%)"
       }}
       headerChildren={
         <Container
-          height="calc(80vh - 71px)"
+          height="calc(70vh - 71px)"
           justifyContent="flex-end"
           alignItems="flex-start"
           textAlign="center"
@@ -249,26 +292,61 @@ const Contact = ({ meta, blog, contact }) => (
             </Box>
           </Flex>
           <Flex justifyContent="space-between" width="100%">
-            <Box flex="1" textAlign="left">
-              <Heading
-                as="h1"
-                letterSpacing="5px"
-                fontFamily="Montserrat"
-                fontSize="24px"
-              >
-                OUR JOURNAL
-              </Heading>
-              <Text py="10px" paddingRight="20px" fontFamily="Montserrat">
-                GET IN TOUCH
-              </Text>
+            <Box
+              flex="1"
+              textAlign="left"
+              display={{ xs: "none", md: "initial" }}
+            >
+              <PageTitle>{RichText.render(contact.page_title)}</PageTitle>
+              <Box display={{ xs: "none", md: "initial" }}>
+                <PageSubtitle
+                  to="contact-form"
+                  spy={true}
+                  smooth={true}
+                  offset={-50}
+                  duration={500}
+                >
+                  <Box as={FaChevronDown} size="20px" color="white" />
+                  {RichText.render(contact.page_subtitle)}
+                </PageSubtitle>
+              </Box>
             </Box>
-            <Box flex="1" textAlign="right">
-              <Text py="10px" paddingRight="20px" fontFamily="Montserrat">
+            <Box flex="1" textAlign={{ xs: "center", md: "right" }}>
+              <Text fontWeight="700" my="10px" fontFamily="Montserrat">
                 FOLLOW US
               </Text>
-              <Text py="10px" paddingRight="20px" fontFamily="Montserrat">
+              <Text as="em" my="10px" fontFamily="Montserrat" display="block">
                 LOREM IPSUM DOLOR SIT AMET
               </Text>
+              <Box
+                marginLeft="auto"
+                marginRight={{ xs: "auto", md: "0" }}
+                width={{ xs: "50%", md: "30%" }}
+              >
+                <Flex justifyContent="space-between">
+                  <ExternalLink href={`https://www.facebook.com/`}>
+                    <Box as={FaInstagram} size="30px" color="white" />
+                  </ExternalLink>
+                  <ExternalLink href={`https://twitter.com/`}>
+                    <Box as={FaTwitter} size="30px" color="white" />
+                  </ExternalLink>
+                  <ExternalLink href={`https://www.facebook.com/`}>
+                    <Box as={FaFacebookF} size="30px" color="white" />
+                  </ExternalLink>
+                </Flex>
+              </Box>
+              <Box display={{ xs: "initial", md: "none" }}>
+                <PageSubtitle
+                  to="contact-form"
+                  spy={true}
+                  smooth={true}
+                  offset={-50}
+                  duration={500}
+                >
+                  <Box as={FaChevronDown} size="20px" color="white" />
+                  {RichText.render(contact.page_subtitle)}
+                </PageSubtitle>
+              </Box>
             </Box>
           </Flex>
         </Container>
@@ -281,8 +359,12 @@ const Contact = ({ meta, blog, contact }) => (
             py: "80px"
           }}
         >
-          <Flex color="white" justifyContent="center">
-            <Box width="50%" textAlign="center" textTransform="uppercase">
+          <Flex color="white" justifyContent="center" id="contact-form">
+            <Box
+              width={{ xs: "100%", md: "50%" }}
+              textAlign="center"
+              textTransform="uppercase"
+            >
               <PseudoBox
                 _after={{
                   content: "''",
@@ -301,18 +383,18 @@ const Contact = ({ meta, blog, contact }) => (
                 {RichText.render(contact.form_subheading)}
               </SectionSubheading>
               <FormControl marginTop="50px" as="fieldset" border="none">
-                <Flex>
+                <Flex flexDirection={{ xs: "column", md: "row" }}>
                   <FormInput
                     aria-describedby="your-name"
                     variant="flushed"
                     placeholder="Your Name"
-                    mr="15px"
+                    mr={{ md: "15px" }}
                   />
                   <FormInput
                     aria-describedby="your-email"
                     variant="flushed"
                     placeholder="Your Email"
-                    ml="15px"
+                    ml={{ md: "15px" }}
                   />
                 </Flex>
                 <FormTextarea
@@ -383,6 +465,28 @@ export const query = graphql`
         }
       }
 
+      allHomepages {
+        edges {
+          node {
+            instagram {
+              ... on PRISMIC__ExternalLink {
+                url
+              }
+            }
+            facebook {
+              ... on PRISMIC__ExternalLink {
+                url
+              }
+            }
+            twitter {
+              ... on PRISMIC__ExternalLink {
+                url
+              }
+            }
+          }
+        }
+      }
+
       allContact_pages {
         edges {
           node {
@@ -408,6 +512,7 @@ export const query = graphql`
             map_latitude
             map_longitude
             page_title
+            page_subtitle
             twitter_link {
               ... on PRISMIC__ExternalLink {
                 url

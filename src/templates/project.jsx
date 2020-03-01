@@ -32,7 +32,7 @@ import {
 import Logo from "components/_ui/Logo";
 import Moment from "react-moment";
 
-const ProjectHeroContainer = styled("div")`
+const ProjectHeroContainer = styled(Box)`
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -197,8 +197,8 @@ const Project = ({ project, meta, allProjects, fullPath, home }) => {
         ].concat(meta)}
       />
       <Layout>
-        <Section flexDirection="row">
-          <Box flex="1 1 50%" paddingRight="5%">
+        <Section flexDirection="row" flexWrap="wrap">
+          <Box flex={{ xs: "1 0 100%", md: "1 1 50%" }} paddingRight="5%">
             <ProjectTitle>
               {RichText.render(project.project_title)}
             </ProjectTitle>
@@ -280,12 +280,13 @@ const Project = ({ project, meta, allProjects, fullPath, home }) => {
               </ScrollLink>
             </ProjectBody>
           </Box>
-          <Box flex="1 1 50%">
+          <Box width="100%" flex={{ xs: "1 0 100%", md: "1 1 50%" }}>
             {project.project_hero_image && (
-              <ProjectHeroContainer>
+              <ProjectHeroContainer width="100%">
                 <Image
                   src={project.project_hero_image.url}
                   alt={project.project_title}
+                  width="100%"
                 />
                 {project.images.map((item, index) => (
                   <Image src={item.gallery_image.url} alt={`image-${index}`} />
@@ -380,7 +381,7 @@ const Project = ({ project, meta, allProjects, fullPath, home }) => {
                   width="100%"
                   color="white"
                   flexDirection="column"
-                  justifyContent="flex-end"
+                  justifyContent={{ xs: "flex-start", md: "flex-end" }}
                   alignItems="flex-start"
                   fontWeight="500"
                   padding="25px"

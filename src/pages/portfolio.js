@@ -213,12 +213,12 @@ const Services = ({
         ].concat(meta)}
       />
       <Layout>
-        <Section mb="40px" maxWidth="initial">
+        <Section fullWidth mb="40px" maxWidth="initial">
           <HeaderDoubleSlider items={featuredProjects} />
         </Section>
         <Section py="40px">
-          <Flex alignItems="center">
-            <Box flex="1 0 50%">
+          <Flex alignItems="center" flexWrap="wrap">
+            <Box flex={{ xs: "1 0 100%", md: "1 0 50%" }} mb=" 30px">
               <PseudoBox
                 _after={{
                   content: "''",
@@ -254,7 +254,11 @@ const Services = ({
                 Our Portfolio
               </SectionSubheading>
             </Box>
-            <Box flex="1 0 50%" textAlign="right" fontWeight="500">
+            <Box
+              flex={{ xs: "1 0 100%", md: "1 0 50%" }}
+              textAlign={{ md: "right" }}
+              fontWeight="500"
+            >
               <HighlightText
                 margin="0"
                 letterSpacing="1px"
@@ -279,7 +283,7 @@ const Services = ({
         >
           <Grid
             width="100%"
-            gridTemplateColumns="auto 100px 1fr"
+            gridTemplateColumns={{ md: "auto 100px 1fr" }}
             gridTemplateRows="1fr"
             gridColumnGap="0px"
             gridRowGap="0px"
@@ -303,15 +307,28 @@ const Services = ({
               my="5px"
             />
             <Flex width="100%" textAlign="initial" alignItems="center">
-              <List display="flex" width="100%" textAlign="center">
-                <ListItem flex="1">
+              <List
+                display="flex"
+                width="100%"
+                textAlign="center"
+                padding="0"
+                flexWrap="wrap"
+              >
+                <ListItem
+                  flex={{ xs: "1 0 100%", md: "1" }}
+                  py={{ xs: "10px", md: "0" }}
+                >
                   <CategoryLink onClick={() => setFilter(0)} color="white">
                     ALL
                   </CategoryLink>
                 </ListItem>
 
                 {projectCategories.map(category => (
-                  <ListItem flex="1" textTransform="uppercase">
+                  <ListItem
+                    flex={{ xs: "1 0 100%", md: "1" }}
+                    py={{ xs: "10px", md: "0" }}
+                    textTransform="uppercase"
+                  >
                     <CategoryLink
                       onClick={() => setFilter(category)}
                       color="white"
@@ -324,7 +341,7 @@ const Services = ({
             </Flex>
           </Grid>
           <StyledMasonry
-            breakpointCols={3}
+            breakpointCols={{ default: 3, 768: 1 }}
             className="my-masonry-grid"
             columnClassName="my-masonry-grid_column"
           >

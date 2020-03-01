@@ -101,6 +101,7 @@ const PostBody = styled("div")`
 const PostMetas = styled("div")`
   display: flex;
   align-items: center;
+  margin-top: 1em;
   margin-bottom: 2em;
   font-size: 0.85em;
   color: ${colors.grey600};
@@ -165,6 +166,19 @@ const RelatedSlider = styled(DisjointedSlider)`
   }
 `;
 
+const StyledPseudoBox = styled(PseudoBox)`
+  .details-container {
+    transition: all 0.3s;
+    opacity: 0;
+  }
+
+  &:hover {
+    .details-container {
+      opacity: 1;
+    }
+  }
+`;
+
 const Post = ({ post, meta, blog, allPosts }) => {
   return (
     <>
@@ -211,13 +225,13 @@ const Post = ({ post, meta, blog, allPosts }) => {
         headerBackground={{
           url: blog.page_hero_image.url,
           size: "cover",
-          position: "0 calc(50% + 35px)",
+          position: { md: "0 calc(50% + 35px)" },
           highlight:
             "linear-gradient(180deg,rgba(0,0,0,1) 0%,rgba(255,255,255,0) 100%)"
         }}
         headerChildren={
           <Container
-            height="calc(80vh - 71px)"
+            height="calc(70vh - 71px)"
             justifyContent="flex-end"
             alignItems="flex-start"
             textAlign="center"
@@ -255,7 +269,7 @@ const Post = ({ post, meta, blog, allPosts }) => {
             </Heading>
             <Grid
               width="100%"
-              gridTemplateColumns="auto 100px 1fr"
+              gridTemplateColumns="1fr"
               gridTemplateRows="1fr"
               gridColumnGap="0px"
               gridRowGap="0px"
@@ -269,6 +283,7 @@ const Post = ({ post, meta, blog, allPosts }) => {
                 paddingRight="20px"
                 fontFamily="Montserrat"
                 textTransform="uppercase"
+                mr="auto"
               >
                 {`OUR JOURNAL > ${post.post_category.map(
                   category => `${category.text} `
@@ -333,6 +348,8 @@ const Post = ({ post, meta, blog, allPosts }) => {
             <Image
               src={post.post_hero_image.url}
               alt={post.post_hero_image.alt}
+              width="100%"
+              height="auto"
             />
             <PostHeroAnnotation>
               {RichText.render(post.post_hero_annotation)}
@@ -354,6 +371,7 @@ const Post = ({ post, meta, blog, allPosts }) => {
             marginTop: "80px"
           }}
           maxWidth="initial"
+          fullWidth
         >
           <Box margin="0 auto" width="100%" px="30px">
             <Heading
@@ -375,7 +393,7 @@ const Post = ({ post, meta, blog, allPosts }) => {
             dots={false}
           >
             {allPosts.map((item, index) => (
-              <PseudoBox
+              <StyledPseudoBox
                 height="400px"
                 justifyContent="center"
                 // px="15px"
@@ -384,6 +402,7 @@ const Post = ({ post, meta, blog, allPosts }) => {
                 overflow="hidden"
               >
                 <Flex
+                  className="details-container"
                   height="100%"
                   width="100%"
                   color="white"
@@ -444,6 +463,7 @@ const Post = ({ post, meta, blog, allPosts }) => {
                 </Flex>
                 <Image
                   // px="15px"
+                  height="100%"
                   src={item.node.post_hero_image.url}
                   position="absolute"
                   top="0"
@@ -452,7 +472,7 @@ const Post = ({ post, meta, blog, allPosts }) => {
                     filter: "brightness(0.7)"
                   }}
                 />
-              </PseudoBox>
+              </StyledPseudoBox>
             ))}
           </RelatedSlider>
         </Section>

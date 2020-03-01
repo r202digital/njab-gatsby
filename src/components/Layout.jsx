@@ -45,7 +45,7 @@ const Layout = ({
     render={data => (
       <>
         <Helmet />
-        <ThemeProvider>
+        <ThemeProvider theme={theme}>
           <LayoutContainer className="div">
             <Global styles={[globalStyles, typeStyles, logoStyles]} />
             <div className="Layout">

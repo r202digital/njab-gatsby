@@ -129,13 +129,13 @@ const Blog = ({ meta, blog, posts }) => (
       headerBackground={{
         url: blog.page_hero_image.url,
         size: "cover",
-        position: "0 calc(50% + 35px)",
+        position: { md: "0 calc(50% + 35px)" },
         highlight:
           "linear-gradient(180deg,rgba(0,0,0,1) 0%,rgba(255,255,255,0) 100%)"
       }}
       headerChildren={
         <Container
-          height="calc(80vh - 71px)"
+          height="calc(70vh - 71px)"
           justifyContent="flex-end"
           alignItems="flex-start"
           textAlign="center"
@@ -158,6 +158,7 @@ const Blog = ({ meta, blog, posts }) => (
               letterSpacing="2px"
               fontWeight="400"
               fontFamily="Montserrat"
+              mt={{ xs: "30px", md: "0" }}
             >
               OUR STORY
             </Heading>
@@ -172,13 +173,14 @@ const Blog = ({ meta, blog, posts }) => (
           </Heading>
           <Grid
             width="100%"
-            gridTemplateColumns="auto 100px 1fr"
+            gridTemplateColumns={{ xs: "100%", md: "auto 100px 1fr" }}
             gridTemplateRows="1fr"
             gridColumnGap="0px"
             gridRowGap="0px"
             fontSize="12px"
             fontWeight="500"
-            my="30px"
+            mt={{ xs: "auto", md: "30px" }}
+            mb={{ xs: "30px" }}
           >
             <Text as="em" py="10px" paddingRight="20px" fontFamily="Montserrat">
               BROWSE BY CATEGORY
@@ -188,17 +190,28 @@ const Blog = ({ meta, blog, posts }) => (
               transform="rotate(30deg)"
               mx="49px"
               my="5px"
+              display={{ xs: "none", md: "initial" }}
             />
             <Flex width="100%" textAlign="initial" alignItems="center">
-              <List display="flex" width="100%" textAlign="center">
-                <ListItem flex="1">
+              <List
+                display="flex"
+                width="100%"
+                textAlign="center"
+                flexWrap="wrap"
+                padding="0"
+              >
+                <ListItem py="5px" flex={{ xs: "1 0 100%", md: "1" }}>
                   <CategoryLink href="/" color="white">
                     ALL
                   </CategoryLink>
                 </ListItem>
 
                 {blog.categories.map(item => (
-                  <ListItem flex="1" textTransform="uppercase">
+                  <ListItem
+                    flex={{ xs: "1 0 100%", md: "1" }}
+                    textTransform="uppercase"
+                    py="5px"
+                  >
                     <CategoryLink href="/" color="white">
                       {item.category[0].text}
                     </CategoryLink>
@@ -210,7 +223,7 @@ const Blog = ({ meta, blog, posts }) => (
         </Container>
       }
     >
-      <Section maxWidth="initial">
+      <Section maxWidth="initial" fullWidth>
         <Checkerboard items={posts} />
       </Section>
 

@@ -15,6 +15,7 @@ import Container from "./Container";
 import styled from "@emotion/styled";
 import Link from "components/_ui/Link";
 import colors from "styles/colors";
+import dimensions from "styles/dimensions";
 import Moment from "react-moment";
 
 const Arrow = ({ className, style, onClick }) => {
@@ -40,7 +41,7 @@ const Arrow = ({ className, style, onClick }) => {
         fontSize="14px"
         fontWeight="400"
         fontFamily="Montserrat"
-        display={variant === "next" ? "initial" : "none"}
+        display={variant === "next" ? { xs: "none", md: "initial" } : "none"}
         border="none"
         _hover={{
           background: "transparent",
@@ -236,6 +237,10 @@ export default class DoubleSlider extends React.Component {
                     right="0"
                     top="50%"
                     transform="translateY(-50%)"
+                    display={{
+                      xs: "none",
+                      md: "flex"
+                    }}
                   >
                     <Text
                       fontSize="14px"
@@ -264,23 +269,32 @@ export default class DoubleSlider extends React.Component {
           dots={true}
           arrows={false}
           infinite={true}
+          centerMode={true}
           speed={500}
           slidesToScroll={1}
           appendDots={dots => <List bottom="-40px">{dots}</List>}
           slidesToShow={1}
-          centerMode
           ref={slider => (this.firstSlider = slider)}
           beforeChange={(oldIndex, newIndex) => {
             this.secondSlider.slickGoTo(newIndex);
           }}
+          responsive={[
+            {
+              breakpoint: 768,
+              settings: {
+                centerMode: false
+              }
+            }
+          ]}
         >
           {items.map((item, index) => (
-            <PseudoBox px="15px" _focus={{ outline: "none" }}>
+            <PseudoBox px={{ md: "15px" }} _focus={{ outline: "none" }}>
               <StyledBox
-                height={{ xs: "300px", md: "500px" }}
+                height={{ xs: "500px", md: "500px" }}
                 justifyContent="center"
                 backgroundImage={`url("${item.image}")`}
                 backgroundSize="cover"
+                backgroundPosition={{ xs: "50%", md: "initial" }}
                 position="relative"
                 padding="10px"
               >
@@ -296,6 +310,7 @@ export default class DoubleSlider extends React.Component {
                   alignItems="center"
                   justifyContent="center"
                   color="white"
+                  padding={{ xs: "20px", md: "initial" }}
                 >
                   <PseudoBox
                     textAlign="center"
@@ -338,12 +353,13 @@ export default class DoubleSlider extends React.Component {
                     as="em"
                     color="white"
                     textAlign="center"
-                    width="50%"
+                    width={{ xs: "80%", md: "50%" }}
                     letterSpacing="1px"
                     fontWeight="500"
                     fontSize="14px"
                     lineHeight="1.75"
                     mb="50px"
+                    overflow={{ xs: "scroll", md: "initial" }}
                   >
                     {item.description}
                   </Text>

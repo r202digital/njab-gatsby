@@ -143,12 +143,22 @@ const About = ({ meta, about }) => (
       ].concat(meta)}
     />
     <Layout>
-      <Section py="50px">
-        <Flex color="#dd8d83" fontFamily={theme.fonts.body}>
+      <Section
+        outerProps={{
+          pt: { xs: "0", md: "50px" },
+          pb: { xs: "0", md: "50px" }
+        }}
+        fullWidth
+      >
+        <Flex
+          color="#dd8d83"
+          fontFamily={theme.fonts.body}
+          flexWrap={{ xs: "wrap", md: "nowrap" }}
+        >
           <Flex
             fontFamily="inherit"
             justifyContent="center"
-            flex={1}
+            flex={{ xs: "1 0 100%", md: "1" }}
             overflow="hidden"
           >
             <Image
@@ -161,9 +171,9 @@ const About = ({ meta, about }) => (
           <Flex
             fontFamily="inherit"
             direction="column"
-            flex={1}
-            px="80px"
-            py="50px"
+            flex={{ xs: "1 0 100%", md: "1" }}
+            px={{ xs: "2rem", md: "80px" }}
+            py={{ xs: "40px", md: "50px" }}
           >
             <Box fontFamily="inherit" marginBottom="auto">
               <PseudoBox
@@ -200,12 +210,15 @@ const About = ({ meta, about }) => (
             </HighlightText>
             <Box marginTop="auto">
               <Button
+                display="block"
                 border="1px solid #e9c8bc"
                 borderRadius="0"
                 backgroundColor="white"
                 width="auto"
-                px="50px"
-                py="10px"
+                px={{ xs: "25%", md: "50px" }}
+                py={{ xs: "20px", md: "10px" }}
+                mx={{ xs: "auto", md: "0" }}
+                height="auto"
                 fontSize="14px"
                 color="inherit"
               >
@@ -240,14 +253,18 @@ const About = ({ meta, about }) => (
               {RichText.render(about.node.philosophy_section_heading)}
             </PhilosophyHeading>
           </PseudoBox>
-          <Flex width="100%" height="250px">
+          <Flex width="100%" flexWrap={{ xs: "wrap", md: "nowrap" }}>
             {about.node.philosophy_section_images.map((item, index) => (
               <Flex
-                flex={(index + 1) % 2 === 0 ? "1 0 25%" : "1 0 37.5%"}
+                flex={{
+                  xs: "1 0 100%",
+                  md: (index + 1) % 2 === 0 ? "1 0 25%" : "1 0 37.5%"
+                }}
                 my={{ xs: "30px", md: "0" }}
                 px="15px"
                 overflow="hidden"
                 alignItems="center"
+                flexWrap="wrap"
               >
                 <LazyLoad placeholder={<Skeleton />}>
                   <Image
@@ -255,38 +272,27 @@ const About = ({ meta, about }) => (
                     maxWidth="initial"
                     objectFit="cover"
                     width="100%"
+                    height={{ xs: "auto", md: "250px" }}
                   />
                 </LazyLoad>
-              </Flex>
-            ))}
-          </Flex>
-
-          <Flex width="100%" py="20px">
-            {about.node.philosophy_section_images.map((item, index) => (
-              <Flex
-                flex={(index + 1) % 2 === 0 ? "1 0 25%" : "1 0 37.5%"}
-                my={{ xs: "30px", md: "0" }}
-                px="15px"
-                alignItems="center"
-                justifyContent="center"
-                fontWeight="500"
-              >
-                <Text
-                  letterSpacing="5px"
-                  marginRight="10px"
-                  fontSize="20px"
-                  color="white"
-                  fontFamily="Montserrat"
-                >
-                  {`${index < 10 ? "0" : ""}${index + 1}`}
-                </Text>
-                <PhilosophyText
-                  textTransform="uppercase"
-                  fontSize="13px"
-                  letterSpacing="1.5px"
-                >
-                  {RichText.render(item.philosophy_quote)}
-                </PhilosophyText>
+                <Flex alignItems="center" justifyContent="center" width="100%">
+                  <Text
+                    letterSpacing="5px"
+                    marginRight="10px"
+                    fontSize="20px"
+                    color="white"
+                    fontFamily="Montserrat"
+                  >
+                    {`${index < 10 ? "0" : ""}${index + 1}`}
+                  </Text>
+                  <PhilosophyText
+                    textTransform="uppercase"
+                    fontSize="13px"
+                    letterSpacing="1.5px"
+                  >
+                    {RichText.render(item.philosophy_quote)}
+                  </PhilosophyText>
+                </Flex>
               </Flex>
             ))}
           </Flex>
@@ -300,7 +306,7 @@ const About = ({ meta, about }) => (
           }}
         >
           <Flex>
-            <Box flex="1 0 50%" mb="80px">
+            <Box flex={{ xs: "1 0 100%", md: "1 0 50%" }} mb="80px">
               <PseudoBox
                 _after={{
                   content: "''",
@@ -319,7 +325,7 @@ const About = ({ meta, about }) => (
                 {RichText.render(about.node.team_section_subheading)}
               </SectionSubheading>
             </Box>
-            <Box flex="1 0 50%" mb="80px">
+            {/* <Box flex="1 0 50%" mb="80px">
               <HighlightText
                 letterSpacing="1px"
                 as="em"
@@ -329,14 +335,14 @@ const About = ({ meta, about }) => (
               >
                 {RichText.render(about.node.team_section_highlight_text)}
               </HighlightText>
-            </Box>
+            </Box> */}
           </Flex>
 
           <Grid
             width="100%"
             height="auto"
-            gridTemplateColumns="repeat(4, 1fr)"
-            gridTemplateRows="repeat(2, 1fr)"
+            gridTemplateColumns={{ xs: "repeat(2, 1fr)", md: "repeat(4, 1fr)" }}
+            gridTemplateRows={{ xs: "repeat(4, 1fr)", md: "repeat(2, 1fr)" }}
             gridColumnGap="0px"
             gridRowGap="0px"
             textTransform="uppercase"
@@ -348,20 +354,44 @@ const About = ({ meta, about }) => (
             {about.node.team_checkerboard.map((item, index, checkArr) => {
               const gridAreas = [
                 {
-                  image: "1 / 1 / 2 / 2",
-                  text: "1 / 2 / 2 / 3"
+                  image: {
+                    xs: "1 / 1 / 2 / 2",
+                    md: "1 / 1 / 2 / 2"
+                  },
+                  text: {
+                    xs: "1 / 2 / 2 / 3",
+                    md: "1 / 2 / 2 / 3"
+                  }
                 },
                 {
-                  image: "1 / 3 / 2 / 4",
-                  text: "1 / 4 / 2 / 5"
+                  image: {
+                    xs: "2 / 2 / 3 / 3",
+                    md: "1 / 3 / 2 / 4"
+                  },
+                  text: {
+                    xs: "2 / 1 / 3 / 2",
+                    md: "1 / 4 / 2 / 5"
+                  }
                 },
                 {
-                  image: "2 / 2 / 3 / 3",
-                  text: "2 / 1 / 3 / 2"
+                  image: {
+                    xs: "3 / 1 / 4 / 2",
+                    md: "2 / 2 / 3 / 3"
+                  },
+                  text: {
+                    xs: "3 / 2 / 4 / 3",
+                    md: "2 / 1 / 3 / 2"
+                  }
                 },
                 {
-                  image: "2 / 4 / 3 / 5",
-                  text: "2 / 3 / 3 / 4"
+                  image: {
+                    xs: "4 / 2 / 5 / 3",
+                    md: "2 / 4 / 3 / 5"
+                  },
+                  text: {
+                    xs: "4 / 1 / 5 / 2",
+                    md: "2 / 3 / 3 / 4"
+                  }
                 }
               ];
 
@@ -369,7 +399,12 @@ const About = ({ meta, about }) => (
                 <>
                   {index + 1 < checkArr.length / 2 ? (
                     <>
-                      <Box gridArea={gridAreas[index].image}>
+                      <Box
+                        gridArea={{
+                          xs: gridAreas[index].image.xs,
+                          md: gridAreas[index].image.md
+                        }}
+                      >
                         <LazyLoad placeholder={<Skeleton />}>
                           <Image
                             maxWidth="initial"
@@ -381,7 +416,10 @@ const About = ({ meta, about }) => (
                         </LazyLoad>
                       </Box>
                       <HoverFlex
-                        gridArea={gridAreas[index].text}
+                        gridArea={{
+                          xs: gridAreas[index].text.xs,
+                          md: gridAreas[index].text.md
+                        }}
                         justifyContent="center"
                         alignItems="flex-end"
                         position="relative"
@@ -425,6 +463,7 @@ const About = ({ meta, about }) => (
                             fontFamily="Montserrat"
                             opacity="0"
                             margin="0"
+                            textAlign={{ xs: "center", md: "initial" }}
                           >
                             {RichText.render(item.employee_position)}
                           </Text>
@@ -434,7 +473,10 @@ const About = ({ meta, about }) => (
                   ) : (
                     <>
                       <HoverFlex
-                        gridArea={gridAreas[index].text}
+                        gridArea={{
+                          xs: gridAreas[index].text.xs,
+                          md: gridAreas[index].text.md
+                        }}
                         justifyContent="center"
                         alignItems="flex-end"
                         position="relative"
@@ -483,7 +525,12 @@ const About = ({ meta, about }) => (
                           </Text>
                         </StyledFlex>
                       </HoverFlex>
-                      <Box gridArea={gridAreas[index].image}>
+                      <Box
+                        gridArea={{
+                          xs: gridAreas[index].image.xs,
+                          md: gridAreas[index].image.md
+                        }}
+                      >
                         <LazyLoad placeholder={<Skeleton />}>
                           <Image
                             maxWidth="initial"

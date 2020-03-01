@@ -17,9 +17,15 @@ import {
   Heading,
   Flex,
   List,
-  ListItem
+  ListItem,
+  Link as ExternalLink
 } from "@chakra-ui/core";
-import { FaArrowRight } from "react-icons/fa";
+import {
+  FaFacebookF,
+  FaTwitter,
+  FaInstagram,
+  FaArrowRight
+} from "react-icons/fa";
 
 const FooterContainer = styled(Box)`
   padding-top: 3.75em;
@@ -87,9 +93,30 @@ const Footer = () => (
         >
           Say Hello
         </Heading>
-        <Text fontFamily={theme.fonts.body}>
+        <Text
+          fontFamily={theme.fonts.body}
+          display={{ xs: "none", md: "block" }}
+        >
           497 Evergreen Rd. Roseville, CA 95673 +44 345 678 903
         </Text>
+        <Flex
+          width="100%"
+          justifyContent="space-between"
+          px={{ xs: "15px", md: "0" }}
+          py={{ xs: "30px", md: "0" }}
+        >
+          <ExternalLink
+            href={`https://www.instagram.com/notjustaboxevents/?hl=en`}
+          >
+            <Box as={FaInstagram} size="20px" color={colors.njabDarkPink} />
+          </ExternalLink>
+          <ExternalLink href={`https://www.facebook.com/Notjustabox/`}>
+            <Box as={FaTwitter} size="20px" color={colors.njabDarkPink} />
+          </ExternalLink>
+          <ExternalLink href={`https://www.facebook.com/Notjustabox/`}>
+            <Box as={FaFacebookF} size="20px" color={colors.njabDarkPink} />
+          </ExternalLink>
+        </Flex>
       </Box>
       <Box flex="2" px={{ xs: "2rem", md: "15%" }}>
         <Heading

@@ -119,7 +119,7 @@ const Services = ({ services, meta }) => (
       <Section py="80px">
         <Grid
           width="100%"
-          gridTemplateColumns="1fr 50px 1fr"
+          gridTemplateColumns={"1fr 50px 1fr"}
           gridTemplateRows="1fr"
           gridColumnGap="0px"
           gridRowGap="0px"
@@ -134,7 +134,7 @@ const Services = ({ services, meta }) => (
               textAlign="right"
               py="20px"
               position="relative"
-              paddingRight="80px"
+              paddingRight={{ xs: "10px", md: "80px" }}
             >
               <Heading
                 as="h3"
@@ -165,7 +165,9 @@ const Services = ({ services, meta }) => (
                 height="100%"
                 position="absolute"
                 top="0"
-                right="130px"
+                left={{ xs: "0", md: "initial" }}
+                right={{ xs: "0", md: "130px" }}
+                margin={{ xs: "0 auto", md: "0" }}
                 zIndex="-1"
               />
             </Box>
@@ -174,7 +176,14 @@ const Services = ({ services, meta }) => (
             backgroundColor="#d0857a"
             transform="rotate(30deg)"
             mx="24px"
-            my="5px"
+            mt={{
+              xs: "42px",
+              md: "5px"
+            }}
+            mb={{
+              xs: "20px",
+              md: "5px"
+            }}
           />
           <Link
             _hover={{
@@ -186,7 +195,7 @@ const Services = ({ services, meta }) => (
               textAlign="left"
               py="20px"
               position="relative"
-              paddingLeft="80px"
+              paddingLeft={{ xs: "10px", md: "80px" }}
             >
               <Heading
                 as="h3"
@@ -216,15 +225,21 @@ const Services = ({ services, meta }) => (
                 width="auto"
                 height="100%"
                 position="absolute"
-                top="0"
                 zIndex="-1"
-                left="110px"
+                top="0"
+                right={{ xs: "0", md: "initial" }}
+                left={{ xs: "0", md: "110px" }}
+                margin={{ xs: "0 auto", md: "0" }}
               />
             </Box>
           </Link>
         </Grid>
-        <Flex alignItems="center">
-          <Box flex="1 0 50%">
+        <Flex
+          mt="50px"
+          alignItems="center"
+          flexWrap={{ xs: "wrap", md: "nowrap" }}
+        >
+          <Box flex={{ xs: "1 0 100%", md: "1 0 50%" }}>
             <PseudoBox
               _after={{
                 content: "''",
@@ -256,7 +271,11 @@ const Services = ({ services, meta }) => (
               {RichText.render(services.node.weddings_subheading)}
             </SectionSubheading>
           </Box>
-          <Box flex="1 0 50%" textAlign="right" fontWeight="500">
+          <Box
+            flex={{ xs: "1 0 100%", md: "1 0 50%" }}
+            textAlign={{ md: "right" }}
+            fontWeight="500"
+          >
             <HighlightText
               margin="0"
               letterSpacing="1px"
@@ -269,13 +288,13 @@ const Services = ({ services, meta }) => (
         </Flex>
       </Section>
 
-      <Section maxWidth="initial">
+      <Section maxWidth="initial" fullWidth>
         <Checkerboard items={services.node.wedding_checkerboard} />
       </Section>
 
       <LazyLoad placeholder={<Skeleton />}>
         <Section py="80px">
-          <Box textAlign="center">
+          <Box textAlign={{ xs: "left", md: "center" }} mb={{ xs: "50px" }}>
             <PseudoBox
               _after={{
                 content: "''",
@@ -284,7 +303,10 @@ const Services = ({ services, meta }) => (
                 width: "50px",
                 backgroundColor: "#e9c8bc",
                 my: "15px",
-                mx: "auto"
+                mx: {
+                  xs: "0",
+                  md: "auto"
+                }
               }}
             >
               <MapHeading as="h3" color={colors.njabDarkPink}>
