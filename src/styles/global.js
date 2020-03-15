@@ -1,6 +1,6 @@
-import css from "@emotion/css"
-import colors from "styles/colors"
-import dimensions from "styles/dimensions"
+import css from "@emotion/css";
+import colors from "styles/colors";
+import dimensions from "styles/dimensions";
 
 const globalStyles = css`
   html,
@@ -35,12 +35,8 @@ const globalStyles = css`
   }
 
   a {
-    color: ${colors.qimodaLight};
     transition: 0.3s;
-
-    &:hover {
-      color: ${colors.qimodaLighter};
-    }
+    text-transform: initial;
   }
 
   /*
@@ -53,6 +49,6 @@ const globalStyles = css`
     height: 100%;
     min-height: 100% !important;
   }
-`
+`;
 
-export default globalStyles
+export default globalStyles;

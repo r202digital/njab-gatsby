@@ -221,6 +221,7 @@ const About = ({ meta, about }) => (
                 height="auto"
                 fontSize="14px"
                 color="inherit"
+                fontFamily="Montserrat"
               >
                 GET IN TOUCH
               </Button>
