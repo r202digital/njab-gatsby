@@ -30,6 +30,20 @@ exports.createPages = async ({ graphql, actions }) => {
               }
             }
           }
+          allServices {
+            edges {
+              node {
+                service_title
+                service_preview_description
+                service_preview_thumbnail
+                service_category
+                service_post_date
+                _meta {
+                  uid
+                }
+              }
+            }
+          }
           allPosts {
             edges {
               node {
@@ -54,8 +68,10 @@ exports.createPages = async ({ graphql, actions }) => {
 
   const projectsList = result.data.prismic.allProjects.edges;
   const postsList = result.data.prismic.allPosts.edges;
+  const servicesList = result.data.prismic.allServices.edges;
 
   const projectTemplate = require.resolve("./src/templates/project.jsx");
+  const serviceTemplate = require.resolve("./src/templates/service.jsx");
   const postTemplate = require.resolve("./src/templates/post.jsx");
 
   projectsList.forEach(edge => {
@@ -78,6 +94,18 @@ exports.createPages = async ({ graphql, actions }) => {
       match: "/blog/:uid",
       path: `/blog/${edge.node._meta.uid}`,
       component: postTemplate,
+      context: {
+        uid: edge.node._meta.uid
+      }
+    });
+  });
+
+  servicesList.forEach(edge => {
+    createPage({
+      type: "Service",
+      match: "/service/:uid",
+      path: `/service/${edge.node._meta.uid}`,
+      component: serviceTemplate,
       context: {
         uid: edge.node._meta.uid
       }
