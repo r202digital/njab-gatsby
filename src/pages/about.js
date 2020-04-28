@@ -557,7 +557,6 @@ const About = ({ meta, about }) => (
 export default ({ data }) => {
   const meta = data.site.siteMetadata;
   const doc = data.prismic.allAbout_pages.edges.slice(0, 1).pop();
-  console.log(doc);
 
   if (!doc || !meta) return null;
 

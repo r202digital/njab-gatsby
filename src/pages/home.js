@@ -809,8 +809,6 @@ export default ({ data }) => {
   const meta = data.site.siteMetadata;
   const posts = data.prismic.allPosts.edges;
 
-  console.log(doc);
-
   if (!doc || !projects) return null;
 
   return (

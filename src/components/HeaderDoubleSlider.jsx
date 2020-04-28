@@ -159,7 +159,6 @@ const StyledBox = styled(Box)`
 export default class DoubleSlider extends React.Component {
   render() {
     const { children, items, ...props } = this.props;
-    console.log(items);
 
     return (
       <DoubleSliderContainer position="relative">

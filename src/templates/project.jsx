@@ -155,7 +155,6 @@ const FeaturedSubheading = styled(Box)`
 
 const Project = ({ project, meta, allProjects, fullPath, home }) => {
   const bottomRef = useRef(null);
-  console.log(home);
   return (
     <>
       <Helmet
