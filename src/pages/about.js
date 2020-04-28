@@ -565,7 +565,7 @@ export default ({ data }) => {
 };
 
 About.propTypes = {
-  doc: PropTypes.array.isRequired,
+  about: PropTypes.array.isRequired,
   meta: PropTypes.object.isRequired
 };
 

@@ -463,12 +463,6 @@ export const query = graphql`
             map_subheading
             right_button
             right_button_subheading
-            wedding_checkerboard {
-              checkerboard_heading
-              checkerboard_image
-              checkerboard_link
-              checkerboard_text
-            }
             weddings_heading
             weddings_highlight_text
             weddings_subheading

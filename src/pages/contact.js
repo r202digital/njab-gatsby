@@ -246,6 +246,7 @@ const Contact = ({ meta, blog, contact }) => (
       headerVariant="dark"
       headerBackground={{
         url: contact.hero_image.url,
+        sharp: contact.hero_imageSharp.childImageSharp.fluid,
         size: "cover",
         position: { md: "0 calc(50% + 35px)" },
         highlight:
@@ -503,6 +504,13 @@ export const query = graphql`
             form_subheading
             get_in_touch_text
             hero_image
+            hero_imageSharp {
+              childImageSharp {
+                fluid(quality: 100) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
             instagram_link {
               ... on PRISMIC__ExternalLink {
                 url

@@ -158,7 +158,7 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
   return (
     <>
       <Helmet
-        title={`${service.service_title[0].text} | Qimoda`}
+        title={`${service.service_title[0].text} | Not Just a Box Events`}
         titleTemplate={`%s`}
         meta={[
           {
@@ -167,7 +167,7 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
           },
           {
             property: `og:title`,
-            content: `${service.service_title[0].text} | Qimoda`
+            content: `${service.service_title[0].text} | Not Just a Box Events`
           },
           {
             property: `og:description`,
@@ -357,7 +357,7 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
               fontFamily="Montserrat"
               color="white"
             >
-              Similar Stories
+              Other Services
             </Heading>
           </Box>
           <RelatedSlider

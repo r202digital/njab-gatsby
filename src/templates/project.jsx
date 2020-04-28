@@ -159,7 +159,7 @@ const Project = ({ project, meta, allProjects, fullPath, home }) => {
   return (
     <>
       <Helmet
-        title={`${project.project_title[0].text} | Qimoda`}
+        title={`${project.project_title[0].text} | Not Just a Box Events`}
         titleTemplate={`%s`}
         meta={[
           {
@@ -168,7 +168,7 @@ const Project = ({ project, meta, allProjects, fullPath, home }) => {
           },
           {
             property: `og:title`,
-            content: `${project.project_title[0].text} | Qimoda`
+            content: `${project.project_title[0].text} | Not Just a Box Events`
           },
           {
             property: `og:description`,

@@ -270,7 +270,6 @@ const Footer = () => (
           className="FooterLogo lazyload"
           data-src={njabLogo}
           src={njabLogo}
-          alt={"Qimoda is the next generation digital consultancy"}
         />
       </div>
       © 2020 — Not Just a Box Events

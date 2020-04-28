@@ -69,7 +69,10 @@ const Checkerboard = ({ items = [] }) => {
       width="100%"
       height="auto"
       gridTemplateColumns={{ xs: "1fr", md: "repeat(2, 50%)" }}
-      gridTemplateRows={{ xs: "repeat(8, 1fr)", md: "repeat(5, 420px)" }}
+      gridTemplateRows={{
+        xs: "repeat(8, 1fr)",
+        md: `repeat(${items.length}, 420px)`
+      }}
       gridColumnGap="0px"
       gridRowGap="0px"
       textTransform="uppercase"
@@ -89,11 +92,7 @@ const Checkerboard = ({ items = [] }) => {
             <LazyLoad height="100%" placeholder={<Skeleton />}>
               <Image
                 maxWidth="initial"
-                src={
-                  item.checkerboard_image
-                    ? item.checkerboard_image.url
-                    : item.node.post_hero_image.url
-                }
+                src={item.image}
                 objectFit="cover"
                 height="auto"
                 width="150%"
@@ -103,11 +102,7 @@ const Checkerboard = ({ items = [] }) => {
 
           <CheckerboardLink
             gridArea={{ md: gridAreas[index].text }}
-            to={
-              item.node && item.node.post_title
-                ? `/blog/${item.node._meta.uid}`
-                : ""
-            }
+            to={item.link}
           >
             <PseudoBox
               _after={{
@@ -129,9 +124,7 @@ const Checkerboard = ({ items = [] }) => {
                 lineHeight="1.5em"
                 fontFamily="Montserrat"
               >
-                {item.checkerboard_heading
-                  ? item.checkerboard_heading[0].text
-                  : item.node.post_title[0].text}
+                {item.title}
               </Heading>
             </PseudoBox>
             <Text
@@ -141,10 +134,9 @@ const Checkerboard = ({ items = [] }) => {
               lineHeight="2em"
               fontSize="12px"
               fontFamily="Montserrat"
+              px="40px"
             >
-              {item.checkerboard_text
-                ? item.checkerboard_text[0].text
-                : item.node.post_preview_description[0].text}
+              {item.description}
             </Text>
             <Text
               borderBottom="1px solid white"
@@ -152,9 +144,7 @@ const Checkerboard = ({ items = [] }) => {
               letterSpacing="1px"
               fontFamily="Montserrat"
             >
-              {item.checkerboard_link
-                ? item.checkerboard_link[0].text
-                : "Read More"}
+              {item.link_text}
             </Text>
           </CheckerboardLink>
         </>

@@ -31,6 +31,7 @@ import {
 import leftFlower from "../images/njab/flower.png";
 import rightFlower from "../images/njab/flower2.png";
 import Container from "../components/Container";
+import { getPrismicText } from "../lib/PrismicFunctions";
 
 const BlogTitle = styled("h1")`
   margin-bottom: 1em;
@@ -128,6 +129,7 @@ const Blog = ({ meta, blog, posts }) => (
       headerVariant="dark"
       headerBackground={{
         url: blog.page_hero_image.url,
+        sharp: blog.page_hero_imageSharp.childImageSharp.fluid,
         size: "cover",
         position: { md: "0 calc(50% + 35px)" },
         highlight:
@@ -265,7 +267,15 @@ const Blog = ({ meta, blog, posts }) => (
 );
 
 export default ({ data }) => {
-  const posts = data.prismic.allPosts.edges;
+  const posts = data.prismic.allPosts.edges.map(({ node }) => {
+    return {
+      title: getPrismicText(node.post_title),
+      description: getPrismicText(node.post_preview_description),
+      link_text: "Read more",
+      image: node.post_hero_image.url,
+      link: `/blog/${node._meta.uid}`
+    };
+  });
   const blog = data.prismic.allBlog_pages.edges.slice(0, 1).pop();
 
   const meta = data.site.siteMetadata;
@@ -315,6 +325,13 @@ export const query = graphql`
             }
             page_heading
             page_hero_image
+            page_hero_imageSharp {
+              childImageSharp {
+                fluid(quality: 100) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
             page_subheading
           }
         }

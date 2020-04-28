@@ -224,6 +224,7 @@ const Post = ({ post, meta, blog, allPosts }) => {
         headerVariant="dark"
         headerBackground={{
           url: blog.page_hero_image.url,
+          sharp: blog.page_hero_imageSharp.childImageSharp.fluid,
           size: "cover",
           position: { md: "0 calc(50% + 35px)" },
           highlight:
@@ -564,6 +565,13 @@ export const query = graphql`
           node {
             page_heading
             page_hero_image
+            page_hero_imageSharp {
+              childImageSharp {
+                fluid(quality: 100) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
             page_subheading
           }
         }

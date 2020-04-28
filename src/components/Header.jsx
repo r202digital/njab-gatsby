@@ -19,8 +19,47 @@ import {
   Input
 } from "@chakra-ui/core";
 import { MdMenu, MdSearch } from "react-icons/md";
+import BackgroundImage from "gatsby-background-image";
 
-const HeaderContainer = styled(Box)`
+const HeaderContainer = styled(BackgroundImage)`
+  &.HeaderContainer--dark {
+    color: white;
+  }
+
+  &.HeaderContainer--light {
+    color: #dd8d83;
+  }
+
+  &:before {
+    background-size: ${props =>
+      props.backgroundSize ? `${props.backgroundSize} !important` : "initial"};
+    @media (min-width: 768px) {
+      background-position: ${props =>
+        props.backgroundPosition && props.backgroundPosition.md
+          ? `${props.backgroundPosition.md} !important`
+          : "initial"};
+    }
+  }
+`;
+
+const HeaderContainerBox = styled(Box)`
+  &.HeaderContainer--dark {
+    color: white;
+  }
+
+  &.HeaderContainer--light {
+    color: #dd8d83;
+  }
+`;
+
+const HeaderContainerWrapper = props =>
+  !!props.fluid ? (
+    <HeaderContainer {...props} />
+  ) : (
+    <HeaderContainerBox {...props} />
+  );
+
+const HeaderBox = styled(Box)`
   &.HeaderContainer--dark {
     color: white;
   }
@@ -116,9 +155,9 @@ const Header = ({ navLinks, variant, children, background = {} }) => {
   const btnRef = React.useRef();
 
   return (
-    <HeaderContainer
+    <HeaderContainerWrapper
       className={`HeaderContainer--${variant}`}
-      backgroundImage={background.url ? `url('${background.url}')` : null}
+      fluid={background.sharp}
       backgroundSize={background.size}
       backgroundPosition={background.position}
     >
@@ -211,7 +250,7 @@ const Header = ({ navLinks, variant, children, background = {} }) => {
         </HeaderContent>
       </Box>
       <Box>{children}</Box>
-    </HeaderContainer>
+    </HeaderContainerWrapper>
   );
 };
 
