@@ -161,12 +161,14 @@ const About = ({ meta, about }) => (
             flex={{ xs: "1 0 100%", md: "1" }}
             overflow="hidden"
           >
-            <Image
-              src={about.node.page_hero_image.url}
-              width="auto"
-              height={{ xs: "70vh", lg: "550px" }}
-              objectFit="cover"
-            />
+            {about.node.page_hero_image && (
+              <Image
+                src={about.node.page_hero_image.url}
+                width="auto"
+                height={{ xs: "70vh", lg: "550px" }}
+                objectFit="cover"
+              />
+            )}
           </Flex>
           <Flex
             fontFamily="inherit"
