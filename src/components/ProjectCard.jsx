@@ -6,6 +6,7 @@ import styled from "@emotion/styled";
 import dimensions from "styles/dimensions";
 import colors from "styles/colors";
 import PropTypes from "prop-types";
+import { getPrismicImage } from "../lib/PrismicFunctions";
 
 const ProjectCardContainer = styled(Link)`
   display: grid;
@@ -172,8 +173,8 @@ const ProjectCard = ({ category, title, description, thumbnail, uid }) => (
     <ProjectCardImageContainer className="ProjectCardImageContainer">
       <Image
         className="lazyload"
-        data-src={thumbnail.url}
-        src={thumbnail.url}
+        data-src={getPrismicImage(thumbnail)}
+        src={getPrismicImage(thumbnail)}
         alt={title[0].text}
       />
     </ProjectCardImageContainer>

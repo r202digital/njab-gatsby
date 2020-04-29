@@ -14,6 +14,7 @@ import HighlightText from "components/_ui/HighlightText";
 import SectionHeading from "components/_ui/SectionHeading";
 import SectionSubheading from "components/_ui/SectionSubheading";
 import Skeleton from "react-loading-skeleton";
+import { getPrismicImage } from "../lib/PrismicFunctions";
 
 import {
   Image,
@@ -161,14 +162,12 @@ const About = ({ meta, about }) => (
             flex={{ xs: "1 0 100%", md: "1" }}
             overflow="hidden"
           >
-            {about.node.page_hero_image && (
-              <Image
-                src={about.node.page_hero_image.url}
-                width="auto"
-                height={{ xs: "70vh", lg: "550px" }}
-                objectFit="cover"
-              />
-            )}
+            <Image
+              src={getPrismicImage(about.node.page_hero_image)}
+              width="auto"
+              height={{ xs: "70vh", lg: "550px" }}
+              objectFit="cover"
+            />
           </Flex>
           <Flex
             fontFamily="inherit"
@@ -271,7 +270,7 @@ const About = ({ meta, about }) => (
               >
                 <LazyLoad placeholder={<Skeleton />}>
                   <Image
-                    src={item.philosophy_image.url}
+                    src={getPrismicImage(item.philosophy_image)}
                     maxWidth="initial"
                     objectFit="cover"
                     width="100%"
@@ -328,24 +327,13 @@ const About = ({ meta, about }) => (
                 {RichText.render(about.node.team_section_subheading)}
               </SectionSubheading>
             </Box>
-            {/* <Box flex="1 0 50%" mb="80px">
-              <HighlightText
-                letterSpacing="1px"
-                as="em"
-                fontSize="14px"
-                fontFamily="Montserrat"
-                color={colors.njabDarkPink}
-              >
-                {RichText.render(about.node.team_section_highlight_text)}
-              </HighlightText>
-            </Box> */}
           </Flex>
 
           <Grid
             width="100%"
             height="auto"
-            gridTemplateColumns={{ xs: "repeat(2, 1fr)", md: "repeat(4, 1fr)" }}
-            gridTemplateRows={{ xs: "repeat(4, 1fr)", md: "repeat(2, 1fr)" }}
+            gridTemplateColumns={{ xs: "repeat(2, 1fr)", md: "repeat(2, 1fr)" }}
+            gridTemplateRows={{ xs: "repeat(2, 1fr)", md: "repeat(2, 1fr)" }}
             gridColumnGap="0px"
             gridRowGap="0px"
             textTransform="uppercase"
@@ -355,198 +343,87 @@ const About = ({ meta, about }) => (
             fontWeight="500"
           >
             {about.node.team_checkerboard.map((item, index, checkArr) => {
-              const gridAreas = [
-                {
-                  image: {
-                    xs: "1 / 1 / 2 / 2",
-                    md: "1 / 1 / 2 / 2"
-                  },
-                  text: {
-                    xs: "1 / 2 / 2 / 3",
-                    md: "1 / 2 / 2 / 3"
-                  }
-                },
-                {
-                  image: {
-                    xs: "2 / 2 / 3 / 3",
-                    md: "1 / 3 / 2 / 4"
-                  },
-                  text: {
-                    xs: "2 / 1 / 3 / 2",
-                    md: "1 / 4 / 2 / 5"
-                  }
-                },
-                {
-                  image: {
-                    xs: "3 / 1 / 4 / 2",
-                    md: "2 / 2 / 3 / 3"
-                  },
-                  text: {
-                    xs: "3 / 2 / 4 / 3",
-                    md: "2 / 1 / 3 / 2"
-                  }
-                },
-                {
-                  image: {
-                    xs: "4 / 2 / 5 / 3",
-                    md: "2 / 4 / 3 / 5"
-                  },
-                  text: {
-                    xs: "4 / 1 / 5 / 2",
-                    md: "2 / 3 / 3 / 4"
-                  }
-                }
-              ];
+              const smallerLength = Math.ceil(checkArr.length / 2);
+              const firstArr = [...Array(smallerLength).keys()]
+                .map(x => ++x)
+                .filter(a => !(a % 2))
+                .reduce((total, item) => {
+                  const totalArr = total;
+                  totalArr.push(item * 2 - 1);
+                  totalArr.push(item * 2);
+                  return totalArr;
+                }, [])
+                .map(x => --x);
 
               return (
-                <>
-                  {index + 1 < checkArr.length / 2 ? (
-                    <>
+                <Flex
+                  flexDirection={
+                    firstArr.includes(index) ? "row-reverse" : "row"
+                  }
+                >
+                  <Box flex="0 0 50%">
+                    <LazyLoad placeholder={<Skeleton />}>
+                      <Image
+                        maxWidth="initial"
+                        src={getPrismicImage(item.employee_picture)}
+                        objectFit="cover"
+                        width="100%"
+                        height="100%"
+                      />
+                    </LazyLoad>
+                  </Box>
+                  <HoverFlex
+                    justifyContent="center"
+                    alignItems="flex-end"
+                    position="relative"
+                    flex="0 0 50%"
+                  >
+                    <Box
+                      className="description"
+                      position="absolute"
+                      height="100%"
+                      width="100%"
+                      backgroundColor={colors.njabDarkPink}
+                      textTransform="initial"
+                      color="white"
+                      top="0"
+                      padding="30px"
+                      opacity="0"
+                      transition="all 0.3s"
+                    >
                       <Box
-                        gridArea={{
-                          xs: gridAreas[index].image.xs,
-                          md: gridAreas[index].image.md
-                        }}
+                        overflow="scroll"
+                        height="calc(100% - 80px)"
+                        width="100%"
                       >
-                        <LazyLoad placeholder={<Skeleton />}>
-                          <Image
-                            maxWidth="initial"
-                            src={item.employee_picture.url}
-                            objectFit="cover"
-                            width="100%"
-                            height="100%"
-                          />
-                        </LazyLoad>
+                        {RichText.render(item.employee_description)}
                       </Box>
-                      <HoverFlex
-                        gridArea={{
-                          xs: gridAreas[index].text.xs,
-                          md: gridAreas[index].text.md
-                        }}
-                        justifyContent="center"
-                        alignItems="flex-end"
-                        position="relative"
-                      >
-                        <Box
-                          className="description"
-                          position="absolute"
-                          height="100%"
-                          width="100%"
-                          backgroundColor={colors.njabDarkPink}
-                          textTransform="initial"
-                          color="white"
-                          top="0"
-                          padding="30px"
-                          opacity="0"
-                          transition="all 0.3s"
-                        >
-                          <Box
-                            overflow="scroll"
-                            height="calc(100% - 80px)"
-                            width="100%"
-                          >
-                            {RichText.render(item.employee_description)}
-                          </Box>
-                        </Box>
-                        <StyledFlex
-                          className="details-container"
-                          height="80px"
-                          justifyContent="flex-end"
-                          pb="20px"
-                          alignItems="center"
-                          flexDirection="column"
-                        >
-                          <Box zIndex="2">
-                            {RichText.render(item.employee_name)}
-                          </Box>
-                          <Text
-                            zIndex="2"
-                            className="position"
-                            as="em"
-                            fontFamily="Montserrat"
-                            opacity="0"
-                            margin="0"
-                            textAlign={{ xs: "center", md: "initial" }}
-                          >
-                            {RichText.render(item.employee_position)}
-                          </Text>
-                        </StyledFlex>
-                      </HoverFlex>
-                    </>
-                  ) : (
-                    <>
-                      <HoverFlex
-                        gridArea={{
-                          xs: gridAreas[index].text.xs,
-                          md: gridAreas[index].text.md
-                        }}
-                        justifyContent="center"
-                        alignItems="flex-end"
-                        position="relative"
-                      >
-                        <Box
-                          className="description"
-                          position="absolute"
-                          height="100%"
-                          width="100%"
-                          backgroundColor={colors.njabDarkPink}
-                          textTransform="initial"
-                          color="white"
-                          top="0"
-                          padding="30px"
-                          opacity="0"
-                          transition="all 0.3s"
-                        >
-                          <Box
-                            overflow="scroll"
-                            height="calc(100% - 80px)"
-                            width="100%"
-                          >
-                            {RichText.render(item.employee_description)}
-                          </Box>
-                        </Box>
-                        <StyledFlex
-                          className="details-container"
-                          height="80px"
-                          justifyContent="flex-end"
-                          pb="20px"
-                          alignItems="center"
-                          flexDirection="column"
-                        >
-                          <Box zIndex="2">
-                            {RichText.render(item.employee_name)}
-                          </Box>
-                          <Text
-                            zIndex="2"
-                            className="position"
-                            as="em"
-                            fontFamily="Montserrat"
-                            opacity="0"
-                            margin="0"
-                          >
-                            {RichText.render(item.employee_position)}
-                          </Text>
-                        </StyledFlex>
-                      </HoverFlex>
-                      <Box
-                        gridArea={{
-                          xs: gridAreas[index].image.xs,
-                          md: gridAreas[index].image.md
-                        }}
-                      >
-                        <LazyLoad placeholder={<Skeleton />}>
-                          <Image
-                            maxWidth="initial"
-                            src={item.employee_picture.url}
-                            objectFit="cover"
-                            width="100%"
-                            height="100%"
-                          />
-                        </LazyLoad>
+                    </Box>
+                    <StyledFlex
+                      className="details-container"
+                      height="80px"
+                      justifyContent="flex-end"
+                      pb="20px"
+                      alignItems="center"
+                      flexDirection="column"
+                    >
+                      <Box zIndex="2">
+                        {RichText.render(item.employee_name)}
                       </Box>
-                    </>
-                  )}
-                </>
+                      <Text
+                        zIndex="2"
+                        className="position"
+                        as="em"
+                        fontFamily="Montserrat"
+                        opacity="0"
+                        margin="0"
+                        textAlign={{ xs: "center", md: "initial" }}
+                      >
+                        {RichText.render(item.employee_position)}
+                      </Text>
+                    </StyledFlex>
+                  </HoverFlex>
+                </Flex>
               );
             })}
           </Grid>
@@ -559,6 +436,7 @@ const About = ({ meta, about }) => (
 export default ({ data }) => {
   const meta = data.site.siteMetadata;
   const doc = data.prismic.allAbout_pages.edges.slice(0, 1).pop();
+  console.log(doc);
 
   if (!doc || !meta) return null;
 
@@ -566,7 +444,7 @@ export default ({ data }) => {
 };
 
 About.propTypes = {
-  about: PropTypes.array.isRequired,
+  about: PropTypes.object.isRequired,
   meta: PropTypes.object.isRequired
 };
 

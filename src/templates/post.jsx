@@ -33,6 +33,7 @@ import {
   Icon
 } from "@chakra-ui/core";
 import Container from "../components/Container";
+import { getPrismicImage } from "../lib/PrismicFunctions";
 
 const PostHeroContainer = styled("div")`
   max-height: 500px;
@@ -223,7 +224,7 @@ const Post = ({ post, meta, blog, allPosts }) => {
       <Layout
         headerVariant="dark"
         headerBackground={{
-          url: blog.page_hero_image.url,
+          url: getPrismicImage(blog.page_hero_image),
           sharp: blog.page_hero_imageSharp.childImageSharp.fluid,
           size: "cover",
           position: { md: "0 calc(50% + 35px)" },
@@ -347,7 +348,7 @@ const Post = ({ post, meta, blog, allPosts }) => {
         {post.post_hero_image && (
           <Section>
             <Image
-              src={post.post_hero_image.url}
+              src={getPrismicImage(post.post_hero_image)}
               alt={post.post_hero_image.alt}
               width="100%"
               height="auto"
@@ -465,7 +466,7 @@ const Post = ({ post, meta, blog, allPosts }) => {
                 <Image
                   // px="15px"
                   height="100%"
-                  src={item.node.post_hero_image.url}
+                  src={getPrismicImage(item.node.post_hero_image)}
                   position="absolute"
                   top="0"
                   zIndex="-1"

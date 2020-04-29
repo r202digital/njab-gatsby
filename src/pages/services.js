@@ -28,7 +28,7 @@ import {
 } from "@chakra-ui/core";
 import leftFlower from "../images/njab/flower.png";
 import rightFlower from "../images/njab/flower2.png";
-import { getPrismicText } from "../lib/PrismicFunctions";
+import { getPrismicText, getPrismicImage } from "../lib/PrismicFunctions";
 
 const BlogTitle = styled("h1")`
   margin-bottom: 1em;
@@ -83,7 +83,7 @@ const Services = ({ services, meta }) => {
         title: getPrismicText(linked_service.service_title),
         description: getPrismicText(linked_service.service_preview_description),
         link_text: getPrismicText(linked_service.service_preview_link_text),
-        image: linked_service.service_preview_thumbnail.url,
+        image: getPrismicImage(linked_service.service_preview_thumbnail),
         link: `/service/${linked_service._meta.uid}`
       };
     }
@@ -338,7 +338,7 @@ const Services = ({ services, meta }) => {
             <Box>
               <Image
                 maxWidth="initial"
-                src={services.node.map_image.url}
+                src={getPrismicImage(services.node.map_image)}
                 objectFit="cover"
                 width="100%"
               />

@@ -46,6 +46,7 @@ import leftFlower from "../images/njab/flower.png";
 import rightFlower from "../images/njab/flower2.png";
 import Container from "../components/Container";
 import GoogleMapReact from "google-map-react";
+import { getPrismicImage } from "../lib/PrismicFunctions";
 
 const DetailsBox = styled(Box)`
   p {
@@ -245,7 +246,7 @@ const Contact = ({ meta, blog, contact }) => (
     <Layout
       headerVariant="dark"
       headerBackground={{
-        url: contact.hero_image.url,
+        url: getPrismicImage(contact.hero_image),
         sharp: contact.hero_imageSharp.childImageSharp.fluid,
         size: "cover",
         position: { md: "0 calc(50% + 35px)" },

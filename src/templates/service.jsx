@@ -31,6 +31,7 @@ import {
 
 import Logo from "components/_ui/Logo";
 import Moment from "react-moment";
+import { getPrismicImage } from "../lib/PrismicFunctions";
 
 const ServiceHeroContainer = styled(Box)`
   display: flex;
@@ -283,12 +284,15 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
             {service.service_hero_image && (
               <ServiceHeroContainer width="100%">
                 <Image
-                  src={service.service_hero_image.url}
+                  src={getPrismicImage(service.service_hero_image)}
                   alt={service.service_title}
                   width="100%"
                 />
                 {service.images.map((item, index) => (
-                  <Image src={item.gallery_image.url} alt={`image-${index}`} />
+                  <Image
+                    src={getPrismicImage(item.gallery_image)}
+                    alt={`image-${index}`}
+                  />
                 ))}
               </ServiceHeroContainer>
             )}
@@ -410,7 +414,7 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
                 </Flex>
                 <Image
                   // px="15px"
-                  src={item.node.service_hero_image.url}
+                  src={getPrismicImage(item.node.service_hero_image)}
                   position="absolute"
                   top="0"
                   zIndex="-1"
@@ -462,7 +466,7 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
           </Flex>
           <Mosaic
             height="400px"
-            images={home.mosaic.map(item => item.mosaic_image.url)}
+            images={home.mosaic.map(item => getPrismicImage(item.mosaic_image))}
           />
         </Section>
         <Section alignItems="flex-end">

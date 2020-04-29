@@ -31,6 +31,7 @@ import {
   ListItem,
   Button
 } from "@chakra-ui/core";
+import { getPrismicImage } from "../lib/PrismicFunctions";
 
 const MapHeading = styled(Heading)`
   margin: 0;
@@ -158,14 +159,14 @@ const Services = ({
     .map((project, index) => ({
       id: project.node._meta.uid,
       title: project.node.project_title[0].text,
-      image: project.node.project_hero_image.url,
+      image: getPrismicImage(project.node.project_hero_image),
       category: project.node.project_category[0].text
     }));
 
   const featuredProjects = portfolio.featured_projects.map((item, index) => ({
     id: item.project._meta.uid,
     title: item.project.project_title[0].text,
-    image: item.project.project_hero_image.url,
+    image: getPrismicImagge(item.project.project_hero_image),
     description: item.project.project_description[0].text,
     date: item.project.project_post_date,
     index: index,

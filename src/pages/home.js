@@ -27,6 +27,7 @@ import {
   Image
 } from "@chakra-ui/core";
 import DoubleSlider from "../components/DoubleSlider";
+import { getPrismicImage } from "../lib/PrismicFunctions";
 
 const Hero = styled(Box)`
   height: calc(100vh - 70px);
@@ -250,7 +251,7 @@ const FeaturedImg = styled(Img)`
 const RenderBody = ({ home, projects, meta, posts }) => {
   const newTestimonials = home.testimonial_carousel.map(item => ({
     title: item.testimonial_title[0].text,
-    image: item.testimonial_slide_image.url,
+    image: getPrismicImage(item.testimonial_slide_image),
     date: item.testimonial_date[0].text,
     author: item.testimonial_author[0].text,
     quote: item.testimonial_quote[0].text
@@ -510,7 +511,9 @@ const RenderBody = ({ home, projects, meta, posts }) => {
                     color="white"
                     flexDirection="column"
                     justifyContent="space-between"
-                    background={`url('${item.packages_slide_image.url}')`}
+                    background={`url('${getPrismicImage(
+                      item.packages_slide_image
+                    )}')`}
                     backgroundSize="cover"
                     fontWeight="500"
                     padding="15px"
@@ -567,7 +570,7 @@ const RenderBody = ({ home, projects, meta, posts }) => {
           </Flex>
           <Mosaic
             height="400px"
-            images={home.mosaic.map(item => item.mosaic_image.url)}
+            images={home.mosaic.map(item => getPrismicImage(item.mosaic_image))}
           />
         </Section>
       </LazyLoad>
@@ -783,8 +786,12 @@ const RenderBody = ({ home, projects, meta, posts }) => {
                       <JournalImage
                         ml={{ md: "-15px" }}
                         px={{ md: "15px" }}
-                        data-src={item.journal_post_link.post_hero_image.url}
-                        src={item.journal_post_link.post_hero_image.url}
+                        data-src={getPrismicImage(
+                          item.journal_post_link.post_hero_image
+                        )}
+                        src={getPrismicImage(
+                          item.journal_post_link.post_hero_image
+                        )}
                         alt={"Journal Slide Image"}
                         width={{ xs: "auto", md: "100%" }}
                         style={{
@@ -820,7 +827,7 @@ export default ({ data }) => {
         </Hero>
       }
       headerBackground={{
-        url: doc.node.hero_background.url,
+        url: getPrismicImage(doc.node.hero_background),
         sharp: doc.node.hero_imageSharp.childImageSharp.fluid,
         size: "cover",
         position: { md: "0 calc(50% + 35px)" },

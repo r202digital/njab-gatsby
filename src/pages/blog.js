@@ -31,7 +31,7 @@ import {
 import leftFlower from "../images/njab/flower.png";
 import rightFlower from "../images/njab/flower2.png";
 import Container from "../components/Container";
-import { getPrismicText } from "../lib/PrismicFunctions";
+import { getPrismicText, getPrismicImage } from "../lib/PrismicFunctions";
 
 const BlogTitle = styled("h1")`
   margin-bottom: 1em;
@@ -128,7 +128,7 @@ const Blog = ({ meta, blog, posts }) => (
     <Layout
       headerVariant="dark"
       headerBackground={{
-        url: blog.page_hero_image.url,
+        url: getPrismicImage(blog.page_hero_image),
         sharp: blog.page_hero_imageSharp.childImageSharp.fluid,
         size: "cover",
         position: { md: "0 calc(50% + 35px)" },
@@ -258,7 +258,7 @@ const Blog = ({ meta, blog, posts }) => (
           </Flex>
           <Mosaic
             height="400px"
-            images={blog.mosaic.map(item => item.mosaic_image.url)}
+            images={blog.mosaic.map(item => getPrismicImage(item.mosaic_image))}
           />
         </Section>
       </LazyLoad>
@@ -272,7 +272,7 @@ export default ({ data }) => {
       title: getPrismicText(node.post_title),
       description: getPrismicText(node.post_preview_description),
       link_text: "Read more",
-      image: node.post_hero_image.url,
+      image: getPrismicImage(node.post_hero_image),
       link: `/blog/${node._meta.uid}`
     };
   });
