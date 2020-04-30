@@ -176,7 +176,7 @@ const Services = ({
   return (
     <>
       <Helmet
-        title={`Services | Not Just a Box Events`}
+        title={`Portfolio | Not Just a Box Events`}
         titleTemplate={`%s`}
         meta={[
           {
@@ -185,7 +185,7 @@ const Services = ({
           },
           {
             property: `og:title`,
-            content: `Services | Not Just a Box Events`
+            content: `Portfolio | Not Just a Box Events`
           },
           {
             property: `og:description`,
@@ -239,7 +239,7 @@ const Services = ({
                   fontFamily="Montserrat"
                   textTransform="uppercase"
                 >
-                  Lorem Ipsum
+                  {RichText.render(portfolio.portfolio_heading)}
                 </SectionHeading>
               </PseudoBox>
               <SectionSubheading
@@ -252,7 +252,7 @@ const Services = ({
                 fontFamily="Montserrat"
                 textTransform="uppercase"
               >
-                Our Portfolio
+                {RichText.render(portfolio.portfolio_subheading)}
               </SectionSubheading>
             </Box>
             <Box
@@ -266,7 +266,7 @@ const Services = ({
                 fontSize="13px"
                 color="#707073"
               >
-                {RichText.render(services.node.weddings_highlight_text)}
+                {RichText.render(portfolio.portfolio_highlight_text)}
               </HighlightText>
             </Box>
           </Flex>

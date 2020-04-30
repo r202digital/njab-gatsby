@@ -481,7 +481,7 @@ const RenderBody = ({ home, projects, meta, posts }) => {
                           letterSpacing="4px"
                           fontSize="13px"
                         >
-                          {item.packages_slide_link[0].text}
+                          {item.linked_package.service_title[0].text}
                         </TextContainer>
                       </PseudoBox>
                       <TextContainer
@@ -492,14 +492,16 @@ const RenderBody = ({ home, projects, meta, posts }) => {
                         letterSpacing="2px"
                         fontSize="12px"
                       >
-                        Lorem ipsum dolor sit amet, consectetur adip iscing
-                        elit, sed do eiusmod tempor incididunt ut labore
+                        {
+                          item.linked_package.service_preview_description[0]
+                            .text
+                        }
                       </TextContainer>
                       <SlideButton
                         fontWeight="700"
                         letterSpacing="1px"
                         fontFamily="Montserrat"
-                        to={`/services`}
+                        to={`/service/${item.linked_package._meta.uid}`}
                       >
                         Read More
                       </SlideButton>
@@ -864,7 +866,7 @@ export const query = graphql`
             hero_image
             hero_imageSharp {
               childImageSharp {
-                fluid(quality: 100) {
+                fluid(maxWidth: 2800, quality: 100) {
                   ...GatsbyImageSharpFluid
                 }
               }
@@ -891,6 +893,15 @@ export const query = graphql`
             packages_carousel {
               packages_slide_image
               packages_slide_link
+              linked_package {
+                ... on PRISMIC_Service {
+                  service_title
+                  service_preview_description
+                  _meta {
+                    uid
+                  }
+                }
+              }
             }
 
             journal_heading
