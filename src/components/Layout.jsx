@@ -47,6 +47,30 @@ const Layout = ({
                 }
                 logo
                 logo_light
+                instagram {
+                  ... on PRISMIC__ExternalLink {
+                    url
+                  }
+                }
+                facebook {
+                  ... on PRISMIC__ExternalLink {
+                    url
+                  }
+                }
+                twitter {
+                  ... on PRISMIC__ExternalLink {
+                    url
+                  }
+                }
+                left_title
+                left_description
+                right_title
+                first_column_links {
+                  column_link
+                }
+                second_column_links {
+                  column_link
+                }
               }
             }
           }
@@ -54,9 +78,12 @@ const Layout = ({
       }
     `}
     render={data => {
-      const { nav_links } = data.prismic.allGlobals.edges.reduce(
+      console.log(data);
+      const { node } = data.prismic.allGlobals.edges.reduce(
         (total, item) => item
-      ).node;
+      );
+
+      const { nav_links, logo, logo_light, ...footerInfo } = node;
       return (
         <>
           <Helmet />
@@ -72,7 +99,7 @@ const Layout = ({
                   {headerChildren}
                 </Header>
                 <main className="Layout__content">{children}</main>
-                <Footer />
+                <Footer data={footerInfo} />
               </div>
             </LayoutContainer>
           </ThemeProvider>
