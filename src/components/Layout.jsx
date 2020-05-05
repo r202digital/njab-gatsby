@@ -39,30 +39,46 @@ const Layout = ({
               nav_link
             }
           }
+          allGlobals {
+            edges {
+              node {
+                nav_links {
+                  nav_link
+                }
+                logo
+                logo_light
+              }
+            }
+          }
         }
       }
     `}
-    render={data => (
-      <>
-        <Helmet />
-        <ThemeProvider theme={theme}>
-          <LayoutContainer className="div">
-            <Global styles={[globalStyles, typeStyles, logoStyles]} />
-            <div className="Layout">
-              <Header
-                variant={headerVariant}
-                navLinks={data.prismic.homepage.nav_links}
-                background={headerBackground}
-              >
-                {headerChildren}
-              </Header>
-              <main className="Layout__content">{children}</main>
-              <Footer />
-            </div>
-          </LayoutContainer>
-        </ThemeProvider>
-      </>
-    )}
+    render={data => {
+      const { nav_links } = data.prismic.allGlobals.edges.reduce(
+        (total, item) => item
+      ).node;
+      return (
+        <>
+          <Helmet />
+          <ThemeProvider theme={theme}>
+            <LayoutContainer className="div">
+              <Global styles={[globalStyles, typeStyles, logoStyles]} />
+              <div className="Layout">
+                <Header
+                  variant={headerVariant}
+                  navLinks={nav_links}
+                  background={headerBackground}
+                >
+                  {headerChildren}
+                </Header>
+                <main className="Layout__content">{children}</main>
+                <Footer />
+              </div>
+            </LayoutContainer>
+          </ThemeProvider>
+        </>
+      );
+    }}
   />
 );
 

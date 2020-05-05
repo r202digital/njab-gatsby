@@ -147,7 +147,7 @@ const Header = ({ navLinks, variant, children, background = {} }) => {
   const newNavLinks = navLinks.map(item => ({
     text: item.nav_link[0].text,
     url: item.nav_link[0].spans[0]
-      ? item.nav_link[0].spans[0].data.url.split("/").pop()
+      ? `/${item.nav_link[0].spans[0].data.uid}`
       : ""
   }));
 
@@ -218,7 +218,7 @@ const Header = ({ navLinks, variant, children, background = {} }) => {
             ))}
           </HeaderLinks>
           <Box>
-            <IconButton
+            {/* <IconButton
               aria-label="Search database"
               background="transparent"
               color={variant === "light" ? "#dd8d83" : "white"}
@@ -229,7 +229,7 @@ const Header = ({ navLinks, variant, children, background = {} }) => {
                 opacity: 0.5
               }}
               border="none"
-            />
+            /> */}
             <IconButton
               ref={btnRef}
               onClick={onOpen}

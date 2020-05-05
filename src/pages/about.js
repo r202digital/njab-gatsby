@@ -347,10 +347,10 @@ const About = ({ meta, about }) => (
               const firstArr = [...Array(smallerLength).keys()]
                 .map(x => ++x)
                 .filter(a => !(a % 2))
-                .reduce((total, item) => {
+                .reduce((total, fItem) => {
                   const totalArr = total;
-                  totalArr.push(item * 2 - 1);
-                  totalArr.push(item * 2);
+                  totalArr.push(fItem * 2 - 1);
+                  totalArr.push(fItem * 2);
                   return totalArr;
                 }, [])
                 .map(x => --x);
