@@ -26,7 +26,10 @@ import {
   FaInstagram,
   FaArrowRight
 } from "react-icons/fa";
-import { getPrismicText } from "../lib/PrismicFunctions";
+import {
+  getPrismicText,
+  getPrismicDocumentLink
+} from "../lib/PrismicFunctions";
 
 const FooterContainer = styled(Box)`
   padding-top: 3.75em;
@@ -117,15 +120,13 @@ const Footer = ({ data }) => {
             px={{ xs: "15px", md: "0" }}
             py={{ xs: "30px", md: "0" }}
           >
-            <ExternalLink
-              href={`https://www.instagram.com/notjustaboxevents/?hl=en`}
-            >
+            <ExternalLink href={instagram}>
               <Box as={FaInstagram} size="20px" color={colors.njabDarkPink} />
             </ExternalLink>
-            <ExternalLink href={`https://www.facebook.com/Notjustabox/`}>
+            <ExternalLink href={twitter}>
               <Box as={FaTwitter} size="20px" color={colors.njabDarkPink} />
             </ExternalLink>
-            <ExternalLink href={`https://www.facebook.com/Notjustabox/`}>
+            <ExternalLink href={facebook}>
               <Box as={FaFacebookF} size="20px" color={colors.njabDarkPink} />
             </ExternalLink>
           </Flex>
@@ -263,15 +264,26 @@ const Footer = ({ data }) => {
           </Heading>
           <Flex>
             <List styleType="none" padding="0" mr="15px" flex="1">
-              <ListItem>FAQ</ListItem>
-              <ListItem>Terms of Use</ListItem>
-              <ListItem>Privacy Policy</ListItem>
-              <ListItem>Cookie Policy</ListItem>
+              {first_column_links.map(item => {
+                return (
+                  <ListItem>
+                    <a href={getPrismicDocumentLink(item.column_link)}>
+                      {getPrismicText(item.column_link)}
+                    </a>
+                  </ListItem>
+                );
+              })}
             </List>
             <List styleType="none" padding="0" ml="15px" flex="1">
-              <ListItem>Contact Us</ListItem>
-              <ListItem>Lorem ipsum</ListItem>
-              <ListItem>Lorem ipsum</ListItem>
+              {second_column_links.map(item => {
+                return (
+                  <ListItem>
+                    <a href={getPrismicDocumentLink(item.column_link)}>
+                      {getPrismicText(item.column_link)}
+                    </a>
+                  </ListItem>
+                );
+              })}
             </List>
           </Flex>
         </Box>

@@ -37,6 +37,12 @@ const globalStyles = css`
   a {
     transition: 0.3s;
     text-transform: initial;
+    color: ${colors.njabPink};
+    text-decoration: initial;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   /*
