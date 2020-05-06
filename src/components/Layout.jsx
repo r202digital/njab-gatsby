@@ -34,11 +34,6 @@ const Layout = ({
         }
 
         prismic {
-          homepage(lang: "en-us", uid: "not-just-a-box-events") {
-            nav_links {
-              nav_link
-            }
-          }
           allGlobals {
             edges {
               node {
@@ -78,7 +73,6 @@ const Layout = ({
       }
     `}
     render={data => {
-      console.log(data);
       const { node } = data.prismic.allGlobals.edges.reduce(
         (total, item) => item
       );
