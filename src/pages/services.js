@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Helmet from "react-helmet";
 import { graphql } from "gatsby";
@@ -77,17 +77,25 @@ const MapSubheading = styled(Heading)`
 `;
 
 const Services = ({ services, meta }) => {
-  const checkerServices = services.node.wedding_checkerboard.map(
+  const [isWedding, setIsWedding] = useState(true);
+  const filteredServices = services.node.wedding_checkerboard.filter(
     ({ linked_service }) => {
-      return {
-        title: getPrismicText(linked_service.service_title),
-        description: getPrismicText(linked_service.service_preview_description),
-        link_text: getPrismicText(linked_service.service_preview_link_text),
-        image: getPrismicImage(linked_service.service_preview_thumbnail),
-        link: `/service/${linked_service._meta.uid}`
-      };
+      const category = getPrismicText(
+        linked_service.service_category
+      ).toLowerCase();
+      const includeService = category.includes("wedding");
+      return includeService === isWedding;
     }
   );
+  const checkerServices = filteredServices.map(({ linked_service }) => {
+    return {
+      title: getPrismicText(linked_service.service_title),
+      description: getPrismicText(linked_service.service_preview_description),
+      link_text: getPrismicText(linked_service.service_preview_link_text),
+      image: getPrismicImage(linked_service.service_preview_thumbnail),
+      link: `/service/${linked_service._meta.uid}`
+    };
+  });
 
   return (
     <>
@@ -142,6 +150,10 @@ const Services = ({ services, meta }) => {
               _hover={{
                 textDecoration: "none",
                 filter: "brightness(0.9)"
+              }}
+              onClick={e => {
+                e.preventDefault();
+                setIsWedding(true);
               }}
             >
               <Box
@@ -203,6 +215,10 @@ const Services = ({ services, meta }) => {
               _hover={{
                 textDecoration: "none",
                 filter: "brightness(0.9)"
+              }}
+              onClick={e => {
+                e.preventDefault();
+                setIsWedding(false);
               }}
             >
               <Box
@@ -401,6 +417,7 @@ export const query = graphql`
                   service_preview_description
                   service_preview_thumbnail
                   service_preview_link_text
+                  service_category
                   _meta {
                     uid
                   }

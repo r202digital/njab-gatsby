@@ -154,12 +154,6 @@ const DisjointedSliderContainer = styled(Flex)`
   }
 `;
 
-const JournalImage = styled(Image)`
-  position: absolute;
-  top: 0;
-  z-index: -1;
-`;
-
 const JournalImageSharp = styled(Img)`
   width: auto;
   position: absolute !important;
