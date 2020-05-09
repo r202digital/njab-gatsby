@@ -166,6 +166,7 @@ const Services = ({
   const featuredProjects = portfolio.featured_projects.map((item, index) => ({
     id: item.project._meta.uid,
     title: item.project.project_title[0].text,
+    subtitle: item.project.project_subtitle[0].text,
     image: getPrismicImage(item.project.project_hero_image),
     description: item.project.project_description[0].text,
     date: item.project.project_post_date,
@@ -492,6 +493,7 @@ export const query = graphql`
               project {
                 ... on PRISMIC_Project {
                   project_title
+                  project_subtitle
                   project_category
                   project_hero_image
                   project_description

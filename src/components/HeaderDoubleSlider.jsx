@@ -161,7 +161,7 @@ export default class DoubleSlider extends React.Component {
     const { children, items, ...props } = this.props;
 
     return (
-      <DoubleSliderContainer position="relative">
+      <DoubleSliderContainer position="relative" mb={{ md: "60px" }}>
         <Container
           px="50px"
           maxWidth={{ md: "calc(100% - 250px)" }}
@@ -226,7 +226,7 @@ export default class DoubleSlider extends React.Component {
                         fontWeight="400"
                         fontFamily="Montserrat"
                       >
-                        {item.title}
+                        {item.subtitle ? item.subtitle : item.title}
                       </Heading>
                     </StyledLink>
                   </Flex>
@@ -293,7 +293,7 @@ export default class DoubleSlider extends React.Component {
                 justifyContent="center"
                 backgroundImage={`url("${item.image}")`}
                 backgroundSize="cover"
-                backgroundPosition={{ xs: "50%", md: "initial" }}
+                backgroundPosition={{ xs: "50%", md: "center" }}
                 position="relative"
                 padding="10px"
               >
