@@ -28,7 +28,8 @@ module.exports = {
       resolve: "gatsby-source-prismic-graphql",
       options: {
         repositoryName: "notjustaboxevents", // (REQUIRED, replace with your own)
-        linkResolver: () => post => `/${post.uid}`
+        linkResolver: () => post => `/${post.uid}`,
+        omitPrismicScript: true
       }
     },
     {
