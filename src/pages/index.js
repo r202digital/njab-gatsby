@@ -145,8 +145,12 @@ export const query = graphql`
             hero_button_text
             hero_button_link {
               ... on PRISMIC__ExternalLink {
-                _linkType
                 url
+              }
+              ... on PRISMIC_Service {
+                _meta {
+                  uid
+                }
               }
             }
             content

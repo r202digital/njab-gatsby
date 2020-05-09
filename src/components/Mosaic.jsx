@@ -9,6 +9,18 @@ import {
   Grid,
   Box
 } from "@chakra-ui/core";
+import styled from "@emotion/styled";
+import BackgroundImage from "gatsby-background-image";
+
+const StyledBackground = styled(BackgroundImage)`
+  width: 100%;
+  height: 100%;
+  &:before {
+    background-size: cover;
+    background-position: center;
+    background-color: black;
+  }
+`;
 
 const Mosaic = ({ children, height = "200px", images, ...props }) => {
   const gridAreas = [
@@ -27,16 +39,28 @@ const Mosaic = ({ children, height = "200px", images, ...props }) => {
       templateRows={{ xs: "repeat(4, 1fr) 2fr", md: "repeat(2, 1fr)" }}
       gap={5}
     >
-      {images.map((item, index) => (
-        <Box
-          w="100%"
-          h="100%"
-          backgroundImage={`url("${item}")`}
-          backgroundSize="cover"
-          backgroundPosition="center"
-          backgroundColor="black"
+      {images.slice(0, 7).map((item, index) => (
+        <Link
+          href={
+            item.link.hasOwnProperty("url")
+              ? item.link.url
+              : `/${item.link._meta.type}/${item.link._meta.uid}`
+          }
           gridArea={{ xs: gridAreas[index].xs, md: gridAreas[index].md }}
-        />
+        >
+          {item.imageSharp ? (
+            <StyledBackground fluid={item.imageSharp.childImageSharp.fluid} />
+          ) : (
+            <Box
+              w="100%"
+              h="100%"
+              backgroundImage={`url("${item.image}")`}
+              backgroundSize="cover"
+              backgroundPosition="center"
+              backgroundColor="black"
+            />
+          )}
+        </Link>
       ))}
     </Grid>
   );

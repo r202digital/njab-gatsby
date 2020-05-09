@@ -15,6 +15,7 @@ import LazyLoad from "react-lazyload";
 import Skeleton from "react-loading-skeleton";
 import Moment from "react-moment";
 import Img from "gatsby-image";
+import BackgroundImage from "gatsby-background-image";
 
 import Link from "components/_ui/Link";
 import {
@@ -159,6 +160,20 @@ const JournalImage = styled(Image)`
   z-index: -1;
 `;
 
+const JournalImageSharp = styled(Img)`
+  width: auto;
+  position: absolute !important;
+  top: 0;
+  z-index: -1;
+  filter: brightness(0.6);
+
+  @media (min-width: ${dimensions.maxwidthTablet}px) {
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+  }
+`;
+
 const FeaturedButton = styled(Link)`
   text-decoration: none;
   text-transform: uppercase;
@@ -222,6 +237,7 @@ const SlideButton = styled(Link)`
 
 const HoverBox = styled(Box)`
   opacity: 0;
+  z-index: 1;
   transition: all 0.3s;
 
   &:hover {
@@ -246,6 +262,17 @@ const FeaturedImg = styled(Img)`
       object-fit: contain !important;
     }
   }
+`;
+
+const PackagesFlex = styled(BackgroundImage)`
+  display: flex;
+  height: 100%;
+  width: 100%;
+  color: white;
+  flex-direction: column;
+  justify-content: space-between;
+  font-weight: 500;
+  padding: 15px;
 `;
 
 const RenderBody = ({ home, projects, meta, posts }) => {
@@ -378,79 +405,348 @@ const RenderBody = ({ home, projects, meta, posts }) => {
           </FeaturedButton>
         </Flex>
       </Section>
-      <LazyLoad placeholder={<Skeleton />}>
-        <Section
-          outerProps={{
-            backgroundColor: colors.njabLightPink,
-            pt: { xs: "60px", md: "120px" },
-            pb: { xs: "0", md: "120px" }
+
+      <Section
+        outerProps={{
+          backgroundColor: colors.njabLightPink,
+          pt: { xs: "60px", md: "120px" },
+          pb: { xs: "0", md: "120px" }
+        }}
+        maxWidth="initial"
+        fullWidth
+      >
+        <Flex
+          px={{
+            xs: `${dimensions.paddingHorizontalMobile}em`,
+            md: 0
           }}
-          maxWidth="initial"
-          fullWidth
+          color={colors.njabDarkPink}
+          maxWidth={`${dimensions.maxwidthDesktop}px`}
+          width="100%"
+          margin="0 auto"
+          mb="80px"
+          flexWrap="wrap"
         >
-          <Flex
-            px={{
-              xs: `${dimensions.paddingHorizontalMobile}em`,
-              md: 0
-            }}
-            color={colors.njabDarkPink}
-            maxWidth={`${dimensions.maxwidthDesktop}px`}
-            width="100%"
-            margin="0 auto"
-            mb="80px"
-            flexWrap="wrap"
+          <Box
+            flex={{ xs: "1 0 100%", md: "1 0 50%" }}
+            textTransform="uppercase"
           >
-            <Box
-              flex={{ xs: "1 0 100%", md: "1 0 50%" }}
-              textTransform="uppercase"
+            <PseudoBox
+              _after={{
+                content: "''",
+                display: "block",
+                height: "1px",
+                width: "50px",
+                backgroundColor: "#e9c8bc",
+                my: "20px"
+              }}
             >
+              <FeaturedHeading>
+                {RichText.render(home.packages_heading)}
+              </FeaturedHeading>
+            </PseudoBox>
+            <FeaturedSubheading>
+              {RichText.render(home.packages_subheading)}
+            </FeaturedSubheading>
+          </Box>
+          <Box flex={{ xs: "1 0 100%", md: "1 0 50%" }}>
+            <FeaturedHighlight
+              letterSpacing="1px"
+              as="em"
+              fontSize="14px"
+              textAlign="right"
+            >
+              {RichText.render(home.packages_highlight_text)}
+            </FeaturedHighlight>
+          </Box>
+        </Flex>
+        <DisjointedSliderContainer mb={{ md: "70px" }}>
+          <DisjointedSlider pinkDots initialSlide={2}>
+            {home.packages_carousel.map((item, index) => (
               <PseudoBox
-                _after={{
-                  content: "''",
-                  display: "block",
-                  height: "1px",
-                  width: "50px",
-                  backgroundColor: "#e9c8bc",
-                  my: "20px"
-                }}
+                height={{ xs: "650px", md: "450px" }}
+                justifyContent="center"
+                px={{ md: "15px" }}
+                _focus={{ outline: "none" }}
+                position="relative"
               >
-                <FeaturedHeading>
-                  {RichText.render(home.packages_heading)}
-                </FeaturedHeading>
-              </PseudoBox>
-              <FeaturedSubheading>
-                {RichText.render(home.packages_subheading)}
-              </FeaturedSubheading>
-            </Box>
-            <Box flex={{ xs: "1 0 100%", md: "1 0 50%" }}>
-              <FeaturedHighlight
-                letterSpacing="1px"
-                as="em"
-                fontSize="14px"
-                textAlign="right"
-              >
-                {RichText.render(home.packages_highlight_text)}
-              </FeaturedHighlight>
-            </Box>
-          </Flex>
-          <DisjointedSliderContainer mb={{ md: "70px" }}>
-            <DisjointedSlider pinkDots initialSlide={2}>
-              {home.packages_carousel.map((item, index) => (
-                <PseudoBox
-                  height={{ xs: "650px", md: "450px" }}
-                  justifyContent="center"
-                  px={{ md: "15px" }}
-                  _focus={{ outline: "none" }}
-                  position="relative"
+                <HoverBox
+                  position="absolute"
+                  paddingRight="30px"
+                  height="100%"
+                  width="100%"
                 >
-                  <HoverBox
-                    position="absolute"
-                    paddingRight="30px"
+                  <Flex
+                    backgroundColor={colors.njabDarkPink}
                     height="100%"
                     width="100%"
+                    color="white"
+                    flexDirection="column"
+                    justifyContent="center"
+                    alignItems="center"
+                    fontWeight="500"
+                    padding="15px"
                   >
-                    <Flex
+                    <PseudoBox
+                      _after={{
+                        content: "''",
+                        display: "flex",
+                        height: "1px",
+                        width: "50px",
+                        backgroundColor: "#e9c8bc",
+                        my: "20px",
+                        mx: "auto"
+                      }}
+                    >
+                      <TextContainer
+                        as="h2"
+                        display="block"
+                        lineHeight="1.5"
+                        width="min-content"
+                        textTransform="uppercase"
+                        textAlign="center"
+                        letterSpacing="4px"
+                        fontSize="13px"
+                      >
+                        {item.linked_package.service_title[0].text}
+                      </TextContainer>
+                    </PseudoBox>
+                    <TextContainer
+                      as="em"
+                      display="table-caption"
+                      width="80%"
+                      textAlign="center"
+                      letterSpacing="2px"
+                      fontSize="12px"
+                    >
+                      {item.linked_package.service_preview_description[0].text}
+                    </TextContainer>
+                    <SlideButton
+                      fontWeight="700"
+                      letterSpacing="1px"
+                      fontFamily="Montserrat"
+                      to={`/service/${item.linked_package._meta.uid}`}
+                    >
+                      Read More
+                    </SlideButton>
+                  </Flex>
+                </HoverBox>
+                <PackagesFlex
+                  fluid={item.packages_slide_imageSharp.childImageSharp.fluid}
+                >
+                  <TextContainer alignSelf="flex-end">{`${
+                    index < 10 ? "0" : ""
+                  }${index + 1}`}</TextContainer>
+                  <TextContainer
+                    display="table-caption"
+                    width="min-content"
+                    textTransform="uppercase"
+                    letterSpacing="2px"
+                    fontSize="13px"
+                    pb={{ xs: "50px", md: "0" }}
+                  >
+                    {item.packages_slide_link[0].text}
+                  </TextContainer>
+                </PackagesFlex>
+              </PseudoBox>
+            ))}
+          </DisjointedSlider>
+        </DisjointedSliderContainer>
+      </Section>
+      <Section
+        outerProps={{
+          py: { xs: "60px", md: "120px" }
+        }}
+      >
+        <Flex color={colors.njabDarkPink} mb="80px">
+          <Box
+            flex={{ xs: "1 0 100%", md: "1 0 50%" }}
+            textTransform="uppercase"
+          >
+            <PseudoBox
+              _after={{
+                content: "''",
+                display: "flex",
+                height: "1px",
+                width: "50px",
+                backgroundColor: "#e9c8bc",
+                my: "20px"
+              }}
+            >
+              <FeaturedHeading>
+                {RichText.render(home.mosaic_heading)}
+              </FeaturedHeading>
+            </PseudoBox>
+            <FeaturedSubheading>
+              {RichText.render(home.mosaic_subheading)}
+            </FeaturedSubheading>
+          </Box>
+        </Flex>
+        <Mosaic
+          height="400px"
+          images={home.mosaic.map(item => ({
+            link: item.mosaic_link,
+            image: getPrismicImage(item.mosaic_image),
+            imageSharp: item.mosaic_imageSharp
+          }))}
+        />
+      </Section>
+
+      <Section
+        outerProps={{
+          backgroundColor: colors.njabMidPink,
+          pt: { xs: "60px", md: "120px" },
+          pb: { xs: "0", md: "120px" }
+        }}
+        maxWidth="initial"
+        fullWidth
+      >
+        <DoubleSlider
+          items={newTestimonials}
+          title={home.testimonial_title.reduce((total, item) => item.text, "")}
+          subtitle={home.testimonial_subtitle.reduce(
+            (total, item) => item.text,
+            ""
+          )}
+        />
+      </Section>
+
+      <Section
+        outerProps={{
+          pt: { xs: "60px", md: "120px" },
+          pb: { xs: "0", md: "120px" }
+        }}
+        maxWidth="initial"
+        fullWidth
+      >
+        <Flex
+          color={colors.njabDarkPink}
+          maxWidth={`${dimensions.maxwidthDesktop}px`}
+          width="100%"
+          margin="0 auto"
+          mb="80px"
+          flexWrap="wrap"
+          px={{
+            xs: `${dimensions.paddingHorizontalMobile}em`,
+            md: 0
+          }}
+        >
+          <Box
+            flex={{ xs: "1 0 100%", md: "1 0 50%" }}
+            textTransform="uppercase"
+          >
+            <PseudoBox
+              _after={{
+                content: "''",
+                display: "flex",
+                height: "1px",
+                width: "50px",
+                backgroundColor: "#e9c8bc",
+                my: "20px"
+              }}
+            >
+              <FeaturedHeading>
+                {RichText.render(home.journal_heading)}
+              </FeaturedHeading>
+            </PseudoBox>
+            <FeaturedSubheading>
+              {RichText.render(home.journal_subheading)}
+            </FeaturedSubheading>
+          </Box>
+          <Box flex={{ xs: "1 0 100%", md: "1 0 50%" }}>
+            <FeaturedHighlight
+              letterSpacing="1px"
+              as="em"
+              fontSize="14px"
+              textAlign="right"
+            >
+              {RichText.render(home.journal_highlight_text)}
+            </FeaturedHighlight>
+          </Box>
+        </Flex>
+        <DisjointedSliderContainer mb={{ md: "70px" }}>
+          <DisjointedSlider pinkDots slidesToShow={1}>
+            {home.journal_carousel.map((item, index) => {
+              console.log(
+                item.journal_post_link.post_hero_imageSharp.childImageSharp
+                  .fluid
+              );
+              return (
+                item.journal_post_link && (
+                  <PseudoBox
+                    height="600px"
+                    justifyContent="center"
+                    px={{ md: "15px" }}
+                    _focus={{ outline: "none" }}
+                    position="relative"
+                    overflow="hidden"
+                  >
+                    <HoverFlex
                       backgroundColor={colors.njabDarkPink}
+                      position="absolute"
+                      height="100%"
+                      width="100%"
+                      color="white"
+                      flexDirection="column"
+                      justifyContent="center"
+                      alignItems="center"
+                      fontWeight="500"
+                      paddingRight="15px"
+                    >
+                      <Text
+                        textTransform="uppercase"
+                        letterSpacing="3px"
+                        fontSize="14px"
+                        fontFamily="Montserrat"
+                      >
+                        <Moment format="MMMM D, YYYY">
+                          {item.journal_post_link.post_date}
+                        </Moment>
+                      </Text>
+                      <Box
+                        width="75px"
+                        height="2px"
+                        backgroundColor="white"
+                        my="20px"
+                      />
+                      <Heading
+                        as="h1"
+                        textTransform="uppercase"
+                        letterSpacing="8px"
+                        fontSize="32px"
+                        my="20px"
+                        fontFamily="Montserrat"
+                        px="20px"
+                        textAlign="center"
+                      >
+                        {item.journal_post_link.post_title.reduce(
+                          (total, item) => item.text,
+                          ""
+                        )}
+                      </Heading>
+                      <Text
+                        as="em"
+                        width="50%"
+                        fontSize="18px"
+                        fontWeight="500"
+                        my="30px"
+                        textAlign="center"
+                        fontFamily="Montserrat"
+                      >
+                        {RichText.render(
+                          item.journal_post_link.post_preview_description
+                        )}
+                      </Text>
+                      <LinkButton
+                        fontWeight="700"
+                        letterSpacing="1px"
+                        fontFamily="Montserrat"
+                        to={`/blog/${item.journal_post_link._meta.uid}`}
+                      >
+                        Read More
+                      </LinkButton>
+                    </HoverFlex>
+                    <Flex
                       height="100%"
                       width="100%"
                       color="white"
@@ -460,353 +756,62 @@ const RenderBody = ({ home, projects, meta, posts }) => {
                       fontWeight="500"
                       padding="15px"
                     >
-                      <PseudoBox
-                        _after={{
-                          content: "''",
-                          display: "flex",
-                          height: "1px",
-                          width: "50px",
-                          backgroundColor: "#e9c8bc",
-                          my: "20px",
-                          mx: "auto"
-                        }}
-                      >
-                        <TextContainer
-                          as="h2"
-                          display="block"
-                          lineHeight="1.5"
-                          width="min-content"
-                          textTransform="uppercase"
-                          textAlign="center"
-                          letterSpacing="4px"
-                          fontSize="13px"
-                        >
-                          {item.linked_package.service_title[0].text}
-                        </TextContainer>
-                      </PseudoBox>
-                      <TextContainer
-                        as="em"
-                        display="table-caption"
-                        width="80%"
-                        textAlign="center"
-                        letterSpacing="2px"
-                        fontSize="12px"
-                      >
-                        {
-                          item.linked_package.service_preview_description[0]
-                            .text
-                        }
-                      </TextContainer>
-                      <SlideButton
-                        fontWeight="700"
-                        letterSpacing="1px"
+                      <Text
+                        textTransform="uppercase"
+                        letterSpacing="3px"
+                        fontSize="14px"
                         fontFamily="Montserrat"
-                        to={`/service/${item.linked_package._meta.uid}`}
                       >
-                        Read More
-                      </SlideButton>
-                    </Flex>
-                  </HoverBox>
-                  <Flex
-                    height="100%"
-                    width="100%"
-                    color="white"
-                    flexDirection="column"
-                    justifyContent="space-between"
-                    background={`url('${getPrismicImage(
-                      item.packages_slide_image
-                    )}')`}
-                    backgroundSize="cover"
-                    fontWeight="500"
-                    padding="15px"
-                  >
-                    <TextContainer alignSelf="flex-end">{`${
-                      index < 10 ? "0" : ""
-                    }${index + 1}`}</TextContainer>
-                    <TextContainer
-                      display="table-caption"
-                      width="min-content"
-                      textTransform="uppercase"
-                      letterSpacing="2px"
-                      fontSize="13px"
-                      pb={{ xs: "50px", md: "0" }}
-                    >
-                      {item.packages_slide_link[0].text}
-                    </TextContainer>
-                  </Flex>
-                </PseudoBox>
-              ))}
-            </DisjointedSlider>
-          </DisjointedSliderContainer>
-        </Section>
-      </LazyLoad>
-      <LazyLoad placeholder={<Skeleton />}>
-        <Section
-          outerProps={{
-            py: { xs: "60px", md: "120px" }
-          }}
-        >
-          <Flex color={colors.njabDarkPink} mb="80px">
-            <Box
-              flex={{ xs: "1 0 100%", md: "1 0 50%" }}
-              textTransform="uppercase"
-            >
-              <PseudoBox
-                _after={{
-                  content: "''",
-                  display: "flex",
-                  height: "1px",
-                  width: "50px",
-                  backgroundColor: "#e9c8bc",
-                  my: "20px"
-                }}
-              >
-                <FeaturedHeading>
-                  {RichText.render(home.mosaic_heading)}
-                </FeaturedHeading>
-              </PseudoBox>
-              <FeaturedSubheading>
-                {RichText.render(home.mosaic_subheading)}
-              </FeaturedSubheading>
-            </Box>
-          </Flex>
-          <Mosaic
-            height="400px"
-            images={home.mosaic.map(item => getPrismicImage(item.mosaic_image))}
-          />
-        </Section>
-      </LazyLoad>
-
-      <LazyLoad placeholder={<Skeleton />}>
-        <Section
-          outerProps={{
-            backgroundColor: colors.njabMidPink,
-            pt: { xs: "60px", md: "120px" },
-            pb: { xs: "0", md: "120px" }
-          }}
-          maxWidth="initial"
-          fullWidth
-        >
-          <DoubleSlider
-            items={newTestimonials}
-            title={home.testimonial_title.reduce(
-              (total, item) => item.text,
-              ""
-            )}
-            subtitle={home.testimonial_subtitle.reduce(
-              (total, item) => item.text,
-              ""
-            )}
-          />
-        </Section>
-      </LazyLoad>
-      <LazyLoad placeholder={<Skeleton />}>
-        <Section
-          outerProps={{
-            pt: { xs: "60px", md: "120px" },
-            pb: { xs: "0", md: "120px" }
-          }}
-          maxWidth="initial"
-          fullWidth
-        >
-          <Flex
-            color={colors.njabDarkPink}
-            maxWidth={`${dimensions.maxwidthDesktop}px`}
-            width="100%"
-            margin="0 auto"
-            mb="80px"
-            flexWrap="wrap"
-            px={{
-              xs: `${dimensions.paddingHorizontalMobile}em`,
-              md: 0
-            }}
-          >
-            <Box
-              flex={{ xs: "1 0 100%", md: "1 0 50%" }}
-              textTransform="uppercase"
-            >
-              <PseudoBox
-                _after={{
-                  content: "''",
-                  display: "flex",
-                  height: "1px",
-                  width: "50px",
-                  backgroundColor: "#e9c8bc",
-                  my: "20px"
-                }}
-              >
-                <FeaturedHeading>
-                  {RichText.render(home.journal_heading)}
-                </FeaturedHeading>
-              </PseudoBox>
-              <FeaturedSubheading>
-                {RichText.render(home.journal_subheading)}
-              </FeaturedSubheading>
-            </Box>
-            <Box flex={{ xs: "1 0 100%", md: "1 0 50%" }}>
-              <FeaturedHighlight
-                letterSpacing="1px"
-                as="em"
-                fontSize="14px"
-                textAlign="right"
-              >
-                {RichText.render(home.journal_highlight_text)}
-              </FeaturedHighlight>
-            </Box>
-          </Flex>
-          <DisjointedSliderContainer mb={{ md: "70px" }}>
-            <DisjointedSlider pinkDots slidesToShow={1}>
-              {home.journal_carousel.map(
-                (item, index) =>
-                  item.journal_post_link && (
-                    <PseudoBox
-                      height="600px"
-                      justifyContent="center"
-                      px={{ md: "15px" }}
-                      _focus={{ outline: "none" }}
-                      position="relative"
-                      overflow="hidden"
-                    >
-                      <HoverFlex
-                        backgroundColor={colors.njabDarkPink}
-                        position="absolute"
-                        height="100%"
-                        width="100%"
-                        color="white"
-                        flexDirection="column"
-                        justifyContent="center"
-                        alignItems="center"
-                        fontWeight="500"
-                        paddingRight="15px"
-                      >
-                        <Text
-                          textTransform="uppercase"
-                          letterSpacing="3px"
-                          fontSize="14px"
-                          fontFamily="Montserrat"
-                        >
-                          <Moment format="MMMM D, YYYY">
-                            {item.journal_post_link.post_date}
-                          </Moment>
-                        </Text>
-                        <Box
-                          width="75px"
-                          height="2px"
-                          backgroundColor="white"
-                          my="20px"
-                        />
-                        <Heading
-                          as="h1"
-                          textTransform="uppercase"
-                          letterSpacing="8px"
-                          fontSize="32px"
-                          my="20px"
-                          fontFamily="Montserrat"
-                          px="20px"
-                          textAlign="center"
-                        >
-                          {item.journal_post_link.post_title.reduce(
-                            (total, item) => item.text,
-                            ""
-                          )}
-                        </Heading>
-                        <Text
-                          as="em"
-                          width="50%"
-                          fontSize="18px"
-                          fontWeight="500"
-                          my="30px"
-                          textAlign="center"
-                          fontFamily="Montserrat"
-                        >
-                          {RichText.render(
-                            item.journal_post_link.post_preview_description
-                          )}
-                        </Text>
-                        <LinkButton
-                          fontWeight="700"
-                          letterSpacing="1px"
-                          fontFamily="Montserrat"
-                          to={`/blog/${item.journal_post_link._meta.uid}`}
-                        >
-                          Read More
-                        </LinkButton>
-                      </HoverFlex>
-                      <Flex
-                        height="100%"
-                        width="100%"
-                        color="white"
-                        flexDirection="column"
-                        justifyContent="center"
-                        alignItems="center"
-                        fontWeight="500"
-                        padding="15px"
-                      >
-                        <Text
-                          textTransform="uppercase"
-                          letterSpacing="3px"
-                          fontSize="14px"
-                          fontFamily="Montserrat"
-                        >
-                          <Moment format="MMMM D, YYYY">
-                            {item.journal_post_link.post_date}
-                          </Moment>
-                        </Text>
-                        <Box
-                          width="75px"
-                          height="2px"
-                          backgroundColor="white"
-                          my="20px"
-                        />
-                        <Heading
-                          as="h1"
-                          textTransform="uppercase"
-                          letterSpacing="8px"
-                          fontSize="32px"
-                          my="20px"
-                          fontFamily="Montserrat"
-                          px="20px"
-                          textAlign="center"
-                        >
-                          {item.journal_post_link.post_title.reduce(
-                            (total, item) => item.text,
-                            ""
-                          )}
-                        </Heading>
-                        <Heading
-                          as="h2"
-                          textTransform="uppercase"
-                          letterSpacing="4px"
-                          fontSize="18px"
-                          fontWeight="500"
-                          my="30px"
-                          fontFamily="Montserrat"
-                        >
-                          Written By: {item.journal_post_link.post_author}
-                        </Heading>
-                      </Flex>
-                      <JournalImage
-                        ml={{ md: "-15px" }}
-                        px={{ md: "15px" }}
-                        data-src={getPrismicImage(
-                          item.journal_post_link.post_hero_image
-                        )}
-                        src={getPrismicImage(
-                          item.journal_post_link.post_hero_image
-                        )}
-                        alt={"Journal Slide Image"}
-                        width={{ xs: "auto", md: "100%" }}
-                        style={{
-                          filter: "brightness(0.6)"
-                        }}
+                        <Moment format="MMMM D, YYYY">
+                          {item.journal_post_link.post_date}
+                        </Moment>
+                      </Text>
+                      <Box
+                        width="75px"
+                        height="2px"
+                        backgroundColor="white"
+                        my="20px"
                       />
-                    </PseudoBox>
-                  )
-              )}
-            </DisjointedSlider>
-          </DisjointedSliderContainer>
-        </Section>
-      </LazyLoad>
+                      <Heading
+                        as="h1"
+                        textTransform="uppercase"
+                        letterSpacing="8px"
+                        fontSize="32px"
+                        my="20px"
+                        fontFamily="Montserrat"
+                        px="20px"
+                        textAlign="center"
+                      >
+                        {item.journal_post_link.post_title.reduce(
+                          (total, item) => item.text,
+                          ""
+                        )}
+                      </Heading>
+                      <Heading
+                        as="h2"
+                        textTransform="uppercase"
+                        letterSpacing="4px"
+                        fontSize="18px"
+                        fontWeight="500"
+                        my="30px"
+                        fontFamily="Montserrat"
+                      >
+                        Written By: {item.journal_post_link.post_author}
+                      </Heading>
+                    </Flex>
+                    <JournalImageSharp
+                      fluid={
+                        item.journal_post_link.post_hero_imageSharp
+                          .childImageSharp.fluid
+                      }
+                    />
+                  </PseudoBox>
+                )
+              );
+            })}
+          </DisjointedSlider>
+        </DisjointedSliderContainer>
+      </Section>
     </>
   );
 };
@@ -892,6 +897,13 @@ export const query = graphql`
             packages_highlight_text
             packages_carousel {
               packages_slide_image
+              packages_slide_imageSharp {
+                childImageSharp {
+                  fluid(quality: 100) {
+                    ...GatsbyImageSharpFluid
+                  }
+                }
+              }
               packages_slide_link
               linked_package {
                 ... on PRISMIC_Service {
@@ -912,6 +924,13 @@ export const query = graphql`
                 ... on PRISMIC_Post {
                   post_title
                   post_hero_image
+                  post_hero_imageSharp {
+                    childImageSharp {
+                      fluid(quality: 100) {
+                        ...GatsbyImageSharpFluid
+                      }
+                    }
+                  }
                   post_date
                   post_author
                   post_category
@@ -935,6 +954,66 @@ export const query = graphql`
 
             mosaic {
               mosaic_image
+              mosaic_imageSharp {
+                childImageSharp {
+                  fluid(quality: 100) {
+                    ...GatsbyImageSharpFluid
+                  }
+                }
+              }
+              mosaic_link {
+                ... on PRISMIC__ExternalLink {
+                  url
+                }
+                ... on PRISMIC_Service {
+                  _meta {
+                    uid
+                    type
+                  }
+                }
+                ... on PRISMIC_Portfolio_page {
+                  _meta {
+                    uid
+                    type
+                  }
+                }
+                ... on PRISMIC_Post {
+                  _meta {
+                    type
+                    uid
+                  }
+                }
+                ... on PRISMIC_Project {
+                  _meta {
+                    uid
+                    type
+                  }
+                }
+                ... on PRISMIC_Contact_page {
+                  _meta {
+                    type
+                    uid
+                  }
+                }
+                ... on PRISMIC_Blog_page {
+                  _meta {
+                    type
+                    uid
+                  }
+                }
+                ... on PRISMIC_About_page {
+                  _meta {
+                    type
+                    uid
+                  }
+                }
+                ... on PRISMIC_Services_page {
+                  _meta {
+                    type
+                    uid
+                  }
+                }
+              }
             }
             mosaic_heading
             mosaic_subheading
