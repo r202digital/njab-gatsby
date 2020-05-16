@@ -466,7 +466,11 @@ const Project = ({ project, meta, allProjects, fullPath, home }) => {
           </Flex>
           <Mosaic
             height="400px"
-            images={home.mosaic.map(item => getPrismicImage(item.mosaic_image))}
+            images={home.mosaic.map(item => ({
+              link: item.mosaic_link,
+              image: getPrismicImage(item.mosaic_image),
+              imageSharp: item.mosaic_imageSharp
+            }))}
           />
         </Section>
         <Section alignItems="flex-end">
@@ -554,6 +558,66 @@ export const query = graphql`
           node {
             mosaic {
               mosaic_image
+              mosaic_imageSharp {
+                childImageSharp {
+                  fluid(quality: 100) {
+                    ...GatsbyImageSharpFluid
+                  }
+                }
+              }
+              mosaic_link {
+                ... on PRISMIC__ExternalLink {
+                  url
+                }
+                ... on PRISMIC_Service {
+                  _meta {
+                    uid
+                    type
+                  }
+                }
+                ... on PRISMIC_Portfolio_page {
+                  _meta {
+                    uid
+                    type
+                  }
+                }
+                ... on PRISMIC_Post {
+                  _meta {
+                    type
+                    uid
+                  }
+                }
+                ... on PRISMIC_Project {
+                  _meta {
+                    uid
+                    type
+                  }
+                }
+                ... on PRISMIC_Contact_page {
+                  _meta {
+                    type
+                    uid
+                  }
+                }
+                ... on PRISMIC_Blog_page {
+                  _meta {
+                    type
+                    uid
+                  }
+                }
+                ... on PRISMIC_About_page {
+                  _meta {
+                    type
+                    uid
+                  }
+                }
+                ... on PRISMIC_Services_page {
+                  _meta {
+                    type
+                    uid
+                  }
+                }
+              }
             }
             mosaic_heading
             mosaic_subheading

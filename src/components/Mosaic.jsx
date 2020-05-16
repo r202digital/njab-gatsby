@@ -42,9 +42,13 @@ const Mosaic = ({ children, height = "200px", images, ...props }) => {
       {images.slice(0, 7).map((item, index) => (
         <Link
           href={
-            item.link.hasOwnProperty("url")
-              ? item.link.url
-              : `/${item.link._meta.type}/${item.link._meta.uid}`
+            !!item.link
+              ? item.link.hasOwnProperty("url")
+                ? item.link.url
+                : item.link.hasOwnProperty("_meta")
+                ? `/${item.link._meta.type}/${item.link._meta.uid}`
+                : item.link
+              : ""
           }
           gridArea={{ xs: gridAreas[index].xs, md: gridAreas[index].md }}
         >

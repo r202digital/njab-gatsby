@@ -5,27 +5,19 @@ import colors from "styles/colors";
 import dimensions from "styles/dimensions";
 import theme from "styles/theme";
 
-import Logo from "components/_ui/Logo";
+import FooterContactForm from "components/form/FooterContactForm";
 import njabLogo from "images/njab/njab-logo.png";
 import {
   Image,
   Box,
   Text,
-  InputGroup,
-  Input,
-  InputLeftAddon,
   Heading,
   Flex,
   List,
   ListItem,
   Link as ExternalLink
 } from "@chakra-ui/core";
-import {
-  FaFacebookF,
-  FaTwitter,
-  FaInstagram,
-  FaArrowRight
-} from "react-icons/fa";
+import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
 import {
   getPrismicText,
   getPrismicDocumentLink
@@ -131,124 +123,7 @@ const Footer = ({ data }) => {
             </ExternalLink>
           </Flex>
         </Box>
-        <Box flex="2" px={{ xs: "2rem", md: "15%" }}>
-          <Heading
-            as="h1"
-            fontSize="18px"
-            letterSpacing="2px"
-            marginBottom="20px"
-            fontWeight="400"
-            textTransform="uppercase"
-            textAlign="center"
-            fontFamily={theme.fonts.body}
-          >
-            Questions?
-          </Heading>
-          <Box>
-            <InputGroup>
-              <InputLeftAddon
-                borderRadius="0px"
-                backgroundColor="transparent"
-                borderLeft="initial"
-                borderTop="initial"
-                borderColor="#de8e83"
-                paddingRight="10px"
-                paddingLeft="0px"
-              >
-                <Box as={FaArrowRight} size="20px" />
-              </InputLeftAddon>
-              <Input
-                placeholder="FULL NAME"
-                aria-label="FULL NAME"
-                fontSize="12px"
-                paddingLeft="5px"
-                size="sm"
-                mb="10px"
-                borderTop="none"
-                borderRight="none"
-                borderLeft="none"
-                borderRadius="0px"
-                fontFamily={theme.fonts.body}
-                borderColor="#de8e83"
-                _hover={{
-                  borderColor: "#de8e83"
-                }}
-                _focus={{
-                  boxShadow: "initial",
-                  borderColor: "#de8e83"
-                }}
-              />
-            </InputGroup>
-            <InputGroup>
-              <InputLeftAddon
-                borderRadius="0px"
-                backgroundColor="transparent"
-                borderLeft="initial"
-                borderTop="initial"
-                borderColor="#de8e83"
-                paddingRight="10px"
-                paddingLeft="0px"
-              >
-                <Box as={FaArrowRight} size="20px" />
-              </InputLeftAddon>
-              <Input
-                placeholder="CONTACT NUMBER"
-                aria-label="CONTACT NUMBER"
-                fontSize="12px"
-                paddingLeft="5px"
-                size="sm"
-                mb="10px"
-                borderTop="none"
-                borderRight="none"
-                borderLeft="none"
-                borderRadius="0px"
-                fontFamily={theme.fonts.body}
-                borderColor="#de8e83"
-                _hover={{
-                  borderColor: "#de8e83"
-                }}
-                _focus={{
-                  boxShadow: "initial",
-                  borderColor: "#de8e83"
-                }}
-              />
-            </InputGroup>
-            <InputGroup>
-              <InputLeftAddon
-                borderRadius="0px"
-                backgroundColor="transparent"
-                borderLeft="initial"
-                borderTop="initial"
-                borderColor="#de8e83"
-                paddingRight="10px"
-                paddingLeft="0px"
-              >
-                <Box as={FaArrowRight} size="20px" />
-              </InputLeftAddon>
-              <Input
-                placeholder="EMAIL ADDRESS"
-                aria-label="EMAIL ADDRESS"
-                fontSize="12px"
-                paddingLeft="5px"
-                size="sm"
-                mb="10px"
-                borderTop="none"
-                borderRight="none"
-                borderLeft="none"
-                borderRadius="0px"
-                fontFamily={theme.fonts.body}
-                borderColor="#de8e83"
-                _hover={{
-                  borderColor: "#de8e83"
-                }}
-                _focus={{
-                  boxShadow: "initial",
-                  borderColor: "#de8e83"
-                }}
-              />
-            </InputGroup>
-          </Box>
-        </Box>
+        <FooterContactForm />
         <Box flex="1" px={{ xs: "2rem", md: 0 }}>
           <Heading
             as="h1"

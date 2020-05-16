@@ -14,6 +14,7 @@
     "classnames": "^2.2.6",
     "dayjs": "^1.8.22",
     "emotion-theming": "^10.0.27",
+    "final-form": "^4.19.1",
     "gatsby": "^2.12.0",
     "gatsby-background-image": "^1.1.1",
     "gatsby-image": "^2.2.39",
@@ -26,6 +27,7 @@
     "gatsby-plugin-manifest": "^2.2.4",
     "gatsby-plugin-offline": "^3.0.32",
     "gatsby-plugin-preact": "^3.1.25",
+    "gatsby-plugin-preload-fonts": "^1.2.1",
     "gatsby-plugin-react-helmet": "^3.1.8",
     "gatsby-plugin-resolve-src": "^2.0.0",
     "gatsby-plugin-sass": "^2.0.11",
@@ -52,6 +54,7 @@
     "react-burger-menu": "^2.6.13",
     "react-dom": "^16.9.0",
     "react-emoji": "^0.5.0",
+    "react-final-form-hooks": "^2.0.2",
     "react-helmet": "^5.2.1",
     "react-icons": "^3.9.0",
     "react-lazyload": "^2.6.5",
@@ -66,7 +69,8 @@
     "react-scroll": "^1.7.16",
     "react-scroll-to": "^3.0.0-beta.4",
     "react-slick": "^0.25.2",
-    "smooth-scroll": "^16.0.3"
+    "smooth-scroll": "^16.0.3",
+    "typeface-montserrat": "^0.0.75"
   },
   "devDependencies": {
     "gatsby-plugin-remove-trailing-slashes": "^2.0.11",
@@ -86,6 +90,7 @@
     "start": "npm run develop",
     "deploy": "now --prod",
     "serve": "gatsby serve",
+    "preload-fonts": "gatsby-preload-fonts",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
   },
   "repository": {

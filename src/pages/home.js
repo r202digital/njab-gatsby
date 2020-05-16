@@ -661,10 +661,6 @@ const RenderBody = ({ home, projects, meta, posts }) => {
         <DisjointedSliderContainer mb={{ md: "70px" }}>
           <DisjointedSlider pinkDots slidesToShow={1}>
             {home.journal_carousel.map((item, index) => {
-              console.log(
-                item.journal_post_link.post_hero_imageSharp.childImageSharp
-                  .fluid
-              );
               return (
                 item.journal_post_link && (
                   <PseudoBox

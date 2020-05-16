@@ -23,6 +23,7 @@ import BackgroundImage from "gatsby-background-image";
 
 const HeaderContainer = styled(BackgroundImage)`
   &.HeaderContainer--dark {
+    background-color: black;
     color: white;
   }
 
@@ -160,6 +161,7 @@ const Header = ({ navLinks, variant, children, background = {} }) => {
       fluid={background.sharp}
       backgroundSize={background.size}
       backgroundPosition={background.position}
+      // backgroundColor={`#000`}
     >
       <Drawer
         isOpen={isOpen}

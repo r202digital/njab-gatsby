@@ -10,6 +10,8 @@ const globalStyles = css`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100%;
+    font-family: "Montserrat", -apple-system, BlinkMacSystemFont, Helvetica,
+      sans-serif;
   }
 
   body {

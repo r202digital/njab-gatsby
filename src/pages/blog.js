@@ -85,186 +85,197 @@ const CategoryLink = styled(Link)`
   }
 `;
 
-const Blog = ({ meta, blog, posts }) => (
-  <>
-    <Helmet
-      title={`Our Journal | Not Just a Box Events`}
-      titleTemplate={`%s`}
-      meta={[
-        {
-          name: `description`,
-          content: meta.description
-        },
-        {
-          property: `og:title`,
-          content: `Our Journal | Not Just a Box Events`
-        },
-        {
-          property: `og:description`,
-          content: meta.description
-        },
-        {
-          property: `og:type`,
-          content: `website`
-        },
-        {
-          name: `twitter:card`,
-          content: `summary`
-        },
-        {
-          name: `twitter:creator`,
-          content: meta.author
-        },
-        {
-          name: `twitter:title`,
-          content: meta.title
-        },
-        {
-          name: `twitter:description`,
-          content: meta.description
-        }
-      ].concat(meta)}
-    />
-    <Layout
-      headerVariant="dark"
-      headerBackground={{
-        url: getPrismicImage(blog.page_hero_image),
-        sharp: blog.page_hero_imageSharp.childImageSharp.fluid,
-        size: "cover",
-        position: { md: "0 calc(50% + 35px)" },
-        highlight:
-          "linear-gradient(180deg,rgba(0,0,0,1) 0%,rgba(255,255,255,0) 100%)"
-      }}
-      headerChildren={
-        <Container
-          height="calc(70vh - 71px)"
-          justifyContent="flex-end"
-          alignItems="flex-start"
-          textAlign="center"
-          letterSpacing="2px"
-          color="white"
-        >
-          <PseudoBox
-            _after={{
-              content: "''",
-              display: "block",
-              height: "1px",
-              width: "50px",
-              backgroundColor: "white",
-              my: "20px"
-            }}
+const Blog = ({ meta, blog, posts }) => {
+  return (
+    <>
+      <Helmet
+        title={`Our Journal | Not Just a Box Events`}
+        titleTemplate={`%s`}
+        meta={[
+          {
+            name: `description`,
+            content: meta.description
+          },
+          {
+            property: `og:title`,
+            content: `Our Journal | Not Just a Box Events`
+          },
+          {
+            property: `og:description`,
+            content: meta.description
+          },
+          {
+            property: `og:type`,
+            content: `website`
+          },
+          {
+            name: `twitter:card`,
+            content: `summary`
+          },
+          {
+            name: `twitter:creator`,
+            content: meta.author
+          },
+          {
+            name: `twitter:title`,
+            content: meta.title
+          },
+          {
+            name: `twitter:description`,
+            content: meta.description
+          }
+        ].concat(meta)}
+      />
+      <Layout
+        headerVariant="dark"
+        headerBackground={{
+          url: getPrismicImage(blog.page_hero_image),
+          sharp: blog.page_hero_imageSharp.childImageSharp.fluid,
+          size: "cover",
+          position: { md: "0 calc(50% + 35px)" },
+          highlight:
+            "linear-gradient(180deg,rgba(0,0,0,1) 0%,rgba(255,255,255,0) 100%)"
+        }}
+        headerChildren={
+          <Container
+            height="calc(70vh - 71px)"
+            justifyContent="flex-end"
+            alignItems="flex-start"
+            textAlign="center"
+            letterSpacing="2px"
+            color="white"
           >
-            <Heading
-              as="h3"
-              fontSize="12px"
-              letterSpacing="2px"
-              fontWeight="400"
-              fontFamily="Montserrat"
-              mt={{ xs: "30px", md: "0" }}
+            <PseudoBox
+              _after={{
+                content: "''",
+                display: "block",
+                height: "1px",
+                width: "50px",
+                backgroundColor: "white",
+                my: "20px"
+              }}
             >
-              OUR STORY
-            </Heading>
-          </PseudoBox>
-          <Heading
-            as="h1"
-            letterSpacing="5px"
-            fontFamily="Montserrat"
-            fontSize="24px"
-          >
-            OUR JOURNAL
-          </Heading>
-          <Grid
-            width="100%"
-            gridTemplateColumns={{ xs: "100%", md: "auto 100px 1fr" }}
-            gridTemplateRows="1fr"
-            gridColumnGap="0px"
-            gridRowGap="0px"
-            fontSize="12px"
-            fontWeight="500"
-            mt={{ xs: "auto", md: "30px" }}
-            mb={{ xs: "30px" }}
-          >
-            <Text as="em" py="10px" paddingRight="20px" fontFamily="Montserrat">
-              BROWSE BY CATEGORY
-            </Text>
-            <Box
-              backgroundColor="white"
-              transform="rotate(30deg)"
-              mx="49px"
-              my="5px"
-              display={{ xs: "none", md: "initial" }}
-            />
-            <Flex width="100%" textAlign="initial" alignItems="center">
-              <List
-                display="flex"
-                width="100%"
-                textAlign="center"
-                flexWrap="wrap"
-                padding="0"
+              <Heading
+                as="h3"
+                fontSize="12px"
+                letterSpacing="2px"
+                fontWeight="400"
+                fontFamily="Montserrat"
+                mt={{ xs: "30px", md: "0" }}
               >
-                <ListItem py="5px" flex={{ xs: "1 0 100%", md: "1" }}>
-                  <CategoryLink href="/" color="white">
-                    ALL
-                  </CategoryLink>
-                </ListItem>
-
-                {blog.categories.map(item => (
-                  <ListItem
-                    flex={{ xs: "1 0 100%", md: "1" }}
-                    textTransform="uppercase"
-                    py="5px"
-                  >
+                OUR STORY
+              </Heading>
+            </PseudoBox>
+            <Heading
+              as="h1"
+              letterSpacing="5px"
+              fontFamily="Montserrat"
+              fontSize="24px"
+            >
+              OUR JOURNAL
+            </Heading>
+            <Grid
+              width="100%"
+              gridTemplateColumns={{ xs: "100%", md: "auto 100px 1fr" }}
+              gridTemplateRows="1fr"
+              gridColumnGap="0px"
+              gridRowGap="0px"
+              fontSize="12px"
+              fontWeight="500"
+              mt={{ xs: "auto", md: "30px" }}
+              mb={{ xs: "30px" }}
+            >
+              <Text
+                as="em"
+                py="10px"
+                paddingRight="20px"
+                fontFamily="Montserrat"
+              >
+                BROWSE BY CATEGORY
+              </Text>
+              <Box
+                backgroundColor="white"
+                transform="rotate(30deg)"
+                mx="49px"
+                my="5px"
+                display={{ xs: "none", md: "initial" }}
+              />
+              <Flex width="100%" textAlign="initial" alignItems="center">
+                <List
+                  display="flex"
+                  width="100%"
+                  textAlign="center"
+                  flexWrap="wrap"
+                  padding="0"
+                >
+                  <ListItem py="5px" flex={{ xs: "1 0 100%", md: "1" }}>
                     <CategoryLink href="/" color="white">
-                      {item.category[0].text}
+                      ALL
                     </CategoryLink>
                   </ListItem>
-                ))}
-              </List>
-            </Flex>
-          </Grid>
-        </Container>
-      }
-    >
-      <Section maxWidth="initial" fullWidth>
-        <Checkerboard items={posts} />
-      </Section>
 
-      <LazyLoad placeholder={<Skeleton />}>
-        <Section
-          outerProps={{
-            py: "80px"
-          }}
-        >
-          <Flex color={colors.njabDarkPink} mb="80px">
-            <Box flex="1 0 50%" textTransform="uppercase">
-              <PseudoBox
-                _after={{
-                  content: "''",
-                  display: "flex",
-                  height: "1px",
-                  width: "50px",
-                  backgroundColor: "#e9c8bc",
-                  my: "20px"
-                }}
-              >
-                <SectionHeading>
-                  {RichText.render(blog.follow_us_heading)}
-                </SectionHeading>
-              </PseudoBox>
-              <SectionSubheading>
-                {RichText.render(blog.follow_us_subheading)}
-              </SectionSubheading>
-            </Box>
-          </Flex>
-          <Mosaic
-            height="400px"
-            images={blog.mosaic.map(item => getPrismicImage(item.mosaic_image))}
-          />
+                  {blog.categories.map(item => (
+                    <ListItem
+                      flex={{ xs: "1 0 100%", md: "1" }}
+                      textTransform="uppercase"
+                      py="5px"
+                    >
+                      <CategoryLink href="/" color="white">
+                        {item.category[0].text}
+                      </CategoryLink>
+                    </ListItem>
+                  ))}
+                </List>
+              </Flex>
+            </Grid>
+          </Container>
+        }
+      >
+        <Section maxWidth="initial" fullWidth>
+          <Checkerboard items={posts} />
         </Section>
-      </LazyLoad>
-    </Layout>
-  </>
-);
+
+        <LazyLoad placeholder={<Skeleton />}>
+          <Section
+            outerProps={{
+              py: "80px"
+            }}
+          >
+            <Flex color={colors.njabDarkPink} mb="80px">
+              <Box flex="1 0 50%" textTransform="uppercase">
+                <PseudoBox
+                  _after={{
+                    content: "''",
+                    display: "flex",
+                    height: "1px",
+                    width: "50px",
+                    backgroundColor: "#e9c8bc",
+                    my: "20px"
+                  }}
+                >
+                  <SectionHeading>
+                    {RichText.render(blog.follow_us_heading)}
+                  </SectionHeading>
+                </PseudoBox>
+                <SectionSubheading>
+                  {RichText.render(blog.follow_us_subheading)}
+                </SectionSubheading>
+              </Box>
+            </Flex>
+            <Mosaic
+              height="400px"
+              images={blog.mosaic.map(item => ({
+                link: item.mosaic_link,
+                image: getPrismicImage(item.mosaic_image),
+                imageSharp: item.mosaic_imageSharp
+              }))}
+            />
+          </Section>
+        </LazyLoad>
+      </Layout>
+    </>
+  );
+};
 
 export default ({ data }) => {
   const posts = data.prismic.allPosts.edges.map(({ node }) => {
@@ -322,6 +333,66 @@ export const query = graphql`
             follow_us_subheading
             mosaic {
               mosaic_image
+              mosaic_imageSharp {
+                childImageSharp {
+                  fluid(quality: 100) {
+                    ...GatsbyImageSharpFluid
+                  }
+                }
+              }
+              mosaic_link {
+                ... on PRISMIC__ExternalLink {
+                  url
+                }
+                ... on PRISMIC_Service {
+                  _meta {
+                    uid
+                    type
+                  }
+                }
+                ... on PRISMIC_Portfolio_page {
+                  _meta {
+                    uid
+                    type
+                  }
+                }
+                ... on PRISMIC_Post {
+                  _meta {
+                    type
+                    uid
+                  }
+                }
+                ... on PRISMIC_Project {
+                  _meta {
+                    uid
+                    type
+                  }
+                }
+                ... on PRISMIC_Contact_page {
+                  _meta {
+                    type
+                    uid
+                  }
+                }
+                ... on PRISMIC_Blog_page {
+                  _meta {
+                    type
+                    uid
+                  }
+                }
+                ... on PRISMIC_About_page {
+                  _meta {
+                    type
+                    uid
+                  }
+                }
+                ... on PRISMIC_Services_page {
+                  _meta {
+                    type
+                    uid
+                  }
+                }
+              }
             }
             page_heading
             page_hero_image
