@@ -78,15 +78,17 @@ const MapSubheading = styled(Heading)`
 
 const Services = ({ services, meta }) => {
   const [isWedding, setIsWedding] = useState(true);
-  const filteredServices = services.node.wedding_checkerboard.filter(
-    ({ linked_service }) => {
-      const category = getPrismicText(
-        linked_service.service_category
-      ).toLowerCase();
-      const includeService = category.includes("wedding");
-      return includeService === isWedding;
+  const filteredServices = services.node.wedding_checkerboard.filter(item => {
+    const { linked_service } = item;
+    if (!linked_service) {
+      return false;
     }
-  );
+    const category = getPrismicText(
+      linked_service.service_category
+    ).toLowerCase();
+    const includeService = category.includes("wedding");
+    return includeService === isWedding;
+  });
   const checkerServices = filteredServices.map(({ linked_service }) => {
     return {
       title: getPrismicText(linked_service.service_title),
