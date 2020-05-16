@@ -87,7 +87,7 @@ const Footer = ({ data }) => {
         width="100%"
         flexDirection={{ xs: "column", md: "row" }}
       >
-        <Box flex="1" px={{ xs: "2rem", md: 0 }}>
+        <Box flex="0 0 25%" px={{ xs: "2rem", md: 0 }}>
           <Heading
             as="h1"
             fontSize="18px"
@@ -123,8 +123,7 @@ const Footer = ({ data }) => {
             </ExternalLink>
           </Flex>
         </Box>
-        <FooterContactForm />
-        <Box flex="1" px={{ xs: "2rem", md: 0 }}>
+        <Box flex="0 0 25%" px={{ xs: "2rem", md: 0 }}>
           <Heading
             as="h1"
             fontSize="18px"

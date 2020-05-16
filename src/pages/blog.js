@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Helmet from "react-helmet";
 import { graphql } from "gatsby";
@@ -28,56 +28,8 @@ import {
   List,
   ListItem
 } from "@chakra-ui/core";
-import leftFlower from "../images/njab/flower.png";
-import rightFlower from "../images/njab/flower2.png";
 import Container from "../components/Container";
 import { getPrismicText, getPrismicImage } from "../lib/PrismicFunctions";
-
-const BlogTitle = styled("h1")`
-  margin-bottom: 1em;
-`;
-
-const BlogGrid = styled("div")`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 2.5em;
-
-  @media (max-width: 1050px) {
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 1.5em;
-  }
-
-  @media (max-width: ${dimensions.maxwidthMobile}px) {
-    grid-template-columns: 1fr;
-    grid-gap: 2.5em;
-  }
-`;
-
-const MapHeading = styled(Heading)`
-  margin: 0;
-
-  * {
-    font-size: 12px;
-    letter-spacing: 2px;
-    font-weight: 400;
-    text-transform: uppercase;
-    font-family: Montserrat;
-    margin: 0;
-  }
-`;
-
-const MapSubheading = styled(Heading)`
-  margin: 0;
-
-  * {
-    font-size: 16px;
-    letter-spacing: 4px;
-    font-weight: 700;
-    text-transform: uppercase;
-    font-family: Montserrat;
-    margin: 0;
-  }
-`;
 
 const CategoryLink = styled(Link)`
   &:hover {
@@ -85,7 +37,11 @@ const CategoryLink = styled(Link)`
   }
 `;
 
-const Blog = ({ meta, blog, posts }) => {
+const Blog = ({ meta, blog, posts, categories }) => {
+  const [filter, setFilter] = useState("");
+  const newPosts = posts.filter(post => {
+    return !!filter ? post.category === filter : true;
+  });
   return (
     <>
       <Helmet
@@ -209,19 +165,31 @@ const Blog = ({ meta, blog, posts }) => {
                   padding="0"
                 >
                   <ListItem py="5px" flex={{ xs: "1 0 100%", md: "1" }}>
-                    <CategoryLink href="/" color="white">
+                    <CategoryLink
+                      onClick={e => {
+                        e.preventDefault();
+                        setFilter("");
+                      }}
+                      color="white"
+                    >
                       ALL
                     </CategoryLink>
                   </ListItem>
 
-                  {blog.categories.map(item => (
+                  {categories.map(item => (
                     <ListItem
                       flex={{ xs: "1 0 100%", md: "1" }}
                       textTransform="uppercase"
                       py="5px"
                     >
-                      <CategoryLink href="/" color="white">
-                        {item.category[0].text}
+                      <CategoryLink
+                        onClick={e => {
+                          e.preventDefault();
+                          setFilter(item);
+                        }}
+                        color="white"
+                      >
+                        {item.toUpperCase()}
                       </CategoryLink>
                     </ListItem>
                   ))}
@@ -232,7 +200,7 @@ const Blog = ({ meta, blog, posts }) => {
         }
       >
         <Section maxWidth="initial" fullWidth>
-          <Checkerboard items={posts} />
+          <Checkerboard items={newPosts} />
         </Section>
 
         <LazyLoad placeholder={<Skeleton />}>
@@ -281,19 +249,36 @@ export default ({ data }) => {
   const posts = data.prismic.allPosts.edges.map(({ node }) => {
     return {
       title: getPrismicText(node.post_title),
+      category: getPrismicText(node.post_category)
+        .toLowerCase()
+        .replace(/\b\w/g, l => l.toUpperCase()),
       description: getPrismicText(node.post_preview_description),
       link_text: "Read more",
       image: getPrismicImage(node.post_hero_image),
       link: `/blog/${node._meta.uid}`
     };
   });
+
+  const categories = data.prismic.allPosts.edges.reduce((total, item) => {
+    const { node } = item;
+    const arr = total;
+    const category = getPrismicText(node.post_category)
+      .toLowerCase()
+      .replace(/\b\w/g, l => l.toUpperCase());
+    if (!arr.includes(category)) {
+      arr.push(category);
+    }
+    return arr;
+  }, []);
   const blog = data.prismic.allBlog_pages.edges.slice(0, 1).pop();
 
   const meta = data.site.siteMetadata;
 
   if (!blog) return null;
 
-  return <Blog blog={blog.node} posts={posts} meta={meta} />;
+  return (
+    <Blog blog={blog.node} posts={posts} meta={meta} categories={categories} />
+  );
 };
 
 Blog.propTypes = {

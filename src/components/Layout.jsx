@@ -15,6 +15,7 @@ import "styles/fonts.scss";
 import preview from "../images/preview.png";
 import { ThemeProvider } from "@chakra-ui/core";
 import theme from "../styles/theme";
+import MessengerCustomerChat from "react-messenger-customer-chat";
 
 const LayoutContainer = styled.div``;
 
@@ -81,6 +82,13 @@ const Layout = ({
       return (
         <>
           <Helmet />
+          <MessengerCustomerChat
+            pageId="176927569055665"
+            appId="1678638095724206"
+            themeColor="#ea7674"
+            loggedInGreeting="Hi, I'm Debbie! Can I help you with anything?"
+            loggedOutGreeting="Hi, I'm Debbie! Can I help you with anything?"
+          />
           <ThemeProvider theme={theme}>
             <LayoutContainer className="div">
               <Global styles={[globalStyles, typeStyles, logoStyles]} />
