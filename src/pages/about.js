@@ -209,24 +209,6 @@ const About = ({ meta, about }) => (
             >
               {RichText.render(about.node.page_highlight_text)}
             </HighlightText>
-            <Box marginTop="auto">
-              <Button
-                display="block"
-                border="1px solid #e9c8bc"
-                borderRadius="0"
-                backgroundColor="white"
-                width="auto"
-                px={{ xs: "25%", md: "50px" }}
-                py={{ xs: "20px", md: "10px" }}
-                mx={{ xs: "auto", md: "0" }}
-                height="auto"
-                fontSize="14px"
-                color="inherit"
-                fontFamily="Montserrat"
-              >
-                GET IN TOUCH
-              </Button>
-            </Box>
           </Flex>
         </Flex>
       </Section>

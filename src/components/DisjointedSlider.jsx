@@ -21,12 +21,12 @@ const SliderContainer = styled(Slider)`
         button {
           &:before {
             color: ${colors.njabDotsPinkLight};
-            opacity: 1;
+            opacity: 0.75;
             font-size: 8px;
 
             @media (min-width: 768px) {
               color: #9c8881;
-              opacity: 0.5;
+              opacity: 0.4;
               font-size: 6px;
             }
           }
@@ -35,9 +35,11 @@ const SliderContainer = styled(Slider)`
         &.slick-active {
           button {
             &:before {
-              color: ${colors.njabDarkPink};
+              color: white;
+              opacity: 1;
               @media (min-width: 768px) {
                 color: #d89a8d;
+                opacity: 1;
               }
             }
           }

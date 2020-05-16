@@ -466,7 +466,7 @@ const RenderBody = ({ home, projects, meta, posts }) => {
               >
                 <HoverBox
                   position="absolute"
-                  paddingRight="30px"
+                  paddingRight={{ md: "30px" }}
                   height="100%"
                   width="100%"
                 >
