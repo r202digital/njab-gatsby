@@ -6,14 +6,13 @@ import { Global } from "@emotion/core";
 import globalStyles from "styles/global";
 import typeStyles from "styles/typography";
 import logoStyles from "styles/logo";
-// import listStyles from "styles/list";
 import dimensions from "styles/dimensions";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import Helmet from "react-helmet";
 import "styles/fonts.scss";
 import preview from "../images/preview.png";
-import { ThemeProvider } from "@chakra-ui/core";
+import ThemeProvider from "@chakra-ui/core/dist/ThemeProvider";
 import theme from "../styles/theme";
 import MessengerCustomerChat from "react-messenger-customer-chat";
 

@@ -1,17 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Helmet from "react-helmet";
-import Moment from "react-moment";
+import dayjs from "dayjs";
 import { graphql } from "gatsby";
-import { RichText } from "prismic-reactjs";
 import styled from "@emotion/styled";
 import colors from "styles/colors";
-import dimensions from "styles/dimensions";
 
 import Layout from "components/Layout";
 import Section from "components/Section";
 import DisjointedSlider from "components/DisjointedSlider";
-import Logo from "components/_ui/Logo";
 import Link from "components/_ui/Link";
 import { FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/fa";
 import { FiArrowUp } from "react-icons/fi";
@@ -20,33 +17,28 @@ import { MdPersonOutline } from "react-icons/md";
 import { GoMail } from "react-icons/go";
 import { animateScroll as scroll } from "react-scroll";
 
-import {
-  Image,
-  List,
-  ListItem,
-  Flex,
-  Grid,
-  Heading,
-  PseudoBox,
-  Box,
-  Text,
-  Icon
-} from "@chakra-ui/core";
+import Image from "@chakra-ui/core/dist/Image";
+import Flex from "@chakra-ui/core/dist/Flex";
+import Grid from "@chakra-ui/core/dist/Grid";
+import Heading from "@chakra-ui/core/dist/Heading";
+import PseudoBox from "@chakra-ui/core/dist/PseudoBox";
+import Box from "@chakra-ui/core/dist/Box";
+import Text from "@chakra-ui/core/dist/Text";
 import Container from "../components/Container";
 import { getPrismicImage } from "../lib/PrismicFunctions";
+import Loadable from "react-loadable";
 
-const PostHeroContainer = styled("div")`
-  max-height: 500px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  margin-bottom: 3em;
-
-  img {
-    width: 100%;
-  }
-`;
+const PrismicRichText = Loadable({
+  loader: () => import("prismic-reactjs"),
+  delay: 50,
+  render(loaded, props) {
+    const { RichText } = loaded;
+    return <RichText {...props} />;
+  },
+  loading() {
+    return <div />;
+  },
+});
 
 const PostHeroAnnotation = styled("div")`
   padding-top: 0.25em;
@@ -138,20 +130,20 @@ const journal = [
     title: "LOREM IPSUM DOLOR SIT AMET",
     image: "/home-assets/Bottom1.png",
     date: "December 2, 2019",
-    author: "Alahna Sam Sy"
+    author: "Alahna Sam Sy",
   },
   {
     title: "LOREM IPSUM DOLOR SIT AMET",
     image: "/home-assets/Bottom2.png",
     date: "December 2, 2019",
-    author: "Alahna Sam Sy"
+    author: "Alahna Sam Sy",
   },
   {
     title: "LOREM IPSUM DOLOR SIT AMET",
     image: "/home-assets/Bottom3.png",
     date: "December 2, 2019",
-    author: "Alahna Sam Sy"
-  }
+    author: "Alahna Sam Sy",
+  },
 ];
 
 const RelatedSlider = styled(DisjointedSlider)`
@@ -189,36 +181,36 @@ const Post = ({ post, meta, blog, allPosts }) => {
         meta={[
           {
             name: `description`,
-            content: meta.description
+            content: meta.description,
           },
           {
             property: `og:title`,
-            content: `${post.post_title[0].text} | Not Just a Box Eecnts`
+            content: `${post.post_title[0].text} | Not Just a Box Eecnts`,
           },
           {
             property: `og:description`,
-            content: meta.description
+            content: meta.description,
           },
           {
             property: `og:type`,
-            content: `website`
+            content: `website`,
           },
           {
             name: `twitter:card`,
-            content: `summary`
+            content: `summary`,
           },
           {
             name: `twitter:creator`,
-            content: meta.author
+            content: meta.author,
           },
           {
             name: `twitter:title`,
-            content: meta.title
+            content: meta.title,
           },
           {
             name: `twitter:description`,
-            content: meta.description
-          }
+            content: meta.description,
+          },
         ].concat(meta)}
       />
       <Layout
@@ -229,7 +221,7 @@ const Post = ({ post, meta, blog, allPosts }) => {
           size: "cover",
           position: { md: "0 calc(50% + 35px)" },
           highlight:
-            "linear-gradient(180deg,rgba(0,0,0,1) 0%,rgba(255,255,255,0) 100%)"
+            "linear-gradient(180deg,rgba(0,0,0,1) 0%,rgba(255,255,255,0) 100%)",
         }}
         headerChildren={
           <Container
@@ -247,7 +239,7 @@ const Post = ({ post, meta, blog, allPosts }) => {
                 height: "1px",
                 width: "50px",
                 backgroundColor: "white",
-                my: "20px"
+                my: "20px",
               }}
             >
               <Heading
@@ -288,16 +280,18 @@ const Post = ({ post, meta, blog, allPosts }) => {
                 mr="auto"
               >
                 {`OUR JOURNAL > ${post.post_category.map(
-                  category => `${category.text} `
+                  (category) => `${category.text} `
                 )} > `}
-                <Moment format="MMDDYY">{post.post_date}</Moment>
+                {dayjs(post.post_date).format("MMDDYY")}
               </Text>
             </Grid>
           </Container>
         }
       >
         <Section>
-          <PostTitle>{RichText.render(post.post_title)}</PostTitle>
+          <PostTitle>
+            <PrismicRichText render={post.post_title} />
+          </PostTitle>
           <PostMetas>
             <Box
               as={MdPersonOutline}
@@ -306,8 +300,7 @@ const Post = ({ post, meta, blog, allPosts }) => {
               color={colors.njabGray}
             />
             <PostAuthor>
-              {post.post_author},{" "}
-              <Moment format="MMMM D, YYYY">{post.post_date}</Moment>
+              {post.post_author}, {dayjs(post.post_date).format("MMMM D, YYYY")}
             </PostAuthor>
           </PostMetas>
           <Flex alignItems="center" marginBottom="2em">
@@ -354,13 +347,13 @@ const Post = ({ post, meta, blog, allPosts }) => {
               height="auto"
             />
             <PostHeroAnnotation>
-              {RichText.render(post.post_hero_annotation)}
+              <PrismicRichText render={post.post_hero_annotation} />
             </PostHeroAnnotation>
           </Section>
         )}
         <Section color="#413f42">
           <Box>
-            {RichText.render(post.post_body)}
+            <PrismicRichText render={post.post_body} />
             <BackLink width="auto" to="/blog">
               {`< `}Back to our Journal
             </BackLink>
@@ -370,7 +363,7 @@ const Post = ({ post, meta, blog, allPosts }) => {
           outerProps={{
             backgroundColor: colors.njabDarkPink,
             py: "80px",
-            marginTop: "80px"
+            marginTop: "80px",
           }}
           maxWidth="initial"
           fullWidth
@@ -424,7 +417,7 @@ const Post = ({ post, meta, blog, allPosts }) => {
                       marginBottom="5px"
                       fontFamily="Montserrat"
                     >
-                      {item.node.post_title.map(i => i.text)}
+                      {item.node.post_title.map((i) => i.text)}
                     </Heading>
                     <Text
                       fontFamily="Montserrat"
@@ -456,9 +449,7 @@ const Post = ({ post, meta, blog, allPosts }) => {
                         {item.node.post_author},{" "}
                       </Text>
                       <Text fontFamily="Montserrat" margin="0">
-                        <Moment format="MMM DD, YYYY">
-                          {item.node.post_date}
-                        </Moment>
+                        {dayjs(item.node.post_date).format("MMM DD, YYYY")}
                       </Text>
                     </Flex>
                   </SliderLink>
@@ -471,7 +462,7 @@ const Post = ({ post, meta, blog, allPosts }) => {
                   top="0"
                   zIndex="-1"
                   style={{
-                    filter: "brightness(0.7)"
+                    filter: "brightness(0.7)",
                   }}
                 />
               </StyledPseudoBox>
@@ -481,7 +472,7 @@ const Post = ({ post, meta, blog, allPosts }) => {
         <Section
           alignItems="flex-end"
           outerProps={{
-            py: "50px"
+            py: "50px",
           }}
         >
           <a onClick={() => scroll.scrollToTop()}>
@@ -513,11 +504,11 @@ export default ({ data, path }) => {
   const id = path.replace("/blog/", "");
 
   const postContent = data.prismic.allPosts.edges.filter(
-    edge => edge.node._meta.uid === id
+    (edge) => edge.node._meta.uid === id
   )[0];
 
   const allPosts = data.prismic.allPosts.edges
-    .filter(edge => edge.node._meta.uid !== id)
+    .filter((edge) => edge.node._meta.uid !== id)
     .slice(0, 5);
 
   const blog = data.prismic.allBlog_pages.edges.slice(0, 1).pop();
@@ -537,7 +528,7 @@ export default ({ data, path }) => {
 
 Post.propTypes = {
   post: PropTypes.object.isRequired,
-  meta: PropTypes.object.isRequired
+  meta: PropTypes.object.isRequired,
 };
 
 export const query = graphql`

@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@chakra-ui/core";
+import Box from "@chakra-ui/core/dist/Box";
 import dimensions from "styles/dimensions";
 import styled from "@emotion/styled";
 

@@ -1,34 +1,51 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Helmet from "react-helmet";
-import { RichText } from "prismic-reactjs";
 import { graphql } from "gatsby";
 import styled from "@emotion/styled";
 import colors from "styles/colors";
 import dimensions from "styles/dimensions";
-import Button from "components/_ui/Button";
 import Section from "components/Section";
 import Layout from "components/Layout";
-import DisjointedSlider from "components/DisjointedSlider";
 import Mosaic from "components/Mosaic";
-import LazyLoad from "react-lazyload";
-import Skeleton from "react-loading-skeleton";
-import Moment from "react-moment";
+import dayjs from "dayjs";
 import Img from "gatsby-image";
 import BackgroundImage from "gatsby-background-image";
-
+import Loadable from "react-loadable";
 import Link from "components/_ui/Link";
-import {
-  Box,
-  IconButton,
-  PseudoBox,
-  Heading,
-  Text,
-  Flex,
-  Image
-} from "@chakra-ui/core";
-import DoubleSlider from "../components/DoubleSlider";
+import Flex from "@chakra-ui/core/dist/Flex";
+import Box from "@chakra-ui/core/dist/Box";
+import Text from "@chakra-ui/core/dist/Text";
+import Heading from "@chakra-ui/core/dist/Heading";
+import PseudoBox from "@chakra-ui/core/dist/PseudoBox";
+
 import { getPrismicImage } from "../lib/PrismicFunctions";
+
+const PrismicRichText = Loadable({
+  loader: () => import("prismic-reactjs"),
+  delay: 50,
+  render(loaded, props) {
+    const { RichText } = loaded;
+    return <RichText {...props} />;
+  },
+  loading() {
+    return <div />;
+  },
+});
+
+const DoubleSlider = Loadable({
+  loader: () => import("../components/DoubleSlider"),
+  loading() {
+    return <div />;
+  },
+});
+
+const DisjointedSlider = Loadable({
+  loader: () => import("../components/DisjointedSlider"),
+  loading() {
+    return <div />;
+  },
+});
 
 const Hero = styled(Box)`
   height: calc(100vh - 70px);
@@ -63,36 +80,6 @@ const Hero = styled(Box)`
       text-decoration: none;
       transition: all 100ms ease-in-out;
       font-weight: 500;
-    }
-  }
-`;
-
-const WorkAction = styled(Link)`
-  font-weight: 600;
-  text-decoration: none;
-  color: currentColor;
-  transition: all 150ms ease-in-out;
-  margin-left: auto;
-
-  @media (max-width: ${dimensions.maxwidthTablet}px) {
-    margin: 0 auto;
-  }
-
-  span {
-    margin-left: 1em;
-    transform: translateX(-8px);
-    display: inline-block;
-    transition: transform 400ms ease-in-out;
-  }
-
-  &:hover {
-    color: ${colors.teal600};
-    transition: all 150ms ease-in-out;
-
-    span {
-      transform: translateX(0px);
-      opacity: 1;
-      transition: transform 150ms ease-in-out;
     }
   }
 `;
@@ -270,12 +257,12 @@ const PackagesFlex = styled(BackgroundImage)`
 `;
 
 const RenderBody = ({ home, projects, meta, posts }) => {
-  const newTestimonials = home.testimonial_carousel.map(item => ({
+  const newTestimonials = home.testimonial_carousel.map((item) => ({
     title: item.testimonial_title[0].text,
     image: getPrismicImage(item.testimonial_slide_image),
     date: item.testimonial_date[0].text,
     author: item.testimonial_author[0].text,
-    quote: item.testimonial_quote[0].text
+    quote: item.testimonial_quote[0].text,
   }));
 
   return (
@@ -286,43 +273,43 @@ const RenderBody = ({ home, projects, meta, posts }) => {
         meta={[
           {
             name: `description`,
-            content: meta.description
+            content: meta.description,
           },
           {
             property: `og:title`,
-            content: meta.title
+            content: meta.title,
           },
           {
             property: `og:description`,
-            content: meta.description
+            content: meta.description,
           },
           {
             property: `og:type`,
-            content: `website`
+            content: `website`,
           },
           {
             name: `twitter:card`,
-            content: `summary`
+            content: `summary`,
           },
           {
             name: `twitter:creator`,
-            content: meta.author
+            content: meta.author,
           },
           {
             name: `twitter:title`,
-            content: meta.title
+            content: meta.title,
           },
           {
             name: `twitter:description`,
-            content: meta.description
-          }
+            content: meta.description,
+          },
         ].concat(meta)}
       />
       <Section
         outerProps={{
           backgroundColor: colors.njabDarkPink,
           color: "white",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
         <StyledRichText
@@ -331,13 +318,13 @@ const RenderBody = ({ home, projects, meta, posts }) => {
           letterSpacing="1px"
           fontFamily="Montserrat"
         >
-          {RichText.render(home.hero_quote)}
+          <PrismicRichText render={home.hero_quote} />
         </StyledRichText>
       </Section>
 
       <Section
         outerProps={{
-          py: { xs: "60px", md: "120px" }
+          py: { xs: "60px", md: "120px" },
         }}
       >
         <Flex color={colors.njabDarkPink} flexWrap="wrap" mb="30px">
@@ -352,15 +339,15 @@ const RenderBody = ({ home, projects, meta, posts }) => {
                 height: "1px",
                 width: "50px",
                 backgroundColor: "#e9c8bc",
-                my: "20px"
+                my: "20px",
               }}
             >
               <FeaturedHeading>
-                {RichText.render(home.featured_heading)}
+                <PrismicRichText render={home.featured_heading} />
               </FeaturedHeading>
             </PseudoBox>
             <FeaturedSubheading>
-              {RichText.render(home.featured_subheading)}
+              <PrismicRichText render={home.featured_subheading} />
             </FeaturedSubheading>
           </Box>
           <Box flex={{ default: "1 0 100%", md: "1 0 50%" }}>
@@ -370,7 +357,7 @@ const RenderBody = ({ home, projects, meta, posts }) => {
               fontSize="14px"
               textAlign="right"
             >
-              {RichText.render(home.featured_highlight_text)}
+              <PrismicRichText render={home.featured_highlight_text} />
             </FeaturedHighlight>
           </Box>
         </Flex>
@@ -404,7 +391,7 @@ const RenderBody = ({ home, projects, meta, posts }) => {
         outerProps={{
           backgroundColor: colors.njabLightPink,
           pt: { xs: "60px", md: "120px" },
-          pb: { xs: "0", md: "120px" }
+          pb: { xs: "0", md: "120px" },
         }}
         maxWidth="initial"
         fullWidth
@@ -412,7 +399,7 @@ const RenderBody = ({ home, projects, meta, posts }) => {
         <Flex
           px={{
             xs: `${dimensions.paddingHorizontalMobile}em`,
-            md: 0
+            md: 0,
           }}
           color={colors.njabDarkPink}
           maxWidth={`${dimensions.maxwidthDesktop}px`}
@@ -432,15 +419,15 @@ const RenderBody = ({ home, projects, meta, posts }) => {
                 height: "1px",
                 width: "50px",
                 backgroundColor: "#e9c8bc",
-                my: "20px"
+                my: "20px",
               }}
             >
               <FeaturedHeading>
-                {RichText.render(home.packages_heading)}
+                <PrismicRichText render={home.packages_heading} />
               </FeaturedHeading>
             </PseudoBox>
             <FeaturedSubheading>
-              {RichText.render(home.packages_subheading)}
+              <PrismicRichText render={home.packages_subheading} />
             </FeaturedSubheading>
           </Box>
           <Box flex={{ xs: "1 0 100%", md: "1 0 50%" }}>
@@ -450,7 +437,7 @@ const RenderBody = ({ home, projects, meta, posts }) => {
               fontSize="14px"
               textAlign="right"
             >
-              {RichText.render(home.packages_highlight_text)}
+              <PrismicRichText render={home.packages_highlight_text} />
             </FeaturedHighlight>
           </Box>
         </Flex>
@@ -489,7 +476,7 @@ const RenderBody = ({ home, projects, meta, posts }) => {
                         width: "50px",
                         backgroundColor: "#e9c8bc",
                         my: "20px",
-                        mx: "auto"
+                        mx: "auto",
                       }}
                     >
                       <TextContainer
@@ -549,7 +536,7 @@ const RenderBody = ({ home, projects, meta, posts }) => {
       </Section>
       <Section
         outerProps={{
-          py: { xs: "60px", md: "120px" }
+          py: { xs: "60px", md: "120px" },
         }}
       >
         <Flex color={colors.njabDarkPink} mb="80px">
@@ -564,24 +551,24 @@ const RenderBody = ({ home, projects, meta, posts }) => {
                 height: "1px",
                 width: "50px",
                 backgroundColor: "#e9c8bc",
-                my: "20px"
+                my: "20px",
               }}
             >
               <FeaturedHeading>
-                {RichText.render(home.mosaic_heading)}
+                <PrismicRichText render={home.mosaic_heading} />
               </FeaturedHeading>
             </PseudoBox>
             <FeaturedSubheading>
-              {RichText.render(home.mosaic_subheading)}
+              <PrismicRichText render={home.mosaic_subheading} />
             </FeaturedSubheading>
           </Box>
         </Flex>
         <Mosaic
           height="400px"
-          images={home.mosaic.map(item => ({
+          images={home.mosaic.map((item) => ({
             link: item.mosaic_link,
             image: getPrismicImage(item.mosaic_image),
-            imageSharp: item.mosaic_imageSharp
+            imageSharp: item.mosaic_imageSharp,
           }))}
         />
       </Section>
@@ -590,7 +577,7 @@ const RenderBody = ({ home, projects, meta, posts }) => {
         outerProps={{
           backgroundColor: colors.njabMidPink,
           pt: { xs: "60px", md: "120px" },
-          pb: { xs: "0", md: "120px" }
+          pb: { xs: "0", md: "120px" },
         }}
         maxWidth="initial"
         fullWidth
@@ -608,7 +595,7 @@ const RenderBody = ({ home, projects, meta, posts }) => {
       <Section
         outerProps={{
           pt: { xs: "60px", md: "120px" },
-          pb: { xs: "0", md: "120px" }
+          pb: { xs: "0", md: "120px" },
         }}
         maxWidth="initial"
         fullWidth
@@ -622,7 +609,7 @@ const RenderBody = ({ home, projects, meta, posts }) => {
           flexWrap="wrap"
           px={{
             xs: `${dimensions.paddingHorizontalMobile}em`,
-            md: 0
+            md: 0,
           }}
         >
           <Box
@@ -636,15 +623,15 @@ const RenderBody = ({ home, projects, meta, posts }) => {
                 height: "1px",
                 width: "50px",
                 backgroundColor: "#e9c8bc",
-                my: "20px"
+                my: "20px",
               }}
             >
               <FeaturedHeading>
-                {RichText.render(home.journal_heading)}
+                <PrismicRichText render={home.journal_heading} />
               </FeaturedHeading>
             </PseudoBox>
             <FeaturedSubheading>
-              {RichText.render(home.journal_subheading)}
+              <PrismicRichText render={home.journal_subheading} />
             </FeaturedSubheading>
           </Box>
           <Box flex={{ xs: "1 0 100%", md: "1 0 50%" }}>
@@ -654,7 +641,7 @@ const RenderBody = ({ home, projects, meta, posts }) => {
               fontSize="14px"
               textAlign="right"
             >
-              {RichText.render(home.journal_highlight_text)}
+              <PrismicRichText render={home.journal_highlight_text} />
             </FeaturedHighlight>
           </Box>
         </Flex>
@@ -689,9 +676,9 @@ const RenderBody = ({ home, projects, meta, posts }) => {
                         fontSize="14px"
                         fontFamily="Montserrat"
                       >
-                        <Moment format="MMMM D, YYYY">
-                          {item.journal_post_link.post_date}
-                        </Moment>
+                        {dayjs(item.journal_post_link.post_date).format(
+                          "MMMM D, YYYY"
+                        )}
                       </Text>
                       <Box
                         width="75px"
@@ -723,9 +710,11 @@ const RenderBody = ({ home, projects, meta, posts }) => {
                         textAlign="center"
                         fontFamily="Montserrat"
                       >
-                        {RichText.render(
-                          item.journal_post_link.post_preview_description
-                        )}
+                        <PrismicRichText
+                          render={
+                            item.journal_post_link.post_preview_description
+                          }
+                        />
                       </Text>
                       <LinkButton
                         fontWeight="700"
@@ -752,9 +741,9 @@ const RenderBody = ({ home, projects, meta, posts }) => {
                         fontSize="14px"
                         fontFamily="Montserrat"
                       >
-                        <Moment format="MMMM D, YYYY">
-                          {item.journal_post_link.post_date}
-                        </Moment>
+                        {dayjs(item.journal_post_link.post_date).format(
+                          "MMMM D, YYYY"
+                        )}
                       </Text>
                       <Box
                         width="75px"
@@ -820,7 +809,7 @@ export default ({ data }) => {
       headerVariant="dark"
       headerChildren={
         <Hero>
-          <>{RichText.render(doc.node.hero_title)}</>
+          <PrismicRichText render={doc.node.hero_title} />
         </Hero>
       }
       headerBackground={{
@@ -829,7 +818,7 @@ export default ({ data }) => {
         size: "cover",
         position: { md: "0 calc(50% + 35px)" },
         highlight:
-          "linear-gradient(180deg,rgba(0,0,0,1) 0%,rgba(255,255,255,0) 100%)"
+          "linear-gradient(180deg,rgba(0,0,0,1) 0%,rgba(255,255,255,0) 100%)",
       }}
     >
       <RenderBody
@@ -846,7 +835,7 @@ RenderBody.propTypes = {
   home: PropTypes.object.isRequired,
   projects: PropTypes.array.isRequired,
   posts: PropTypes.array.isRequired,
-  meta: PropTypes.object.isRequired
+  meta: PropTypes.object.isRequired,
 };
 
 export const query = graphql`
