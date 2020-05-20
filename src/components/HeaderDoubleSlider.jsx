@@ -1,17 +1,22 @@
 import React from "react";
-import Box from "@chakra-ui/core/dist/Box";
-import PseudoBox from "@chakra-ui/core/dist/PseudoBox";
-import List from "@chakra-ui/core/dist/List";
-import Flex from "@chakra-ui/core/dist/Flex";
-import Text from "@chakra-ui/core/dist/Text";
-import Heading from "@chakra-ui/core/dist/Heading";
-import Button from "@chakra-ui/core/dist/Button";
+import {
+  Box,
+  PseudoBox,
+  Image,
+  List,
+  IconButton,
+  Flex,
+  Text,
+  Heading,
+  Button
+} from "@chakra-ui/core";
 import Slider from "react-slick";
 import Container from "./Container";
 import styled from "@emotion/styled";
 import Link from "components/_ui/Link";
 import colors from "styles/colors";
-import dayjs from "dayjs";
+import dimensions from "styles/dimensions";
+import Moment from "react-moment";
 
 const Arrow = ({ className, style, onClick }) => {
   const variant = className
@@ -327,7 +332,7 @@ export default class DoubleSlider extends React.Component {
                       fontSize="14px"
                       fontFamily="Montserrat"
                     >
-                      {dayjs(item.date).format("MMMM D, YYYY")}
+                      <Moment format="MMMM D, YYYY">{item.date}</Moment>
                     </Text>
                   </PseudoBox>
                   <Heading

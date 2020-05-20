@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Helmet from "react-helmet";
 import { graphql } from "gatsby";
 import styled from "@emotion/styled";
+import dimensions from "styles/dimensions";
 import colors from "styles/colors";
 import Layout from "components/Layout";
 import HighlightText from "components/_ui/HighlightText";
@@ -10,32 +11,61 @@ import SectionHeading from "components/_ui/SectionHeading";
 import SectionSubheading from "components/_ui/SectionSubheading";
 import HeaderDoubleSlider from "../components/HeaderDoubleSlider";
 import Masonry from "react-masonry-css";
+
 import LazyLoad from "react-lazyload";
+
 import Section from "components/Section";
 import Link from "components/_ui/Link";
-import Heading from "@chakra-ui/core/dist/Heading";
-import Grid from "@chakra-ui/core/dist/Grid";
-import Box from "@chakra-ui/core/dist/Box";
-import Text from "@chakra-ui/core/dist/Text";
-import Image from "@chakra-ui/core/dist/Image";
-import Flex from "@chakra-ui/core/dist/Flex";
-import PseudoBox from "@chakra-ui/core/dist/PseudoBox";
-import List, { ListItem } from "@chakra-ui/core/dist/List";
-import Button from "@chakra-ui/core/dist/Button";
-import { getPrismicImage } from "../lib/PrismicFunctions";
-import Loadable from "react-loadable";
+import Checkerboard from "components/Checkerboard";
+import { RichText } from "prismic-reactjs";
 
-const PrismicRichText = Loadable({
-  loader: () => import("prismic-reactjs"),
-  delay: 50,
-  render(loaded, props) {
-    const { RichText } = loaded;
-    return <RichText {...props} />;
-  },
-  loading() {
-    return <div />;
-  },
-});
+import {
+  Heading,
+  Grid,
+  Box,
+  Text,
+  Image,
+  Flex,
+  PseudoBox,
+  List,
+  ListItem,
+  Button
+} from "@chakra-ui/core";
+import { getPrismicImage } from "../lib/PrismicFunctions";
+
+const MapHeading = styled(Heading)`
+  margin: 0;
+
+  * {
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-weight: 400;
+    text-transform: uppercase;
+    font-family: Montserrat;
+    margin: 0;
+  }
+`;
+
+const MapSubheading = styled(Heading)`
+  margin: 0;
+
+  * {
+    font-size: 16px;
+    letter-spacing: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-family: Montserrat;
+    margin: 0;
+  }
+`;
+
+const JournalImage = styled(Image)`
+  padding-left: 15px;
+  padding-right: 15px;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+`;
 
 const StyledMasonry = styled(Masonry)`
   &.my-masonry-grid {
@@ -116,12 +146,12 @@ const Services = ({
   meta,
   projects,
   projectCategories,
-  portfolio,
+  portfolio
 }) => {
   const [filter, setFilter] = useState(0);
 
   const newProjects = projects
-    .filter((project) =>
+    .filter(project =>
       !!filter
         ? project.node.project_category[0].text.toLowerCase() === filter
         : true
@@ -130,7 +160,7 @@ const Services = ({
       id: project.node._meta.uid,
       title: project.node.project_title[0].text,
       image: getPrismicImage(project.node.project_hero_image),
-      category: project.node.project_category[0].text,
+      category: project.node.project_category[0].text
     }));
 
   const featuredProjects = portfolio.featured_projects.map((item, index) => ({
@@ -141,7 +171,7 @@ const Services = ({
     description: item.project.project_description[0].text,
     date: item.project.project_post_date,
     index: index,
-    total: portfolio.featured_projects.length,
+    total: portfolio.featured_projects.length
   }));
 
   return (
@@ -152,36 +182,36 @@ const Services = ({
         meta={[
           {
             name: `description`,
-            content: meta.description,
+            content: meta.description
           },
           {
             property: `og:title`,
-            content: `Portfolio | Not Just a Box Events`,
+            content: `Portfolio | Not Just a Box Events`
           },
           {
             property: `og:description`,
-            content: meta.description,
+            content: meta.description
           },
           {
             property: `og:type`,
-            content: `website`,
+            content: `website`
           },
           {
             name: `twitter:card`,
-            content: `summary`,
+            content: `summary`
           },
           {
             name: `twitter:creator`,
-            content: meta.author,
+            content: meta.author
           },
           {
             name: `twitter:title`,
-            content: meta.title,
+            content: meta.title
           },
           {
             name: `twitter:description`,
-            content: meta.description,
-          },
+            content: meta.description
+          }
         ].concat(meta)}
       />
       <Layout>
@@ -198,7 +228,7 @@ const Services = ({
                   height: "1px",
                   width: "50px",
                   backgroundColor: "#e9c8bc",
-                  my: "20px",
+                  my: "20px"
                 }}
               >
                 <SectionHeading
@@ -210,7 +240,7 @@ const Services = ({
                   fontFamily="Montserrat"
                   textTransform="uppercase"
                 >
-                  <PrismicRichText render={portfolio.portfolio_heading} />
+                  {RichText.render(portfolio.portfolio_heading)}
                 </SectionHeading>
               </PseudoBox>
               <SectionSubheading
@@ -223,7 +253,7 @@ const Services = ({
                 fontFamily="Montserrat"
                 textTransform="uppercase"
               >
-                <PrismicRichText render={portfolio.portfolio_subheading} />
+                {RichText.render(portfolio.portfolio_subheading)}
               </SectionSubheading>
             </Box>
             <Box
@@ -237,7 +267,7 @@ const Services = ({
                 fontSize="13px"
                 color="#707073"
               >
-                <PrismicRichText render={portfolio.portfolio_highlight_text} />
+                {RichText.render(portfolio.portfolio_highlight_text)}
               </HighlightText>
             </Box>
           </Flex>
@@ -245,7 +275,7 @@ const Services = ({
 
         <Section
           outerProps={{
-            backgroundColor: colors.njabMidPink,
+            backgroundColor: colors.njabMidPink
           }}
           justifyContent="flex-end"
           alignItems="flex-start"
@@ -295,7 +325,7 @@ const Services = ({
                   </CategoryLink>
                 </ListItem>
 
-                {projectCategories.map((category) => (
+                {projectCategories.map(category => (
                   <ListItem
                     flex={{ xs: "1 0 100%", md: "1" }}
                     py={{ xs: "10px", md: "0" }}
@@ -317,7 +347,7 @@ const Services = ({
             className="my-masonry-grid"
             columnClassName="my-masonry-grid_column"
           >
-            {newProjects.map((project) => (
+            {newProjects.map(project => (
               <Box>
                 <PortfolioLink
                   to={`/work/${project.id}`}
@@ -337,7 +367,7 @@ const Services = ({
                     width: "50px",
                     backgroundColor: "#e9c8bc",
                     my: "10px",
-                    mx: "auto",
+                    mx: "auto"
                   }}
                 >
                   <SectionHeading
@@ -404,7 +434,7 @@ export default ({ data }) => {
 
 Services.propTypes = {
   posts: PropTypes.array.isRequired,
-  meta: PropTypes.object.isRequired,
+  meta: PropTypes.object.isRequired
 };
 
 export const query = graphql`

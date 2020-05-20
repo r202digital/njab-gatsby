@@ -1,5 +1,5 @@
 import React from "react";
-import Flex from "@chakra-ui/core/dist/Flex";
+import { Flex, List, ListItem, Stack, Link, Text } from "@chakra-ui/core";
 
 const Container = ({ children, outerContainerProps, ...props }) => {
   return (

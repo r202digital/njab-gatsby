@@ -3,50 +3,50 @@ import PropTypes from "prop-types";
 import Helmet from "react-helmet";
 import { graphql } from "gatsby";
 import styled from "@emotion/styled";
+import dimensions from "styles/dimensions";
 import colors from "styles/colors";
 import Layout from "components/Layout";
+import Mosaic from "components/Mosaic";
+import HighlightText from "components/_ui/HighlightText";
 import SectionHeading from "components/_ui/SectionHeading";
 import SectionSubheading from "components/_ui/SectionSubheading";
 import LazyLoad from "react-lazyload";
 import Skeleton from "react-loading-skeleton";
 import Section from "components/Section";
+import Checkerboard from "components/Checkerboard";
+import { RichText } from "prismic-reactjs";
 import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
+
 import {
   FaFacebookF,
   FaTwitter,
   FaInstagram,
-  FaMapMarkerAlt,
+  FaMapMarkerAlt
 } from "react-icons/fa";
+import { FiArrowDown, FiArrowUp } from "react-icons/fi";
 import { FaChevronDown } from "react-icons/fa";
-import Box from "@chakra-ui/core/dist/Box";
-import Text from "@chakra-ui/core/dist/Text";
-import Flex from "@chakra-ui/core/dist/Flex";
-import PseudoBox from "@chakra-ui/core/dist/PseudoBox";
-import Input from "@chakra-ui/core/dist/Input";
-import Textarea from "@chakra-ui/core/dist/Textarea";
-import Button from "@chakra-ui/core/dist/Button";
-import FormControl from "@chakra-ui/core/dist/FormControl";
-import ExternalLink from "@chakra-ui/core/dist/Link";
+
+import {
+  Heading,
+  Grid,
+  Box,
+  Text,
+  Image,
+  Flex,
+  PseudoBox,
+  List,
+  ListItem,
+  Input,
+  Textarea,
+  Button,
+  FormControl,
+  Link as ExternalLink
+} from "@chakra-ui/core";
+import leftFlower from "../images/njab/flower.png";
+import rightFlower from "../images/njab/flower2.png";
 import Container from "../components/Container";
 import GoogleMapReact from "google-map-react";
-import {
-  getPrismicText,
-  getPrismicImage,
-  getUrl,
-} from "../lib/PrismicFunctions";
-import Loadable from "react-loadable";
-
-const PrismicRichText = Loadable({
-  loader: () => import("prismic-reactjs"),
-  delay: 50,
-  render(loaded, props) {
-    const { RichText } = loaded;
-    return <RichText {...props} />;
-  },
-  loading() {
-    return <div />;
-  },
-});
+import { getPrismicImage } from "../lib/PrismicFunctions";
 
 const DetailsBox = styled(Box)`
   p {
@@ -203,7 +203,7 @@ const PageSubtitle = styled(ScrollLink)`
   }
 `;
 
-const Contact = ({ meta, blog, contact, global }) => (
+const Contact = ({ meta, blog, contact }) => (
   <>
     <Helmet
       title={`Our Journal | Not Just a Box Events`}
@@ -211,36 +211,36 @@ const Contact = ({ meta, blog, contact, global }) => (
       meta={[
         {
           name: `description`,
-          content: meta.description,
+          content: meta.description
         },
         {
           property: `og:title`,
-          content: `Our Journal | Not Just a Box Events`,
+          content: `Our Journal | Not Just a Box Events`
         },
         {
           property: `og:description`,
-          content: meta.description,
+          content: meta.description
         },
         {
           property: `og:type`,
-          content: `website`,
+          content: `website`
         },
         {
           name: `twitter:card`,
-          content: `summary`,
+          content: `summary`
         },
         {
           name: `twitter:creator`,
-          content: meta.author,
+          content: meta.author
         },
         {
           name: `twitter:title`,
-          content: meta.title,
+          content: meta.title
         },
         {
           name: `twitter:description`,
-          content: meta.description,
-        },
+          content: meta.description
+        }
       ].concat(meta)}
     />
     <Layout
@@ -251,7 +251,7 @@ const Contact = ({ meta, blog, contact, global }) => (
         size: "cover",
         position: { md: "0 calc(50% + 35px)" },
         highlight:
-          "linear-gradient(180deg,rgba(0,0,0,1) 0%,rgba(255,255,255,0) 100%)",
+          "linear-gradient(180deg,rgba(0,0,0,1) 0%,rgba(255,255,255,0) 100%)"
       }}
       headerChildren={
         <Container
@@ -270,7 +270,7 @@ const Contact = ({ meta, blog, contact, global }) => (
                   LOCATION
                 </Text>
                 <Text as="em" fontFamily="Montserrat">
-                  <PrismicRichText render={contact.location} />
+                  {RichText.render(contact.location)}
                 </Text>
               </DetailsBox>
 
@@ -279,7 +279,7 @@ const Contact = ({ meta, blog, contact, global }) => (
                   CONTACT NUMBER
                 </Text>
                 <Text as="em" fontFamily="Montserrat">
-                  <PrismicRichText render={contact.contact_number} />
+                  {RichText.render(contact.contact_number)}
                 </Text>
               </DetailsBox>
 
@@ -288,7 +288,7 @@ const Contact = ({ meta, blog, contact, global }) => (
                   EMAIL ADDRESS
                 </Text>
                 <Text as="em" fontFamily="Montserrat">
-                  <PrismicRichText render={contact.email_address} />
+                  {RichText.render(contact.email_address)}
                 </Text>
               </DetailsBox>
             </Box>
@@ -299,9 +299,7 @@ const Contact = ({ meta, blog, contact, global }) => (
               textAlign="left"
               display={{ xs: "none", md: "initial" }}
             >
-              <PageTitle>
-                <PrismicRichText render={contact.page_title} />
-              </PageTitle>
+              <PageTitle>{RichText.render(contact.page_title)}</PageTitle>
               <Box display={{ xs: "none", md: "initial" }}>
                 <PageSubtitle
                   to="contact-form"
@@ -311,16 +309,16 @@ const Contact = ({ meta, blog, contact, global }) => (
                   duration={500}
                 >
                   <Box as={FaChevronDown} size="20px" color="white" />
-                  <PrismicRichText render={contact.page_subtitle} />
+                  {RichText.render(contact.page_subtitle)}
                 </PageSubtitle>
               </Box>
             </Box>
             <Box flex="1" textAlign={{ xs: "center", md: "right" }}>
               <Text fontWeight="700" my="10px" fontFamily="Montserrat">
-                {getPrismicText(contact.follow_us_heading)}
+                FOLLOW US
               </Text>
               <Text as="em" my="10px" fontFamily="Montserrat" display="block">
-                {getPrismicText(contact.follow_us_text)}
+                LOREM IPSUM DOLOR SIT AMET
               </Text>
               <Box
                 marginLeft="auto"
@@ -328,13 +326,13 @@ const Contact = ({ meta, blog, contact, global }) => (
                 width={{ xs: "50%", md: "30%" }}
               >
                 <Flex justifyContent="space-between">
-                  <ExternalLink href={getUrl(global.instagram)}>
+                  <ExternalLink href={`https://www.facebook.com/`}>
                     <Box as={FaInstagram} size="30px" color="white" />
                   </ExternalLink>
-                  <ExternalLink href={getUrl(global.twitter)}>
+                  <ExternalLink href={`https://twitter.com/`}>
                     <Box as={FaTwitter} size="30px" color="white" />
                   </ExternalLink>
-                  <ExternalLink href={getUrl(global.facebook)}>
+                  <ExternalLink href={`https://www.facebook.com/`}>
                     <Box as={FaFacebookF} size="30px" color="white" />
                   </ExternalLink>
                 </Flex>
@@ -348,7 +346,7 @@ const Contact = ({ meta, blog, contact, global }) => (
                   duration={500}
                 >
                   <Box as={FaChevronDown} size="20px" color="white" />
-                  <PrismicRichText render={contact.page_subtitle} />
+                  {RichText.render(contact.page_subtitle)}
                 </PageSubtitle>
               </Box>
             </Box>
@@ -360,7 +358,7 @@ const Contact = ({ meta, blog, contact, global }) => (
         <Section
           outerProps={{
             backgroundColor: colors.njabDarkPink,
-            py: "80px",
+            py: "80px"
           }}
         >
           <Flex color="white" justifyContent="center" id="contact-form">
@@ -376,15 +374,15 @@ const Contact = ({ meta, blog, contact, global }) => (
                   height: "1px",
                   width: "50px",
                   backgroundColor: "#e9c8bc",
-                  margin: "20px auto",
+                  margin: "20px auto"
                 }}
               >
                 <SectionHeading>
-                  <PrismicRichText render={contact.form_heading} />
+                  {RichText.render(contact.form_heading)}
                 </SectionHeading>
               </PseudoBox>
               <SectionSubheading>
-                <PrismicRichText render={contact.form_subheading} />
+                {RichText.render(contact.form_subheading)}
               </SectionSubheading>
               <FormControl marginTop="50px" as="fieldset" border="none">
                 <Flex flexDirection={{ xs: "column", md: "row" }}>
@@ -413,11 +411,11 @@ const Contact = ({ meta, blog, contact, global }) => (
         <Box minHeight="600px" height="25vh" width="100%">
           <GoogleMapReact
             bootstrapURLKeys={{
-              key: "AIzaSyBX4uSYUZpp9sn1tYjU1OcQBuas9LZkv78",
+              key: "AIzaSyBX4uSYUZpp9sn1tYjU1OcQBuas9LZkv78"
             }}
             defaultCenter={{
               lat: contact.map_latitude,
-              lng: contact.map_longitude,
+              lng: contact.map_longitude
             }}
             defaultZoom={18}
           >
@@ -436,51 +434,21 @@ const Contact = ({ meta, blog, contact, global }) => (
 export default ({ data }) => {
   const blog = data.prismic.allBlog_pages.edges.slice(0, 1).pop();
   const contact = data.prismic.allContact_pages.edges.slice(0, 1).pop();
-  const global = data.prismic.allGlobals.edges.slice(0, 1).pop();
 
   const meta = data.site.siteMetadata;
 
   if (!blog) return null;
 
-  return (
-    <Contact
-      contact={contact.node}
-      blog={blog.node}
-      meta={meta}
-      global={global.node}
-    />
-  );
+  return <Contact contact={contact.node} blog={blog.node} meta={meta} />;
 };
 
 Contact.propTypes = {
-  meta: PropTypes.object.isRequired,
+  meta: PropTypes.object.isRequired
 };
 
 export const query = graphql`
   {
     prismic {
-      allGlobals {
-        edges {
-          node {
-            instagram {
-              ... on PRISMIC__ExternalLink {
-                url
-              }
-            }
-            facebook {
-              ... on PRISMIC__ExternalLink {
-                url
-              }
-            }
-            twitter {
-              ... on PRISMIC__ExternalLink {
-                url
-              }
-            }
-          }
-        }
-      }
-
       allBlog_pages {
         edges {
           node {

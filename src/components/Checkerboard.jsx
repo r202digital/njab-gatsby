@@ -1,13 +1,17 @@
 import React from "react";
-import Box from "@chakra-ui/core/dist/Box";
-import Heading from "@chakra-ui/core/dist/Heading";
-import Text from "@chakra-ui/core/dist/Text";
-import PseudoBox from "@chakra-ui/core/dist/PseudoBox";
-import Button from "@chakra-ui/core/dist/Button";
-import Image from "@chakra-ui/core/dist/Image";
-import Flex from "@chakra-ui/core/dist/Flex";
-import List, { ListItem } from "@chakra-ui/core/dist/List";
-import Grid from "@chakra-ui/core/dist/Grid";
+
+import {
+  Box,
+  Heading,
+  Text,
+  PseudoBox,
+  Button,
+  Image,
+  Flex,
+  List,
+  ListItem,
+  Grid
+} from "@chakra-ui/core";
 import LazyLoad from "react-lazyload";
 import Skeleton from "react-loading-skeleton";
 import styled from "@emotion/styled";

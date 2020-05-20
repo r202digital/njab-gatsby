@@ -1,6 +1,7 @@
 import React from "react";
+import colors from "styles/colors";
 import styled from "@emotion/styled";
-import Text from "@chakra-ui/core/dist/Text";
+import { Text } from "@chakra-ui/core";
 
 const HighlightText = styled(Text)`
   font-family: Montserrat;

@@ -1,5 +1,5 @@
 import React from "react";
-import List from "@chakra-ui/core/dist/List";
+import { Flex, List, ListItem, Stack, Link, Text, Box } from "@chakra-ui/core";
 import Slider from "react-slick";
 import styled from "@emotion/styled";
 import colors from "styles/colors";

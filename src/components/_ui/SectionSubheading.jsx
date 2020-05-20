@@ -1,7 +1,7 @@
 import React from "react";
 import colors from "styles/colors";
 import styled from "@emotion/styled";
-import Heading from "@chakra-ui/core/dist/Heading";
+import { Heading } from "@chakra-ui/core";
 
 const SectionSubheading = styled(Heading)`
   margin: 0;

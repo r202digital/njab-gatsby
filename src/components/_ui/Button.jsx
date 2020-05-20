@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled from "@emotion/styled";
 import colors from "styles/colors";
 import dimensions from "styles/dimensions";
-import ChakraButton from "@chakra-ui/core/dist/Button";
+import { Button as ChakraButton } from "@chakra-ui/core";
 
 const ButtonContainer = styled(ChakraButton)`
   @media (max-width: ${dimensions.maxwidthMobile}px) {

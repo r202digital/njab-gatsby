@@ -1,11 +1,14 @@
 import React from "react";
-import Flex from "@chakra-ui/core/dist/Flex";
-import List, { ListItem } from "@chakra-ui/core/dist/List";
-import Stack from "@chakra-ui/core/dist/Stack";
-import Link from "@chakra-ui/core/dist/Link";
-import Text from "@chakra-ui/core/dist/Text";
-import Grid from "@chakra-ui/core/dist/Grid";
-import Box from "@chakra-ui/core/dist/Box";
+import {
+  Flex,
+  List,
+  ListItem,
+  Stack,
+  Link,
+  Text,
+  Grid,
+  Box
+} from "@chakra-ui/core";
 import styled from "@emotion/styled";
 import BackgroundImage from "gatsby-background-image";
 

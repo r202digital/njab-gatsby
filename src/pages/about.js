@@ -7,6 +7,7 @@ import dimensions from "styles/dimensions";
 import Layout from "components/Layout";
 import Section from "components/Section";
 import theme from "styles/theme";
+import { RichText } from "prismic-reactjs";
 import colors from "styles/colors";
 import LazyLoad from "react-lazyload";
 import HighlightText from "components/_ui/HighlightText";
@@ -14,25 +15,17 @@ import SectionHeading from "components/_ui/SectionHeading";
 import SectionSubheading from "components/_ui/SectionSubheading";
 import Skeleton from "react-loading-skeleton";
 import { getPrismicImage } from "../lib/PrismicFunctions";
-import Image from "@chakra-ui/core/dist/Image";
-import Box from "@chakra-ui/core/dist/Box";
-import Flex from "@chakra-ui/core/dist/Flex";
-import PseudoBox from "@chakra-ui/core/dist/PseudoBox";
-import Text from "@chakra-ui/core/dist/Text";
-import Grid from "@chakra-ui/core/dist/Grid";
-import Loadable from "react-loadable";
 
-const PrismicRichText = Loadable({
-  loader: () => import("prismic-reactjs"),
-  delay: 50,
-  render(loaded, props) {
-    const { RichText } = loaded;
-    return <RichText {...props} />;
-  },
-  loading() {
-    return <div />;
-  },
-});
+import {
+  Image,
+  Box,
+  Flex,
+  PseudoBox,
+  Heading,
+  Text,
+  Button,
+  Grid
+} from "@chakra-ui/core";
 
 const PageHeading = styled(Box)`
   * {
@@ -118,43 +111,43 @@ const About = ({ meta, about }) => (
       meta={[
         {
           name: `description`,
-          content: meta.description,
+          content: meta.description
         },
         {
           property: `og:title`,
-          content: `About | Not Just a Box Events`,
+          content: `About | Not Just a Box Events`
         },
         {
           property: `og:description`,
-          content: meta.description,
+          content: meta.description
         },
         {
           property: `og:type`,
-          content: `website`,
+          content: `website`
         },
         {
           name: `twitter:card`,
-          content: `summary`,
+          content: `summary`
         },
         {
           name: `twitter:creator`,
-          content: meta.author,
+          content: meta.author
         },
         {
           name: `twitter:title`,
-          content: meta.title,
+          content: meta.title
         },
         {
           name: `twitter:description`,
-          content: meta.description,
-        },
+          content: meta.description
+        }
       ].concat(meta)}
     />
     <Layout>
       <Section
         outerProps={{
           pt: { xs: "0", md: "50px" },
-          pb: { xs: "0", md: "50px" },
+          pb: { xs: "0", md: "50px" }
         }}
         fullWidth
       >
@@ -192,21 +185,19 @@ const About = ({ meta, about }) => (
                   height: "1px",
                   width: "50px",
                   backgroundColor: "#e9c8bc",
-                  my: "20px",
+                  my: "20px"
                 }}
               >
                 <PageHeadingSuperScript>
-                  <PrismicRichText
-                    render={about.node.page_heading_superscript}
-                  />
+                  {RichText.render(about.node.page_heading_superscript)}
                 </PageHeadingSuperScript>
               </PseudoBox>
 
               <PageHeading>
-                <PrismicRichText render={about.node.page_heading} />
+                {RichText.render(about.node.page_heading)}
               </PageHeading>
               <PageSubheading>
-                <PrismicRichText render={about.node.page_subheading} />
+                {RichText.render(about.node.page_subheading)}
               </PageSubheading>
             </Box>
             <HighlightText
@@ -216,7 +207,7 @@ const About = ({ meta, about }) => (
               fontSize="12px"
               fontFamily="inherit"
             >
-              <PrismicRichText render={about.node.page_highlight_text} />
+              {RichText.render(about.node.page_highlight_text)}
             </HighlightText>
           </Flex>
         </Flex>
@@ -226,7 +217,7 @@ const About = ({ meta, about }) => (
         <Section
           outerProps={{
             backgroundColor: colors.njabDarkPink,
-            py: "120px",
+            py: "120px"
           }}
         >
           <PseudoBox
@@ -239,11 +230,11 @@ const About = ({ meta, about }) => (
               width: "50px",
               backgroundColor: "white",
               my: "20px",
-              mx: "auto",
+              mx: "auto"
             }}
           >
             <PhilosophyHeading as="h3">
-              <PrismicRichText render={about.node.philosophy_section_heading} />
+              {RichText.render(about.node.philosophy_section_heading)}
             </PhilosophyHeading>
           </PseudoBox>
           <Flex width="100%" flexWrap={{ xs: "wrap", md: "nowrap" }}>
@@ -251,7 +242,7 @@ const About = ({ meta, about }) => (
               <Flex
                 flex={{
                   xs: "1 0 100%",
-                  md: (index + 1) % 2 === 0 ? "1 0 25%" : "1 0 37.5%",
+                  md: (index + 1) % 2 === 0 ? "1 0 25%" : "1 0 37.5%"
                 }}
                 my={{ xs: "30px", md: "0" }}
                 px="15px"
@@ -283,7 +274,7 @@ const About = ({ meta, about }) => (
                     fontSize="13px"
                     letterSpacing="1.5px"
                   >
-                    <PrismicRichText render={item.philosophy_quote} />
+                    {RichText.render(item.philosophy_quote)}
                   </PhilosophyText>
                 </Flex>
               </Flex>
@@ -295,7 +286,7 @@ const About = ({ meta, about }) => (
       <LazyLoad placeholder={<Skeleton />}>
         <Section
           outerProps={{
-            py: "120px",
+            py: "120px"
           }}
         >
           <Flex>
@@ -307,15 +298,15 @@ const About = ({ meta, about }) => (
                   height: "1px",
                   width: "50px",
                   backgroundColor: "#e9c8bc",
-                  my: "20px",
+                  my: "20px"
                 }}
               >
                 <SectionHeading color={colors.njabDarkPink} as="h3">
-                  <PrismicRichText render={about.node.team_section_heading} />
+                  {RichText.render(about.node.team_section_heading)}
                 </SectionHeading>
               </PseudoBox>
               <SectionSubheading color={colors.njabDarkPink} as="h3">
-                <PrismicRichText render={about.node.team_section_subheading} />
+                {RichText.render(about.node.team_section_subheading)}
               </SectionSubheading>
             </Box>
           </Flex>
@@ -336,15 +327,15 @@ const About = ({ meta, about }) => (
             {about.node.team_checkerboard.map((item, index, checkArr) => {
               const smallerLength = Math.ceil(checkArr.length / 2);
               const firstArr = [...Array(smallerLength).keys()]
-                .map((x) => ++x)
-                .filter((a) => !(a % 2))
+                .map(x => ++x)
+                .filter(a => !(a % 2))
                 .reduce((total, fItem) => {
                   const totalArr = total;
                   totalArr.push(fItem * 2 - 1);
                   totalArr.push(fItem * 2);
                   return totalArr;
                 }, [])
-                .map((x) => --x);
+                .map(x => --x);
 
               return (
                 <Flex
@@ -387,7 +378,7 @@ const About = ({ meta, about }) => (
                         height="calc(100% - 80px)"
                         width="100%"
                       >
-                        <PrismicRichText render={item.employee_description} />
+                        {RichText.render(item.employee_description)}
                       </Box>
                     </Box>
                     <StyledFlex
@@ -399,7 +390,7 @@ const About = ({ meta, about }) => (
                       flexDirection="column"
                     >
                       <Box zIndex="2">
-                        <PrismicRichText render={item.employee_name} />
+                        {RichText.render(item.employee_name)}
                       </Box>
                       <Text
                         zIndex="2"
@@ -410,7 +401,7 @@ const About = ({ meta, about }) => (
                         margin="0"
                         textAlign={{ xs: "center", md: "initial" }}
                       >
-                        <PrismicRichText render={item.employee_position} />
+                        {RichText.render(item.employee_position)}
                       </Text>
                     </StyledFlex>
                   </HoverFlex>
@@ -435,7 +426,7 @@ export default ({ data }) => {
 
 About.propTypes = {
   about: PropTypes.object.isRequired,
-  meta: PropTypes.object.isRequired,
+  meta: PropTypes.object.isRequired
 };
 
 export const query = graphql`

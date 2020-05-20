@@ -1,8 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Helmet from "react-helmet";
+import { RichText } from "prismic-reactjs";
 import { graphql } from "gatsby";
 import styled from "@emotion/styled";
+import colors from "styles/colors";
+import dimensions from "styles/dimensions";
+import Button from "components/_ui/Button";
+import Layout from "components/Layout";
+import Link from "components/_ui/Link";
+import ProjectCard from "components/ProjectCard";
 import MessengerCustomerChat from "react-messenger-customer-chat";
 import njabLogo from "images/njab/njab_logo.svg";
 import { Global } from "@emotion/core";
@@ -45,36 +52,36 @@ const RenderBody = ({ home, projects, meta, posts }) => (
       meta={[
         {
           name: `description`,
-          content: meta.description,
+          content: meta.description
         },
         {
           property: `og:title`,
-          content: meta.title,
+          content: meta.title
         },
         {
           property: `og:description`,
-          content: meta.description,
+          content: meta.description
         },
         {
           property: `og:type`,
-          content: `website`,
+          content: `website`
         },
         {
           name: `twitter:card`,
-          content: `summary`,
+          content: `summary`
         },
         {
           name: `twitter:creator`,
-          content: meta.author,
+          content: meta.author
         },
         {
           name: `twitter:title`,
-          content: meta.title,
+          content: meta.title
         },
         {
           name: `twitter:description`,
-          content: meta.description,
-        },
+          content: meta.description
+        }
       ].concat(meta)}
     />
     <Hero>
@@ -125,7 +132,7 @@ RenderBody.propTypes = {
   home: PropTypes.object.isRequired,
   projects: PropTypes.array.isRequired,
   posts: PropTypes.array.isRequired,
-  meta: PropTypes.object.isRequired,
+  meta: PropTypes.object.isRequired
 };
 
 export const query = graphql`

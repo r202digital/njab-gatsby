@@ -4,20 +4,20 @@ import styled from "@emotion/styled";
 import colors from "styles/colors";
 import dimensions from "styles/dimensions";
 import Logo from "components/_ui/Logo";
-import Box from "@chakra-ui/core/dist/Box";
-import IconButton from "@chakra-ui/core/dist/IconButton";
-import Button from "@chakra-ui/core/dist/Button";
-import Input from "@chakra-ui/core/dist/Input";
-import useDisclosure from "@chakra-ui/core/dist/useDisclosure";
 import {
+  Box,
+  IconButton,
+  useDisclosure,
   Drawer,
   DrawerBody,
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
-  DrawerCloseButton
-} from "@chakra-ui/core/dist/Drawer";
+  DrawerCloseButton,
+  Button,
+  Input
+} from "@chakra-ui/core";
 import { MdMenu, MdSearch } from "react-icons/md";
 import BackgroundImage from "gatsby-background-image";
 
