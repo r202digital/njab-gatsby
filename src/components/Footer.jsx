@@ -8,7 +8,7 @@ import Box from "@chakra-ui/core/dist/Box";
 import Text from "@chakra-ui/core/dist/Text";
 import Heading from "@chakra-ui/core/dist/Heading";
 import Flex from "@chakra-ui/core/dist/Flex";
-import { List, ListItem } from "@chakra-ui/core/dist/List";
+import List, { ListItem } from "@chakra-ui/core/dist/List";
 import * as ExternalLink from "@chakra-ui/core/dist/Link";
 import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
 import {

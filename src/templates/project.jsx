@@ -15,7 +15,7 @@ import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
 import Mosaic from "components/Mosaic";
 
 import Image from "@chakra-ui/core/dist/Image";
-import { List, ListItem } from "@chakra-ui/core/dist/List";
+import List, { ListItem } from "@chakra-ui/core/dist/List";
 import Flex from "@chakra-ui/core/dist/Flex";
 import Grid from "@chakra-ui/core/dist/Grid";
 import Heading from "@chakra-ui/core/dist/Heading";
