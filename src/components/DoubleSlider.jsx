@@ -1,14 +1,12 @@
 import React from "react";
-import {
-  Box,
-  PseudoBox,
-  Image,
-  List,
-  IconButton,
-  Flex,
-  Text,
-  Heading
-} from "@chakra-ui/core";
+import Box from "@chakra-ui/core/dist/Box";
+import PseudoBox from "@chakra-ui/core/dist/PseudoBox";
+import Image from "@chakra-ui/core/dist/Image";
+import List from "@chakra-ui/core/dist/List";
+import IconButton from "@chakra-ui/core/dist/IconButton";
+import Flex from "@chakra-ui/core/dist/Flex";
+import Text from "@chakra-ui/core/dist/Text";
+import Heading from "@chakra-ui/core/dist/Heading";
 import Slider from "react-slick";
 import Container from "./Container";
 import styled from "@emotion/styled";

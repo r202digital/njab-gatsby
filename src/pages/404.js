@@ -2,8 +2,12 @@ import React from "react";
 import Layout from "components/Layout";
 import colors from "styles/colors";
 import styled from "@emotion/styled";
-
-import { Heading, Grid, Text, Image, Flex, Box } from "@chakra-ui/core";
+import Flex from "@chakra-ui/core/dist/Flex";
+import Box from "@chakra-ui/core/dist/Box";
+import Text from "@chakra-ui/core/dist/Text";
+import Heading from "@chakra-ui/core/dist/Heading";
+import Grid from "@chakra-ui/core/dist/Grid";
+import Image from "@chakra-ui/core/dist/Image";
 import Link from "components/_ui/Link";
 
 const UnderlineBox = styled(Box)`

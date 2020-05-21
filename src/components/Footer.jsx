@@ -1,26 +1,20 @@
 import React from "react";
-import Link from "components/_ui/Link";
 import styled from "@emotion/styled";
 import colors from "styles/colors";
 import dimensions from "styles/dimensions";
 import theme from "styles/theme";
-
-import FooterContactForm from "components/form/FooterContactForm";
 import njabLogo from "images/njab/njab-logo.png";
-import {
-  Image,
-  Box,
-  Text,
-  Heading,
-  Flex,
-  List,
-  ListItem,
-  Link as ExternalLink
-} from "@chakra-ui/core";
+import Box from "@chakra-ui/core/dist/Box";
+import Text from "@chakra-ui/core/dist/Text";
+import Heading from "@chakra-ui/core/dist/Heading";
+import Flex from "@chakra-ui/core/dist/Flex";
+import { List, ListItem } from "@chakra-ui/core/dist/List";
+import * as ExternalLink from "@chakra-ui/core/dist/Link";
 import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
 import {
   getPrismicText,
-  getPrismicDocumentLink
+  getPrismicDocumentLink,
+  getUrl,
 } from "../lib/PrismicFunctions";
 
 const FooterContainer = styled(Box)`
@@ -77,8 +71,9 @@ const Footer = ({ data }) => {
     left_description,
     right_title,
     first_column_links,
-    second_column_links
+    second_column_links,
   } = data;
+
   return (
     <FooterContainer maxWidth={`${dimensions.maxwidthDesktop}px`}>
       <Flex
@@ -112,13 +107,13 @@ const Footer = ({ data }) => {
             px={{ xs: "15px", md: "0" }}
             py={{ xs: "30px", md: "0" }}
           >
-            <ExternalLink href={instagram}>
+            <ExternalLink href={getUrl(instagram)}>
               <Box as={FaInstagram} size="20px" color={colors.njabDarkPink} />
             </ExternalLink>
-            <ExternalLink href={twitter}>
+            <ExternalLink href={getUrl(twitter)}>
               <Box as={FaTwitter} size="20px" color={colors.njabDarkPink} />
             </ExternalLink>
-            <ExternalLink href={facebook}>
+            <ExternalLink href={getUrl(facebook)}>
               <Box as={FaFacebookF} size="20px" color={colors.njabDarkPink} />
             </ExternalLink>
           </Flex>
@@ -138,7 +133,7 @@ const Footer = ({ data }) => {
           </Heading>
           <Flex>
             <List styleType="none" padding="0" mr="15px" flex="1">
-              {first_column_links.map(item => {
+              {first_column_links.map((item) => {
                 return (
                   <ListItem>
                     <a href={getPrismicDocumentLink(item.column_link)}>
@@ -149,7 +144,7 @@ const Footer = ({ data }) => {
               })}
             </List>
             <List styleType="none" padding="0" ml="15px" flex="1">
-              {second_column_links.map(item => {
+              {second_column_links.map((item) => {
                 return (
                   <ListItem>
                     <a href={getPrismicDocumentLink(item.column_link)}>

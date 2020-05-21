@@ -5,7 +5,6 @@ import styled from "@emotion/styled";
 import colors from "styles/colors";
 import Link from "components/_ui/Link";
 import { graphql } from "gatsby";
-import { RichText } from "prismic-reactjs";
 import Button from "components/_ui/Button";
 import Layout from "components/Layout";
 import DisjointedSlider from "components/DisjointedSlider";
@@ -15,23 +14,28 @@ import { FiArrowDown, FiArrowUp } from "react-icons/fi";
 import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
 import Mosaic from "components/Mosaic";
 
-import {
-  Image,
-  List,
-  ListItem,
-  Flex,
-  Grid,
-  Heading,
-  PseudoBox,
-  Box,
-  Text,
-  Icon,
-  Link as ExternalLink
-} from "@chakra-ui/core";
+import Image from "@chakra-ui/core/dist/Image";
+import Flex from "@chakra-ui/core/dist/Flex";
+import Heading from "@chakra-ui/core/dist/Heading";
+import PseudoBox from "@chakra-ui/core/dist/PseudoBox";
+import Box from "@chakra-ui/core/dist/Box";
+import Text from "@chakra-ui/core/dist/Text";
+import * as ExternalLink from "@chakra-ui/core/dist/Link";
 
-import Logo from "components/_ui/Logo";
-import Moment from "react-moment";
 import { getPrismicImage } from "../lib/PrismicFunctions";
+import Loadable from "react-loadable";
+
+const PrismicRichText = Loadable({
+  loader: () => import("prismic-reactjs"),
+  delay: 50,
+  render(loaded, props) {
+    const { RichText } = loaded;
+    return <RichText {...props} />;
+  },
+  loading() {
+    return <div />;
+  },
+});
 
 const ServiceHeroContainer = styled(Box)`
   display: flex;
@@ -122,11 +126,6 @@ const SliderLink = styled(Link)`
   }
 `;
 
-const StyledDate = styled(Moment)`
-  color: ${colors.njabDarkPink};
-  font-size: 14px;
-`;
-
 const StyledText = styled(Text)`
   font-family: Montserrat;
   letter-spacing: 1px;
@@ -164,55 +163,50 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
         meta={[
           {
             name: `description`,
-            content: meta.description
+            content: meta.description,
           },
           {
             property: `og:title`,
-            content: `${service.service_title[0].text} | Not Just a Box Events`
+            content: `${service.service_title[0].text} | Not Just a Box Events`,
           },
           {
             property: `og:description`,
-            content: meta.description
+            content: meta.description,
           },
           {
             property: `og:type`,
-            content: `website`
+            content: `website`,
           },
           {
             name: `twitter:card`,
-            content: `summary`
+            content: `summary`,
           },
           {
             name: `twitter:creator`,
-            content: meta.author
+            content: meta.author,
           },
           {
             name: `twitter:title`,
-            content: meta.title
+            content: meta.title,
           },
           {
             name: `twitter:description`,
-            content: meta.description
-          }
+            content: meta.description,
+          },
         ].concat(meta)}
       />
       <Layout>
         <Section flexDirection="row" flexWrap={{ xs: "wrap", md: "nowrap" }}>
           <Box flex={{ xs: "1 0 100%", md: "1 1 50%" }} paddingRight="5%">
             <ServiceTitle>
-              {RichText.render(service.service_title)}
+              <PrismicRichText render={service.service_title} />
             </ServiceTitle>
             <ServiceSubtitle>
-              {RichText.render(service.service_subtitle)}
+              <PrismicRichText render={service.service_subtitle} />
             </ServiceSubtitle>
-            <Text as="em" mb="50px" fontFamily="Montserrat" display="block">
-              <StyledDate format="MMMM DD, YYYY">
-                {service.post_date}
-              </StyledDate>
-            </Text>
             <ServiceBody>
               <StyledText>
-                {RichText.render(service.service_description)}
+                <PrismicRichText render={service.service_description} />
               </StyledText>
               <Box display="table" mb="50px">
                 <Text
@@ -345,7 +339,7 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
           outerProps={{
             backgroundColor: colors.njabDarkPink,
             py: "80px",
-            marginTop: "80px"
+            marginTop: "80px",
           }}
           maxWidth="initial"
           id="bottom-container"
@@ -399,7 +393,7 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
                       marginBottom="5px"
                       fontFamily="Montserrat"
                     >
-                      {item.node.service_title.map(i => i.text)}
+                      {item.node.service_title.map((i) => i.text)}
                     </Heading>
                     <Text
                       fontFamily="Montserrat"
@@ -419,7 +413,7 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
                   top="0"
                   zIndex="-1"
                   style={{
-                    filter: "brightness(0.7)"
+                    filter: "brightness(0.7)",
                   }}
                 />
               </PseudoBox>
@@ -428,7 +422,7 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
         </Section>
         <Section
           outerProps={{
-            py: "80px"
+            py: "80px",
           }}
         >
           <Flex
@@ -445,7 +439,7 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
                 width: "50px",
                 backgroundColor: "#e9c8bc",
                 my: "20px",
-                mx: "auto"
+                mx: "auto",
               }}
             >
               <FeaturedHeading>
@@ -466,10 +460,10 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
           </Flex>
           <Mosaic
             height="400px"
-            images={home.mosaic.map(item => ({
+            images={home.mosaic.map((item) => ({
               link: item.mosaic_link,
               image: getPrismicImage(item.mosaic_image),
-              imageSharp: item.mosaic_imageSharp
+              imageSharp: item.mosaic_imageSharp,
             }))}
           />
         </Section>
@@ -504,11 +498,11 @@ export default ({ data, path, location }) => {
   const home = data.prismic.allHomepages.edges.slice(0, 1).pop();
 
   const serviceContent = data.prismic.allServices.edges.filter(
-    edge => edge.node._meta.uid === id
+    (edge) => edge.node._meta.uid === id
   )[0];
 
   const allServices = data.prismic.allServices.edges
-    .filter(edge => edge.node._meta.uid !== id)
+    .filter((edge) => edge.node._meta.uid !== id)
     .slice(0, 5);
 
   const meta = data.site.siteMetadata;
@@ -526,7 +520,7 @@ export default ({ data, path, location }) => {
 };
 
 Service.propTypes = {
-  service: PropTypes.object.isRequired
+  service: PropTypes.object.isRequired,
 };
 
 export const query = graphql`

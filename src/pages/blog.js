@@ -3,33 +3,38 @@ import PropTypes from "prop-types";
 import Helmet from "react-helmet";
 import { graphql } from "gatsby";
 import styled from "@emotion/styled";
-import dimensions from "styles/dimensions";
 import colors from "styles/colors";
 import Layout from "components/Layout";
 import Mosaic from "components/Mosaic";
-import HighlightText from "components/_ui/HighlightText";
 import SectionHeading from "components/_ui/SectionHeading";
 import SectionSubheading from "components/_ui/SectionSubheading";
 import LazyLoad from "react-lazyload";
 import Skeleton from "react-loading-skeleton";
 import Section from "components/Section";
 import Checkerboard from "components/Checkerboard";
-import { RichText } from "prismic-reactjs";
-
-import {
-  Heading,
-  Grid,
-  Link,
-  Box,
-  Text,
-  Image,
-  Flex,
-  PseudoBox,
-  List,
-  ListItem
-} from "@chakra-ui/core";
+import Heading from "@chakra-ui/core/dist/Heading";
+import Grid from "@chakra-ui/core/dist/Grid";
+import Link from "@chakra-ui/core/dist/Link";
+import Box from "@chakra-ui/core/dist/Box";
+import Text from "@chakra-ui/core/dist/Text";
+import Flex from "@chakra-ui/core/dist/Flex";
+import PseudoBox from "@chakra-ui/core/dist/PseudoBox";
+import List, { ListItem } from "@chakra-ui/core/dist/List";
 import Container from "../components/Container";
 import { getPrismicText, getPrismicImage } from "../lib/PrismicFunctions";
+import Loadable from "react-loadable";
+
+const PrismicRichText = Loadable({
+  loader: () => import("prismic-reactjs"),
+  delay: 50,
+  render(loaded, props) {
+    const { RichText } = loaded;
+    return <RichText {...props} />;
+  },
+  loading() {
+    return <div />;
+  },
+});
 
 const CategoryLink = styled(Link)`
   &:hover {
@@ -39,7 +44,7 @@ const CategoryLink = styled(Link)`
 
 const Blog = ({ meta, blog, posts, categories }) => {
   const [filter, setFilter] = useState("");
-  const newPosts = posts.filter(post => {
+  const newPosts = posts.filter((post) => {
     return !!filter ? post.category === filter : true;
   });
   return (
@@ -50,36 +55,36 @@ const Blog = ({ meta, blog, posts, categories }) => {
         meta={[
           {
             name: `description`,
-            content: meta.description
+            content: meta.description,
           },
           {
             property: `og:title`,
-            content: `Our Journal | Not Just a Box Events`
+            content: `Our Journal | Not Just a Box Events`,
           },
           {
             property: `og:description`,
-            content: meta.description
+            content: meta.description,
           },
           {
             property: `og:type`,
-            content: `website`
+            content: `website`,
           },
           {
             name: `twitter:card`,
-            content: `summary`
+            content: `summary`,
           },
           {
             name: `twitter:creator`,
-            content: meta.author
+            content: meta.author,
           },
           {
             name: `twitter:title`,
-            content: meta.title
+            content: meta.title,
           },
           {
             name: `twitter:description`,
-            content: meta.description
-          }
+            content: meta.description,
+          },
         ].concat(meta)}
       />
       <Layout
@@ -90,7 +95,7 @@ const Blog = ({ meta, blog, posts, categories }) => {
           size: "cover",
           position: { md: "0 calc(50% + 35px)" },
           highlight:
-            "linear-gradient(180deg,rgba(0,0,0,1) 0%,rgba(255,255,255,0) 100%)"
+            "linear-gradient(180deg,rgba(0,0,0,1) 0%,rgba(255,255,255,0) 100%)",
         }}
         headerChildren={
           <Container
@@ -108,7 +113,7 @@ const Blog = ({ meta, blog, posts, categories }) => {
                 height: "1px",
                 width: "50px",
                 backgroundColor: "white",
-                my: "20px"
+                my: "20px",
               }}
             >
               <Heading
@@ -166,7 +171,7 @@ const Blog = ({ meta, blog, posts, categories }) => {
                 >
                   <ListItem py="5px" flex={{ xs: "1 0 100%", md: "1" }}>
                     <CategoryLink
-                      onClick={e => {
+                      onClick={(e) => {
                         e.preventDefault();
                         setFilter("");
                       }}
@@ -176,14 +181,14 @@ const Blog = ({ meta, blog, posts, categories }) => {
                     </CategoryLink>
                   </ListItem>
 
-                  {categories.map(item => (
+                  {categories.map((item) => (
                     <ListItem
                       flex={{ xs: "1 0 100%", md: "1" }}
                       textTransform="uppercase"
                       py="5px"
                     >
                       <CategoryLink
-                        onClick={e => {
+                        onClick={(e) => {
                           e.preventDefault();
                           setFilter(item);
                         }}
@@ -206,7 +211,7 @@ const Blog = ({ meta, blog, posts, categories }) => {
         <LazyLoad placeholder={<Skeleton />}>
           <Section
             outerProps={{
-              py: "80px"
+              py: "80px",
             }}
           >
             <Flex color={colors.njabDarkPink} mb="80px">
@@ -218,24 +223,24 @@ const Blog = ({ meta, blog, posts, categories }) => {
                     height: "1px",
                     width: "50px",
                     backgroundColor: "#e9c8bc",
-                    my: "20px"
+                    my: "20px",
                   }}
                 >
                   <SectionHeading>
-                    {RichText.render(blog.follow_us_heading)}
+                    <PrismicRichText render={blog.follow_us_heading} />
                   </SectionHeading>
                 </PseudoBox>
                 <SectionSubheading>
-                  {RichText.render(blog.follow_us_subheading)}
+                  <PrismicRichText render={blog.follow_us_subheading} />
                 </SectionSubheading>
               </Box>
             </Flex>
             <Mosaic
               height="400px"
-              images={blog.mosaic.map(item => ({
+              images={blog.mosaic.map((item) => ({
                 link: item.mosaic_link,
                 image: getPrismicImage(item.mosaic_image),
-                imageSharp: item.mosaic_imageSharp
+                imageSharp: item.mosaic_imageSharp,
               }))}
             />
           </Section>
@@ -251,11 +256,11 @@ export default ({ data }) => {
       title: getPrismicText(node.post_title),
       category: getPrismicText(node.post_category)
         .toLowerCase()
-        .replace(/\b\w/g, l => l.toUpperCase()),
+        .replace(/\b\w/g, (l) => l.toUpperCase()),
       description: getPrismicText(node.post_preview_description),
       link_text: "Read more",
       image: getPrismicImage(node.post_hero_image),
-      link: `/blog/${node._meta.uid}`
+      link: `/blog/${node._meta.uid}`,
     };
   });
 
@@ -264,7 +269,7 @@ export default ({ data }) => {
     const arr = total;
     const category = getPrismicText(node.post_category)
       .toLowerCase()
-      .replace(/\b\w/g, l => l.toUpperCase());
+      .replace(/\b\w/g, (l) => l.toUpperCase());
     if (!arr.includes(category)) {
       arr.push(category);
     }
@@ -283,7 +288,7 @@ export default ({ data }) => {
 
 Blog.propTypes = {
   posts: PropTypes.array.isRequired,
-  meta: PropTypes.object.isRequired
+  meta: PropTypes.object.isRequired,
 };
 
 export const query = graphql`

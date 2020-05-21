@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import Helmet from "react-helmet";
 import { graphql } from "gatsby";
 import styled from "@emotion/styled";
-import dimensions from "styles/dimensions";
 import colors from "styles/colors";
 import Layout from "components/Layout";
 import HighlightText from "components/_ui/HighlightText";
@@ -11,44 +10,32 @@ import SectionHeading from "components/_ui/SectionHeading";
 import SectionSubheading from "components/_ui/SectionSubheading";
 import LazyLoad from "react-lazyload";
 import Skeleton from "react-loading-skeleton";
-
 import Section from "components/Section";
 import Checkerboard from "components/Checkerboard";
-import { RichText } from "prismic-reactjs";
-
-import {
-  Heading,
-  Grid,
-  Link,
-  Box,
-  Text,
-  Image,
-  Flex,
-  PseudoBox
-} from "@chakra-ui/core";
+import Heading from "@chakra-ui/core/dist/Heading";
+import Grid from "@chakra-ui/core/dist/Grid";
+import Link from "@chakra-ui/core/dist/Link";
+import Box from "@chakra-ui/core/dist/Box";
+import Text from "@chakra-ui/core/dist/Text";
+import Image from "@chakra-ui/core/dist/Image";
+import Flex from "@chakra-ui/core/dist/Flex";
+import PseudoBox from "@chakra-ui/core/dist/PseudoBox";
 import leftFlower from "../images/njab/flower.png";
 import rightFlower from "../images/njab/flower2.png";
 import { getPrismicText, getPrismicImage } from "../lib/PrismicFunctions";
+import Loadable from "react-loadable";
 
-const BlogTitle = styled("h1")`
-  margin-bottom: 1em;
-`;
-
-const BlogGrid = styled("div")`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 2.5em;
-
-  @media (max-width: 1050px) {
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 1.5em;
-  }
-
-  @media (max-width: ${dimensions.maxwidthMobile}px) {
-    grid-template-columns: 1fr;
-    grid-gap: 2.5em;
-  }
-`;
+const PrismicRichText = Loadable({
+  loader: () => import("prismic-reactjs"),
+  delay: 50,
+  render(loaded, props) {
+    const { RichText } = loaded;
+    return <RichText {...props} />;
+  },
+  loading() {
+    return <div />;
+  },
+});
 
 const MapHeading = styled(Heading)`
   margin: 0;
@@ -78,7 +65,7 @@ const MapSubheading = styled(Heading)`
 
 const Services = ({ services, meta }) => {
   const [isWedding, setIsWedding] = useState(true);
-  const filteredServices = services.node.wedding_checkerboard.filter(item => {
+  const filteredServices = services.node.wedding_checkerboard.filter((item) => {
     const { linked_service } = item;
     if (!linked_service) {
       return false;
@@ -95,7 +82,7 @@ const Services = ({ services, meta }) => {
       description: getPrismicText(linked_service.service_preview_description),
       link_text: getPrismicText(linked_service.service_preview_link_text),
       image: getPrismicImage(linked_service.service_preview_thumbnail),
-      link: `/service/${linked_service._meta.uid}`
+      link: `/service/${linked_service._meta.uid}`,
     };
   });
 
@@ -107,36 +94,36 @@ const Services = ({ services, meta }) => {
         meta={[
           {
             name: `description`,
-            content: meta.description
+            content: meta.description,
           },
           {
             property: `og:title`,
-            content: `Services | Not Just a Box Events`
+            content: `Services | Not Just a Box Events`,
           },
           {
             property: `og:description`,
-            content: meta.description
+            content: meta.description,
           },
           {
             property: `og:type`,
-            content: `website`
+            content: `website`,
           },
           {
             name: `twitter:card`,
-            content: `summary`
+            content: `summary`,
           },
           {
             name: `twitter:creator`,
-            content: meta.author
+            content: meta.author,
           },
           {
             name: `twitter:title`,
-            content: meta.title
+            content: meta.title,
           },
           {
             name: `twitter:description`,
-            content: meta.description
-          }
+            content: meta.description,
+          },
         ].concat(meta)}
       />
       <Layout>
@@ -151,9 +138,9 @@ const Services = ({ services, meta }) => {
             <Link
               _hover={{
                 textDecoration: "none",
-                filter: "brightness(0.9)"
+                filter: "brightness(0.9)",
               }}
-              onClick={e => {
+              onClick={(e) => {
                 e.preventDefault();
                 setIsWedding(true);
               }}
@@ -206,19 +193,19 @@ const Services = ({ services, meta }) => {
               mx="24px"
               mt={{
                 xs: "42px",
-                md: "5px"
+                md: "5px",
               }}
               mb={{
                 xs: "20px",
-                md: "5px"
+                md: "5px",
               }}
             />
             <Link
               _hover={{
                 textDecoration: "none",
-                filter: "brightness(0.9)"
+                filter: "brightness(0.9)",
               }}
-              onClick={e => {
+              onClick={(e) => {
                 e.preventDefault();
                 setIsWedding(false);
               }}
@@ -279,7 +266,7 @@ const Services = ({ services, meta }) => {
                   height: "1px",
                   width: "50px",
                   backgroundColor: "#e9c8bc",
-                  my: "20px"
+                  my: "20px",
                 }}
               >
                 <SectionHeading
@@ -289,7 +276,7 @@ const Services = ({ services, meta }) => {
                   fontWeight="400"
                   color={colors.njabDarkPink}
                 >
-                  {RichText.render(services.node.weddings_heading)}
+                  <PrismicRichText render={services.node.weddings_heading} />
                 </SectionHeading>
               </PseudoBox>
               <SectionSubheading
@@ -300,7 +287,7 @@ const Services = ({ services, meta }) => {
                 fontWeight="700"
                 color={colors.njabDarkPink}
               >
-                {RichText.render(services.node.weddings_subheading)}
+                <PrismicRichText render={services.node.weddings_subheading} />
               </SectionSubheading>
             </Box>
             <Box
@@ -314,7 +301,9 @@ const Services = ({ services, meta }) => {
                 fontSize="13px"
                 color="#707073"
               >
-                {RichText.render(services.node.weddings_highlight_text)}
+                <PrismicRichText
+                  render={services.node.weddings_highlight_text}
+                />
               </HighlightText>
             </Box>
           </Flex>
@@ -337,12 +326,12 @@ const Services = ({ services, meta }) => {
                   my: "15px",
                   mx: {
                     xs: "0",
-                    md: "auto"
-                  }
+                    md: "auto",
+                  },
                 }}
               >
                 <MapHeading as="h3" color={colors.njabDarkPink}>
-                  {RichText.render(services.node.map_heading)}
+                  <PrismicRichText render={services.node.map_heading} />
                 </MapHeading>
               </PseudoBox>
               <MapSubheading
@@ -350,7 +339,7 @@ const Services = ({ services, meta }) => {
                 marginBottom="20px"
                 color={colors.njabDarkPink}
               >
-                {RichText.render(services.node.map_subheading)}
+                <PrismicRichText render={services.node.map_subheading} />
               </MapSubheading>
             </Box>
             <Box>
@@ -381,7 +370,7 @@ export default ({ data }) => {
 
 Services.propTypes = {
   posts: PropTypes.array.isRequired,
-  meta: PropTypes.object.isRequired
+  meta: PropTypes.object.isRequired,
 };
 
 export const query = graphql`
