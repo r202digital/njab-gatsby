@@ -20,7 +20,7 @@ import Heading from "@chakra-ui/core/dist/Heading";
 import PseudoBox from "@chakra-ui/core/dist/PseudoBox";
 import Box from "@chakra-ui/core/dist/Box";
 import Text from "@chakra-ui/core/dist/Text";
-import * as ExternalLink from "@chakra-ui/core/dist/Link";
+import ExternalLink from "@chakra-ui/core/dist/Link";
 
 import { getPrismicImage } from "../lib/PrismicFunctions";
 import Loadable from "react-loadable";

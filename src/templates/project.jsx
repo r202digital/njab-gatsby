@@ -23,7 +23,7 @@ import PseudoBox from "@chakra-ui/core/dist/PseudoBox";
 import Box from "@chakra-ui/core/dist/Box";
 import Text from "@chakra-ui/core/dist/Text";
 import Icon from "@chakra-ui/core/dist/Icon";
-import * as ExternalLink from "@chakra-ui/core/dist/Link";
+import ExternalLink from "@chakra-ui/core/dist/Link";
 
 import { getPrismicImage } from "../lib/PrismicFunctions";
 import dayjs from "dayjs";
