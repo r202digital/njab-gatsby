@@ -16,7 +16,7 @@ import {
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
-  DrawerCloseButton
+  DrawerCloseButton,
 } from "@chakra-ui/core/dist/Drawer";
 import { MdMenu, MdSearch } from "react-icons/md";
 import BackgroundImage from "gatsby-background-image";
@@ -32,10 +32,10 @@ const HeaderContainer = styled(BackgroundImage)`
   }
 
   &:before {
-    background-size: ${props =>
+    background-size: ${(props) =>
       props.backgroundSize ? `${props.backgroundSize} !important` : "initial"};
     @media (min-width: 768px) {
-      background-position: ${props =>
+      background-position: ${(props) =>
         props.backgroundPosition && props.backgroundPosition.md
           ? `${props.backgroundPosition.md} !important`
           : "initial"};
@@ -53,7 +53,7 @@ const HeaderContainerBox = styled(Box)`
   }
 `;
 
-const HeaderContainerWrapper = props =>
+const HeaderContainerWrapper = (props) =>
   !!props.fluid ? (
     <HeaderContainer {...props} />
   ) : (
@@ -123,6 +123,9 @@ const HeaderLinks = styled("div")`
     }
 
     &.Link--is-active {
+      &:hover {
+        text-decoration: initial;
+      }
       font-weight: 700;
     }
   }
@@ -141,16 +144,28 @@ const MobileMenuLink = styled(Link)`
   &:hover {
     outline: none;
     background-color: ${colors.njabLightPink};
+    text-decoration: initial;
+  }
+`;
+
+const NavLink = styled(Link)`
+  &:hover {
+    text-decoration: initial;
   }
 `;
 
 const Header = ({ navLinks, variant, children, background = {} }) => {
-  const newNavLinks = navLinks.map(item => ({
-    text: item.nav_link[0].text,
-    url: item.nav_link[0].spans[0]
-      ? `/${item.nav_link[0].spans[0].data.uid}`
-      : ""
-  }));
+  const newNavLinks = navLinks.map((item) => {
+    const { data } = item.nav_link[0].spans[0];
+    return {
+      text: item.nav_link[0].text,
+      url: item.nav_link[0].spans[0]
+        ? data.link_type === "Document"
+          ? `/${data.uid}`
+          : data.url
+        : "",
+    };
+  });
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
@@ -192,7 +207,7 @@ const Header = ({ navLinks, variant, children, background = {} }) => {
             justifyContent="center"
             alignItems="center"
           >
-            {newNavLinks.map(item => (
+            {newNavLinks.map((item) => (
               <MobileMenuLink to={item.url}>{item.text}</MobileMenuLink>
             ))}
           </DrawerBody>
@@ -213,10 +228,10 @@ const Header = ({ navLinks, variant, children, background = {} }) => {
             <Logo variant={variant} />
           </Link>
           <HeaderLinks className={`HeaderLinks--${variant}`}>
-            {newNavLinks.map(item => (
-              <Link activeClassName="Link--is-active" to={item.url}>
+            {newNavLinks.map((item) => (
+              <NavLink activeClassName="Link--is-active" to={item.url}>
                 {item.text}
-              </Link>
+              </NavLink>
             ))}
           </HeaderLinks>
           <Box>
@@ -245,7 +260,7 @@ const Header = ({ navLinks, variant, children, background = {} }) => {
               fontSize="30px"
               _hover={{
                 backgroundColor: "transparent",
-                opacity: 0.5
+                opacity: 0.5,
               }}
             />
           </Box>
