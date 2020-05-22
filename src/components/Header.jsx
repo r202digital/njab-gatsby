@@ -154,7 +154,13 @@ const NavLink = styled(Link)`
   }
 `;
 
-const Header = ({ navLinks, variant, children, background = {} }) => {
+const Header = ({
+  fontAvailable,
+  navLinks,
+  variant,
+  children,
+  background = {},
+}) => {
   const newNavLinks = navLinks.map((item) => {
     const { data } = item.nav_link[0].spans[0];
     return {
@@ -215,56 +221,46 @@ const Header = ({ navLinks, variant, children, background = {} }) => {
           <DrawerFooter>{/* Insert Search Input Here */}</DrawerFooter>
         </DrawerContent>
       </Drawer>
-      <Box background={background.highlight}>
-        <HeaderContent
-          className={`HeaderContent--${variant}`}
-          borderBottom={
-            variant === "light"
-              ? "1px solid #f7e3da"
-              : "1px solid rgba(255,255,255,0.5)"
-          }
-        >
-          <Link to="/" className="logo-link" aria-label="NJAB Logo">
-            <Logo variant={variant} />
-          </Link>
-          <HeaderLinks className={`HeaderLinks--${variant}`}>
-            {newNavLinks.map((item) => (
-              <NavLink activeClassName="Link--is-active" to={item.url}>
-                {item.text}
-              </NavLink>
-            ))}
-          </HeaderLinks>
-          <Box>
-            {/* <IconButton
-              aria-label="Search database"
-              background="transparent"
-              color={variant === "light" ? "#dd8d83" : "white"}
-              icon={MdSearch}
-              fontSize="30px"
-              _hover={{
-                backgroundColor: "transparent",
-                opacity: 0.5
-              }}
-              border="none"
-            /> */}
-            <IconButton
-              ref={btnRef}
-              onClick={onOpen}
-              className="menu-item--small"
-              display={{ xs: "initial", md: "none" }}
-              aria-label="Menu"
-              backgroundColor="transparent"
-              color={variant === "light" ? "#dd8d83" : "white"}
-              icon={MdMenu}
-              border="none"
-              fontSize="30px"
-              _hover={{
-                backgroundColor: "transparent",
-                opacity: 0.5,
-              }}
-            />
-          </Box>
-        </HeaderContent>
+      <Box background={background.highlight} height="60px">
+        {fontAvailable && (
+          <HeaderContent
+            className={`HeaderContent--${variant}`}
+            borderBottom={
+              variant === "light"
+                ? "1px solid #f7e3da"
+                : "1px solid rgba(255,255,255,0.5)"
+            }
+          >
+            <Link to="/" className="logo-link" aria-label="NJAB Logo">
+              <Logo variant={variant} />
+            </Link>
+            <HeaderLinks className={`HeaderLinks--${variant}`}>
+              {newNavLinks.map((item) => (
+                <NavLink activeClassName="Link--is-active" to={item.url}>
+                  {item.text}
+                </NavLink>
+              ))}
+            </HeaderLinks>
+            <Box>
+              <IconButton
+                ref={btnRef}
+                onClick={onOpen}
+                className="menu-item--small"
+                display={{ xs: "initial", md: "none" }}
+                aria-label="Menu"
+                backgroundColor="transparent"
+                color={variant === "light" ? "#dd8d83" : "white"}
+                icon={MdMenu}
+                border="none"
+                fontSize="30px"
+                _hover={{
+                  backgroundColor: "transparent",
+                  opacity: 0.5,
+                }}
+              />
+            </Box>
+          </HeaderContent>
+        )}
       </Box>
       <Box>{children}</Box>
     </HeaderContainerWrapper>

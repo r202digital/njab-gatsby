@@ -18,6 +18,18 @@ import Box from "@chakra-ui/core/dist/Box";
 import Text from "@chakra-ui/core/dist/Text";
 import Heading from "@chakra-ui/core/dist/Heading";
 import PseudoBox from "@chakra-ui/core/dist/PseudoBox";
+import Button from "@chakra-ui/core/dist/Button";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/core/dist/Modal";
+import useDisclosure from "@chakra-ui/core/dist/useDisclosure";
+import Fade from "react-reveal/Fade";
 
 import { getPrismicImage } from "../lib/PrismicFunctions";
 
@@ -142,7 +154,8 @@ const DisjointedSliderContainer = styled(Flex)`
 `;
 
 const JournalImageSharp = styled(Img)`
-  width: auto;
+  width: 100%;
+  height: 100%;
   position: absolute !important;
   top: 0;
   z-index: -1;
@@ -257,6 +270,8 @@ const PackagesFlex = styled(BackgroundImage)`
 `;
 
 const RenderBody = ({ home, projects, meta, posts }) => {
+  const { isOpen, onClose } = useDisclosure(true);
+
   const newTestimonials = home.testimonial_carousel.map((item) => ({
     title: item.testimonial_title[0].text,
     image: getPrismicImage(item.testimonial_slide_image),
@@ -305,6 +320,21 @@ const RenderBody = ({ home, projects, meta, posts }) => {
           },
         ].concat(meta)}
       />
+      {/* <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Modal Title</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>Lorem ipsum dolor Lorem</ModalBody>
+
+          <ModalFooter>
+            <Button variantColor="blue" mr={3} onClick={onClose}>
+              Close
+            </Button>
+            <Button variant="ghost">Secondary Action</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal> */}
       <Section
         outerProps={{
           backgroundColor: colors.njabDarkPink,
@@ -668,29 +698,24 @@ const RenderBody = ({ home, projects, meta, posts }) => {
                       justifyContent="center"
                       alignItems="center"
                       fontWeight="500"
-                      paddingRight="15px"
+                      paddingRight={{ md: "15px" }}
                     >
                       <Text
                         textTransform="uppercase"
                         letterSpacing="3px"
                         fontSize="14px"
                         fontFamily="Montserrat"
+                        margin="0"
                       >
                         {dayjs(item.journal_post_link.post_date).format(
                           "MMMM D, YYYY"
                         )}
                       </Text>
-                      <Box
-                        width="75px"
-                        height="2px"
-                        backgroundColor="white"
-                        my="20px"
-                      />
                       <Heading
                         as="h1"
                         textTransform="uppercase"
                         letterSpacing="8px"
-                        fontSize="32px"
+                        fontSize={{ xs: "25px", md: "32px" }}
                         my="20px"
                         fontFamily="Montserrat"
                         px="20px"
@@ -703,10 +728,11 @@ const RenderBody = ({ home, projects, meta, posts }) => {
                       </Heading>
                       <Text
                         as="em"
-                        width="50%"
-                        fontSize="18px"
+                        width={{ md: "50%" }}
+                        px="15px"
+                        fontSize={{ xs: "16px", md: "18px" }}
                         fontWeight="500"
-                        my="30px"
+                        my={{ md: "30px" }}
                         textAlign="center"
                         fontFamily="Montserrat"
                       >
@@ -755,7 +781,7 @@ const RenderBody = ({ home, projects, meta, posts }) => {
                         as="h1"
                         textTransform="uppercase"
                         letterSpacing="8px"
-                        fontSize="32px"
+                        fontSize={{ xs: "25px", md: "32px" }}
                         my="20px"
                         fontFamily="Montserrat"
                         px="20px"
@@ -774,6 +800,7 @@ const RenderBody = ({ home, projects, meta, posts }) => {
                         fontWeight="500"
                         my="30px"
                         fontFamily="Montserrat"
+                        textAlign="center"
                       >
                         Written By: {item.journal_post_link.post_author}
                       </Heading>
