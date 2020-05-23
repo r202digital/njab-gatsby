@@ -24,7 +24,7 @@ import "react-micro-modal/dist/index.css";
 
 const MicroModal = Loadable({
   loader: () => import("react-micro-modal"),
-  delay: 50,
+  delay: 400,
   loading() {
     return <div />;
   },
@@ -175,8 +175,7 @@ const Layout = ({
           logo_light,
           ...footerInfo
         } = node;
-        console.log(modal_text);
-        console.log(modal_title);
+
         return (
           <>
             <Helmet />
