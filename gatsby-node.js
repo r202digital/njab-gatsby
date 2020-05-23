@@ -1,8 +1,8 @@
 const path = require("path");
 
 // graphql function doesn't throw an error so we have to check to check for the result.errors to throw manually
-const wrapper = promise =>
-  promise.then(result => {
+const wrapper = (promise) =>
+  promise.then((result) => {
     if (result.errors) {
       throw result.errors;
     }
@@ -74,7 +74,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const serviceTemplate = require.resolve("./src/templates/service.jsx");
   const postTemplate = require.resolve("./src/templates/post.jsx");
 
-  projectsList.forEach(edge => {
+  projectsList.forEach((edge) => {
     // The uid you assigned in Prismic is the slug!
     createPage({
       type: "Project",
@@ -83,32 +83,32 @@ exports.createPages = async ({ graphql, actions }) => {
       component: projectTemplate,
       context: {
         // Pass the unique ID (uid) through context so the template can filter by it
-        uid: edge.node._meta.uid
-      }
+        uid: edge.node._meta.uid,
+      },
     });
   });
 
-  postsList.forEach(edge => {
+  postsList.forEach((edge) => {
     createPage({
       type: "Post",
       match: "/blog/:uid",
       path: `/blog/${edge.node._meta.uid}`,
       component: postTemplate,
       context: {
-        uid: edge.node._meta.uid
-      }
+        uid: edge.node._meta.uid,
+      },
     });
   });
 
-  servicesList.forEach(edge => {
+  servicesList.forEach((edge) => {
     createPage({
       type: "Service",
       match: "/service/:uid",
       path: `/service/${edge.node._meta.uid}`,
       component: serviceTemplate,
       context: {
-        uid: edge.node._meta.uid
-      }
+        uid: edge.node._meta.uid,
+      },
     });
   });
 };

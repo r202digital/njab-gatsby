@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Helmet from "react-helmet";
 import { graphql } from "gatsby";
@@ -18,18 +18,6 @@ import Box from "@chakra-ui/core/dist/Box";
 import Text from "@chakra-ui/core/dist/Text";
 import Heading from "@chakra-ui/core/dist/Heading";
 import PseudoBox from "@chakra-ui/core/dist/PseudoBox";
-import Button from "@chakra-ui/core/dist/Button";
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-} from "@chakra-ui/core/dist/Modal";
-import useDisclosure from "@chakra-ui/core/dist/useDisclosure";
-import Fade from "react-reveal/Fade";
 
 import { getPrismicImage } from "../lib/PrismicFunctions";
 
@@ -270,8 +258,6 @@ const PackagesFlex = styled(BackgroundImage)`
 `;
 
 const RenderBody = ({ home, projects, meta, posts }) => {
-  const { isOpen, onClose } = useDisclosure(true);
-
   const newTestimonials = home.testimonial_carousel.map((item) => ({
     title: item.testimonial_title[0].text,
     image: getPrismicImage(item.testimonial_slide_image),
@@ -320,21 +306,6 @@ const RenderBody = ({ home, projects, meta, posts }) => {
           },
         ].concat(meta)}
       />
-      {/* <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>Lorem ipsum dolor Lorem</ModalBody>
-
-          <ModalFooter>
-            <Button variantColor="blue" mr={3} onClick={onClose}>
-              Close
-            </Button>
-            <Button variant="ghost">Secondary Action</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal> */}
       <Section
         outerProps={{
           backgroundColor: colors.njabDarkPink,

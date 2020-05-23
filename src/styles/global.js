@@ -57,6 +57,14 @@ const globalStyles = css`
     height: 100%;
     min-height: 100% !important;
   }
+
+  .modal-overlay {
+    z-index: 100;
+
+    .modal-container {
+      max-height: 80vh !important;
+    }
+  }
 `;
 
 export default globalStyles;

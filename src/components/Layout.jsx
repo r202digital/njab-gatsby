@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { StaticQuery, graphql } from "gatsby";
 import styled from "@emotion/styled";
@@ -13,11 +13,78 @@ import Helmet from "react-helmet";
 import "styles/fonts.scss";
 import preview from "../images/preview.png";
 import ThemeProvider from "@chakra-ui/core/dist/ThemeProvider";
+import IconButton from "@chakra-ui/core/dist/IconButton";
+import Flex from "@chakra-ui/core/dist/Flex";
+import Box from "@chakra-ui/core/dist/Box";
+import Loadable from "react-loadable";
 import theme from "../styles/theme";
 import MessengerCustomerChat from "react-messenger-customer-chat";
 import FontFaceObserver from "fontfaceobserver";
+import "react-micro-modal/dist/index.css";
+
+const MicroModal = Loadable({
+  loader: () => import("react-micro-modal"),
+  delay: 50,
+  loading() {
+    return <div />;
+  },
+});
+
+const PrismicHeading = Loadable({
+  loader: () => import("prismic-reactjs"),
+  delay: 50,
+  render(loaded, props) {
+    const { RichText } = loaded;
+    const StyledHeading = styled.div`
+      h3 {
+        margin: 0;
+      }
+    `;
+    return (
+      <StyledHeading>
+        <RichText {...props} />
+      </StyledHeading>
+    );
+  },
+  loading() {
+    return <div />;
+  },
+});
+
+const PrismicRichText = Loadable({
+  loader: () => import("prismic-reactjs"),
+  delay: 50,
+  render(loaded, props) {
+    const { RichText } = loaded;
+    const StyledRichText = styled.div`
+      p {
+        line-height: 1.5;
+        font-size: 13px;
+      }
+
+      img {
+        max-width: 100%;
+      }
+    `;
+    return (
+      <StyledRichText>
+        <RichText {...props} />
+      </StyledRichText>
+    );
+  },
+  loading() {
+    return <div />;
+  },
+});
 
 const LayoutContainer = styled.div``;
+
+const StyledClose = styled(IconButton)`
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  margin-left: 15px;
+`;
 
 const Layout = ({
   children,
@@ -26,6 +93,12 @@ const Layout = ({
   headerBackground,
 }) => {
   const [fontAvailable, setFontAvailable] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(true);
+
+  useEffect(() => {
+    setModalOpen(!sessionStorage.getItem("visited"));
+  }, []);
+
   return (
     <StaticQuery
       query={graphql`
@@ -40,6 +113,8 @@ const Layout = ({
             allGlobals {
               edges {
                 node {
+                  modal_title
+                  modal_text
                   nav_links {
                     nav_link
                   }
@@ -92,7 +167,16 @@ const Layout = ({
           (total, item) => item
         );
 
-        const { nav_links, logo, logo_light, ...footerInfo } = node;
+        const {
+          modal_text,
+          modal_title,
+          nav_links,
+          logo,
+          logo_light,
+          ...footerInfo
+        } = node;
+        console.log(modal_text);
+        console.log(modal_title);
         return (
           <>
             <Helmet />
@@ -104,6 +188,32 @@ const Layout = ({
               loggedOutGreeting="Hi, I'm Debbie! Can I help you with anything?"
             />
             <ThemeProvider theme={theme}>
+              <MicroModal
+                open={isModalOpen}
+                closeOnAnimationEnd
+                handleClose={() => {
+                  setModalOpen(false);
+                  sessionStorage.setItem("visited", true);
+                }}
+                children={(handleClose) => (
+                  <>
+                    <Flex>
+                      <Box>
+                        <PrismicHeading render={modal_title} />
+                      </Box>
+                      <StyledClose
+                        aria-label="Modal close"
+                        size="sm"
+                        icon="close"
+                        onClick={handleClose}
+                      />
+                    </Flex>
+                    <Box>
+                      <PrismicRichText render={modal_text} />
+                    </Box>
+                  </>
+                )}
+              />
               <LayoutContainer className="div">
                 <Global styles={[globalStyles, typeStyles, logoStyles]} />
                 <div className="Layout">
