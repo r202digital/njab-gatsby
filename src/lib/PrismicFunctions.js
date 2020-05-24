@@ -17,3 +17,28 @@ export const getPrismicImage = (image) => {
 
 export const getUrl = (obj) =>
   !!obj && obj.hasOwnProperty("url") ? obj.url : "";
+
+export const parsePrismicUrl = (url, size) => {
+  const newUrl = url.replace(/[?|&][w|h]=\w+/g, "");
+  return `${newUrl}&w=${size}`;
+};
+
+export const convertImageSharp = (fluid, prismicImg) => {
+  const src = parsePrismicUrl(prismicImg, 1440);
+  const srcSet = `${parsePrismicUrl(prismicImg, 480)} 480w, ${parsePrismicUrl(
+    prismicImg,
+    768
+  )} 768, ${parsePrismicUrl(prismicImg, 1024)} 1024w, ${parsePrismicUrl(
+    prismicImg,
+    1440
+  )} 1440w`;
+
+  const res = {
+    base64: fluid.base64,
+    aspectRatio: fluid.aspectRatio,
+    src: src,
+    srcSet: srcSet,
+    sizes: `(max-width: 1440px) 100vw, 1440px`,
+  };
+  return res;
+};

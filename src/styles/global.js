@@ -62,6 +62,8 @@ const globalStyles = css`
     z-index: 100;
 
     .modal-container {
+      padding: 0 !important;
+      height: 100%;
       max-height: 80vh !important;
     }
   }

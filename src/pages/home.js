@@ -19,7 +19,7 @@ import Text from "@chakra-ui/core/dist/Text";
 import Heading from "@chakra-ui/core/dist/Heading";
 import PseudoBox from "@chakra-ui/core/dist/PseudoBox";
 
-import { getPrismicImage } from "../lib/PrismicFunctions";
+import { getPrismicImage, convertImageSharp } from "../lib/PrismicFunctions";
 
 const PrismicRichText = Loadable({
   loader: () => import("prismic-reactjs"),
@@ -811,8 +811,11 @@ export default ({ data }) => {
         </Hero>
       }
       headerBackground={{
-        url: getPrismicImage(doc.node.hero_background),
-        sharp: doc.node.hero_imageSharp.childImageSharp.fluid,
+        url: getPrismicImage(doc.node.hero_image),
+        sharp: convertImageSharp(
+          doc.node.hero_imageSharp.childImageSharp.fluid,
+          doc.node.hero_image.url
+        ),
         size: "cover",
         position: { md: "0 calc(50% + 35px)" },
         highlight:
@@ -844,7 +847,6 @@ export const query = graphql`
           node {
             hero_title
             hero_button_text
-            hero_background
             hero_image
             hero_imageSharp {
               childImageSharp {

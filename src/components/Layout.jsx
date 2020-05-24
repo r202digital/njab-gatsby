@@ -6,7 +6,7 @@ import { Global } from "@emotion/core";
 import globalStyles from "styles/global";
 import typeStyles from "styles/typography";
 import logoStyles from "styles/logo";
-import dimensions from "styles/dimensions";
+import colors from "styles/colors";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import Helmet from "react-helmet";
@@ -16,15 +16,17 @@ import ThemeProvider from "@chakra-ui/core/dist/ThemeProvider";
 import IconButton from "@chakra-ui/core/dist/IconButton";
 import Flex from "@chakra-ui/core/dist/Flex";
 import Box from "@chakra-ui/core/dist/Box";
+import Image from "@chakra-ui/core/dist/Image";
 import Loadable from "react-loadable";
 import theme from "../styles/theme";
 import MessengerCustomerChat from "react-messenger-customer-chat";
 import FontFaceObserver from "fontfaceobserver";
 import "react-micro-modal/dist/index.css";
+import { parsePrismicUrl } from "../lib/PrismicFunctions";
 
 const MicroModal = Loadable({
   loader: () => import("react-micro-modal"),
-  delay: 400,
+  delay: 50,
   loading() {
     return <div />;
   },
@@ -65,6 +67,10 @@ const PrismicRichText = Loadable({
       img {
         max-width: 100%;
       }
+
+      h4 {
+        margin: 0;
+      }
     `;
     return (
       <StyledRichText>
@@ -93,7 +99,7 @@ const Layout = ({
   headerBackground,
 }) => {
   const [fontAvailable, setFontAvailable] = useState(false);
-  const [isModalOpen, setModalOpen] = useState(true);
+  const [isModalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     setModalOpen(!sessionStorage.getItem("visited"));
@@ -115,6 +121,7 @@ const Layout = ({
                 node {
                   modal_title
                   modal_text
+                  modal_side_image
                   nav_links {
                     nav_link
                   }
@@ -170,6 +177,7 @@ const Layout = ({
         const {
           modal_text,
           modal_title,
+          modal_side_image,
           nav_links,
           logo,
           logo_light,
@@ -195,22 +203,40 @@ const Layout = ({
                   sessionStorage.setItem("visited", true);
                 }}
                 children={(handleClose) => (
-                  <>
-                    <Flex>
-                      <Box>
-                        <PrismicHeading render={modal_title} />
-                      </Box>
-                      <StyledClose
-                        aria-label="Modal close"
-                        size="sm"
-                        icon="close"
-                        onClick={handleClose}
+                  <Flex height="100%">
+                    <Flex
+                      justifyContent="center"
+                      flex="0 0 40%"
+                      overflow="hidden"
+                    >
+                      <Image
+                        height="100%"
+                        src={parsePrismicUrl(modal_side_image.url, 400)}
                       />
                     </Flex>
-                    <Box>
-                      <PrismicRichText render={modal_text} />
+                    <Box
+                      flex="0 0 60%"
+                      height="100%"
+                      overflowY="scroll"
+                      padding="30px"
+                      backgroundColor={colors.njabLightPink}
+                    >
+                      <Flex>
+                        <Box>
+                          <PrismicHeading render={modal_title} />
+                        </Box>
+                        <StyledClose
+                          aria-label="Modal close"
+                          size="sm"
+                          icon="close"
+                          onClick={handleClose}
+                        />
+                      </Flex>
+                      <Box>
+                        <PrismicRichText render={modal_text} />
+                      </Box>
                     </Box>
-                  </>
+                  </Flex>
                 )}
               />
               <LayoutContainer className="div">
