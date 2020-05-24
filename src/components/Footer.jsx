@@ -16,6 +16,7 @@ import {
   getPrismicDocumentLink,
   getUrl,
 } from "../lib/PrismicFunctions";
+import { PinkNoTextLogo } from "../components/_ui/NjabLogos";
 
 const FooterContainer = styled(Box)`
   padding-top: 3.75em;
@@ -67,11 +68,12 @@ const Footer = ({ data }) => {
     instagram,
     facebook,
     twitter,
-    left_title,
-    left_description,
-    right_title,
+    first_link_column_title,
     first_column_links,
+    second_link_column_title,
     second_column_links,
+    third_column_title,
+    third_column_rich_text,
   } = data;
 
   return (
@@ -82,42 +84,14 @@ const Footer = ({ data }) => {
         width="100%"
         flexDirection={{ xs: "column", md: "row" }}
       >
-        <Box flex="0 0 25%" px={{ xs: "2rem", md: 0 }}>
-          <Heading
-            as="h1"
-            fontSize="18px"
-            letterSpacing="2px"
-            marginBottom="20px"
-            fontWeight="400"
-            textTransform="uppercase"
-            fontFamily={theme.fonts.body}
-            textAlign={{ xs: "center", md: "initial" }}
-          >
-            {getPrismicText(left_title)}
-          </Heading>
-          <Text
-            fontFamily={theme.fonts.body}
-            display={{ xs: "none", md: "block" }}
-          >
-            {getPrismicText(left_description)}
-          </Text>
-          <Flex
-            width="100%"
-            justifyContent="space-between"
-            px={{ xs: "15px", md: "0" }}
-            py={{ xs: "30px", md: "0" }}
-          >
-            <ExternalLink href={getUrl(instagram)}>
-              <Box as={FaInstagram} size="20px" color={colors.njabDarkPink} />
-            </ExternalLink>
-            <ExternalLink href={getUrl(twitter)}>
-              <Box as={FaTwitter} size="20px" color={colors.njabDarkPink} />
-            </ExternalLink>
-            <ExternalLink href={getUrl(facebook)}>
-              <Box as={FaFacebookF} size="20px" color={colors.njabDarkPink} />
-            </ExternalLink>
-          </Flex>
-        </Box>
+        <Flex
+          justifyContent="center"
+          alignItems="center"
+          flex="0 0 25%"
+          px={{ xs: "2rem", md: 0 }}
+        >
+          <PinkNoTextLogo height="100" />
+        </Flex>
         <Box flex="0 0 25%" px={{ xs: "2rem", md: 0 }}>
           <Heading
             as="h1"
@@ -129,13 +103,13 @@ const Footer = ({ data }) => {
             fontFamily={theme.fonts.heading}
             textAlign={{ xs: "center", md: "initial" }}
           >
-            {getPrismicText(right_title)}
+            {getPrismicText(first_link_column_title)}
           </Heading>
           <Flex>
             <List styleType="none" padding="0" mr="15px" flex="1">
               {first_column_links.map((item) => {
                 return (
-                  <ListItem>
+                  <ListItem textAlign={{ xs: "center", md: "initial" }}>
                     <a href={getPrismicDocumentLink(item.column_link)}>
                       {getPrismicText(item.column_link)}
                     </a>
@@ -143,10 +117,43 @@ const Footer = ({ data }) => {
                 );
               })}
             </List>
-            <List styleType="none" padding="0" ml="15px" flex="1">
+          </Flex>
+          <Flex
+            width="100%"
+            justifyContent={{ xs: "center", md: "flex-start" }}
+            px={{ xs: "15px", md: "0" }}
+            py={{ xs: "30px", md: "0" }}
+          >
+            <ExternalLink href={getUrl(instagram)} mx="15px" ml="0">
+              <Box as={FaInstagram} size="20px" color={colors.njabDarkPink} />
+            </ExternalLink>
+            <ExternalLink href={getUrl(twitter)} mx="15px">
+              <Box as={FaTwitter} size="20px" color={colors.njabDarkPink} />
+            </ExternalLink>
+            <ExternalLink href={getUrl(facebook)} mx="15px">
+              <Box as={FaFacebookF} size="20px" color={colors.njabDarkPink} />
+            </ExternalLink>
+          </Flex>
+        </Box>
+
+        <Box flex="0 0 25%" px={{ xs: "2rem", md: 0 }}>
+          <Heading
+            as="h1"
+            fontSize="18px"
+            letterSpacing="2px"
+            marginBottom="20px"
+            fontWeight="400"
+            textTransform="uppercase"
+            fontFamily={theme.fonts.heading}
+            textAlign={{ xs: "center", md: "initial" }}
+          >
+            {getPrismicText(second_link_column_title)}
+          </Heading>
+          <Flex>
+            <List styleType="none" padding="0" mr="15px" flex="1">
               {second_column_links.map((item) => {
                 return (
-                  <ListItem>
+                  <ListItem textAlign={{ xs: "center", md: "initial" }}>
                     <a href={getPrismicDocumentLink(item.column_link)}>
                       {getPrismicText(item.column_link)}
                     </a>
@@ -156,17 +163,29 @@ const Footer = ({ data }) => {
             </List>
           </Flex>
         </Box>
+
+        <Box flex="0 0 25%" px={{ xs: "2rem", md: 0 }}>
+          <Heading
+            as="h1"
+            fontSize="18px"
+            letterSpacing="2px"
+            marginBottom="20px"
+            fontWeight="400"
+            textTransform="uppercase"
+            fontFamily={theme.fonts.body}
+            textAlign={{ xs: "center", md: "initial" }}
+          >
+            {getPrismicText(third_column_title)}
+          </Heading>
+          <Text
+            fontFamily={theme.fonts.body}
+            display={{ xs: "none", md: "block" }}
+          >
+            {getPrismicText(third_column_rich_text)}
+          </Text>
+        </Box>
       </Flex>
-      <FooterAuthor>
-        <div className="footerLogoContainer">
-          <FooterLogo
-            className="FooterLogo lazyload"
-            data-src={njabLogo}
-            src={njabLogo}
-          />
-        </div>
-        © 2020 — Not Just a Box Events
-      </FooterAuthor>
+      <FooterAuthor>© 2020 — Not Just a Box Events</FooterAuthor>
     </FooterContainer>
   );
 };

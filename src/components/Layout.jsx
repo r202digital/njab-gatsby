@@ -20,6 +20,8 @@ import Image from "@chakra-ui/core/dist/Image";
 import Loadable from "react-loadable";
 import theme from "../styles/theme";
 import MessengerCustomerChat from "react-messenger-customer-chat";
+import { PinkNoTextLogo } from "../components/_ui/NjabLogos";
+
 import FontFaceObserver from "fontfaceobserver";
 import "react-micro-modal/dist/index.css";
 import { parsePrismicUrl } from "../lib/PrismicFunctions";
@@ -142,15 +144,16 @@ const Layout = ({
                       url
                     }
                   }
-                  left_title
-                  left_description
-                  right_title
+                  first_link_column_title
                   first_column_links {
                     column_link
                   }
+                  second_link_column_title
                   second_column_links {
                     column_link
                   }
+                  third_column_title
+                  third_column_rich_text
                 }
               }
             }
@@ -234,6 +237,7 @@ const Layout = ({
                       </Flex>
                       <Box>
                         <PrismicRichText render={modal_text} />
+                        <PinkNoTextLogo margin="0 auto" />
                       </Box>
                     </Box>
                   </Flex>
