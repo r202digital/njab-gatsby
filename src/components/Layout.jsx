@@ -170,7 +170,7 @@ const Layout = ({
             setFontAvailable(true);
           },
           function() {
-            console.log("Font is not available");
+            return;
           }
         );
         const { node } = data.prismic.allGlobals.edges.reduce(
@@ -213,8 +213,9 @@ const Layout = ({
                       overflow="hidden"
                     >
                       <Image
+                        objectFit="cover"
                         height="100%"
-                        src={parsePrismicUrl(modal_side_image.url, 400)}
+                        src={parsePrismicUrl(modal_side_image.url, 800)}
                       />
                     </Flex>
                     <Box
