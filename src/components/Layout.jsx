@@ -85,7 +85,9 @@ const PrismicRichText = Loadable({
   },
 });
 
-const LayoutContainer = styled.div``;
+const LayoutContainer = styled.div`
+  background-color: white;
+`;
 
 const StyledClose = styled(IconButton)`
   cursor: pointer;

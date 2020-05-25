@@ -70,7 +70,6 @@ module.exports = {
     },
     `gatsby-plugin-transition-link`,
     `gatsby-plugin-preact`,
-    `gatsby-plugin-typescript`,
     {
       resolve: `gatsby-plugin-html-minifier`,
       options: {
@@ -93,5 +92,15 @@ module.exports = {
     //     devMode: true,
     //   },
     // },
+    {
+      resolve: `gatsby-plugin-nprogress`,
+      options: {
+        // Setting a color is optional.
+        color: `tomato`,
+        // Disable the loading spinner.
+        showSpinner: false,
+        minimum: 0.4,
+      },
+    },
   ],
 };

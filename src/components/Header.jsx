@@ -20,10 +20,10 @@ import {
 } from "@chakra-ui/core/dist/Drawer";
 import { MdMenu, MdSearch } from "react-icons/md";
 import BackgroundImage from "gatsby-background-image";
+import GatsbyImage from "gatsby-image";
 
 const HeaderContainer = styled(BackgroundImage)`
   &.HeaderContainer--dark {
-    background-color: black;
     color: white;
   }
 
@@ -44,7 +44,12 @@ const HeaderContainer = styled(BackgroundImage)`
 `;
 
 const HeaderContainerBox = styled(Box)`
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+
   &.HeaderContainer--dark {
+    background-color: black;
     color: white;
   }
 
@@ -53,11 +58,43 @@ const HeaderContainerBox = styled(Box)`
   }
 `;
 
-const HeaderContainerWrapper = (props) =>
-  !!props.fluid ? (
-    <HeaderContainer {...props} />
+const HeroGatsbyImage = styled(GatsbyImage)`
+  position: absolute !important;
+  top: 0;
+  width: 100%;
+  height: ${({ height }) => (height ? height : "100%")};
+  z-index: -1;
+
+  img {
+    top: ${({ position }) =>
+      position && position.top ? position.top : "0"} !important;
+    bottom: ${({ position }) =>
+      position && position.bottom ? position.bottom : "initial"} !important;
+    left: ${({ position }) =>
+      position && position.left ? position.left : "initial"} !important;
+    right: ${({ position }) =>
+      position && position.right ? position.right : "initial"} !important;
+  }
+
+  @media (min-width: ${dimensions.maxwidthTablet}px) {
+    width: 100%;
+  }
+`;
+
+const HeaderContainerWrapper = ({
+  children,
+  fluid,
+  position,
+  height,
+  ...props
+}) =>
+  !!fluid ? (
+    <HeaderContainerBox {...props}>
+      <HeroGatsbyImage fluid={fluid} height={height} position={position} />
+      {children}
+    </HeaderContainerBox>
   ) : (
-    <HeaderContainerBox {...props} />
+    <HeaderContainerBox children={children} {...props} />
   );
 
 const HeaderBox = styled(Box)`
@@ -182,6 +219,8 @@ const Header = ({
       fluid={background.sharp}
       backgroundSize={background.size}
       backgroundPosition={background.position}
+      position={background.position}
+      height={background.height}
       // backgroundColor={`#000`}
     >
       <Drawer
@@ -221,7 +260,7 @@ const Header = ({
           <DrawerFooter>{/* Insert Search Input Here */}</DrawerFooter>
         </DrawerContent>
       </Drawer>
-      <Box background={background.highlight} height="60px">
+      <Box background={background.highlight} height="62px">
         {fontAvailable && (
           <HeaderContent
             className={`HeaderContent--${variant}`}

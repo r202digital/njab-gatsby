@@ -1,11 +1,12 @@
 import React from "react";
 import colors from "styles/colors";
 import AniLink from "gatsby-plugin-transition-link/AniLink";
+import ChakraLink from "@chakra-ui/core/dist/Link";
 
-const Link = ({ children, ...props }) => (
-  <AniLink cover duration={1.25} delay={0} bg={colors.njabMidPink} {...props}>
+const Link = ({ children, href, to, ...props }) => (
+  <ChakraLink href={to ? to : href ? href : ""} {...props}>
     {children}
-  </AniLink>
+  </ChakraLink>
 );
 
 export default Link;

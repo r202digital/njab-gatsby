@@ -20,6 +20,7 @@ const SecondSection = Loadable({
 
 const ThirdSection = Loadable({
   loader: () => import("../components/home/ThirdSection"),
+  delay: 1000,
   loading() {
     return <div />;
   },
@@ -27,6 +28,7 @@ const ThirdSection = Loadable({
 
 const FourthSection = Loadable({
   loader: () => import("../components/home/FourthSection"),
+  delay: 1000,
   loading() {
     return <div />;
   },
@@ -34,6 +36,7 @@ const FourthSection = Loadable({
 
 const FifthSection = Loadable({
   loader: () => import("../components/home/FifthSection"),
+  delay: 1000,
   loading() {
     return <div />;
   },
@@ -41,6 +44,7 @@ const FifthSection = Loadable({
 
 const SixthSection = Loadable({
   loader: () => import("../components/home/SixthSection"),
+  delay: 1000,
   loading() {
     return <div />;
   },
@@ -177,7 +181,7 @@ export default ({ data }) => {
           doc.node.hero_image.url
         ),
         size: "cover",
-        position: { md: "0 calc(50% + 35px)" },
+        height: `calc(100% + 60px)`,
         highlight:
           "linear-gradient(180deg,rgba(0,0,0,1) 0%,rgba(255,255,255,0) 100%)",
       }}

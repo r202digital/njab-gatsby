@@ -23,8 +23,8 @@ export const parsePrismicUrl = (url, size) => {
   return `${newUrl}&w=${size}`;
 };
 
-export const convertImageSharp = (fluid, prismicImg) => {
-  const src = parsePrismicUrl(prismicImg, 1440);
+export const convertImageSharp = (fluid, prismicImg, maxWidth = 1440) => {
+  const src = parsePrismicUrl(prismicImg, maxWidth);
   const srcSet = `${parsePrismicUrl(prismicImg, 480)} 480w, ${parsePrismicUrl(
     prismicImg,
     768
