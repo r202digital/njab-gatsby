@@ -191,7 +191,12 @@ const Layout = ({
 
         return (
           <>
-            <Helmet />
+            <Helmet>
+              <meta
+                name="p:domain_verify"
+                content="1228088838575c68d8e15366463bb836"
+              />
+            </Helmet>
             <MessengerCustomerChat
               pageId="176927569055665"
               appId="1678638095724206"

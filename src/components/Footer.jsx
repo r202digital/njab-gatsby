@@ -87,12 +87,12 @@ const Footer = ({ data }) => {
         <Flex
           justifyContent="center"
           alignItems="center"
-          flex="0 0 25%"
+          flex="0 0 15%"
           px={{ xs: "2rem", md: 0 }}
         >
           <PinkNoTextLogo height="100" />
         </Flex>
-        <Box flex="0 0 25%" px={{ xs: "2rem", md: 0 }}>
+        <Box flex="0 0 28%" px={{ xs: "2rem", md: 0 }}>
           <Heading
             as="h1"
             fontSize="18px"
@@ -136,7 +136,7 @@ const Footer = ({ data }) => {
           </Flex>
         </Box>
 
-        <Box flex="0 0 25%" px={{ xs: "2rem", md: 0 }}>
+        <Box flex="0 0 28%" px={{ xs: "2rem", md: 0 }}>
           <Heading
             as="h1"
             fontSize="18px"
@@ -164,7 +164,7 @@ const Footer = ({ data }) => {
           </Flex>
         </Box>
 
-        <Box flex="0 0 25%" px={{ xs: "2rem", md: 0 }}>
+        <Box flex="0 0 28%" px={{ xs: "2rem", md: 0 }}>
           <Heading
             as="h1"
             fontSize="18px"
