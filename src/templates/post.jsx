@@ -10,7 +10,7 @@ import Layout from "components/Layout";
 import Section from "components/Section";
 import DisjointedSlider from "components/DisjointedSlider";
 import Link from "components/_ui/Link";
-import { FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/fa";
+import { FaFacebookF, FaPinterest, FaLinkedinIn } from "react-icons/fa";
 import { FiArrowUp } from "react-icons/fi";
 
 import { MdPersonOutline } from "react-icons/md";
@@ -319,7 +319,7 @@ const Post = ({ post, meta, blog, allPosts }) => {
               mx="10px"
             />
             <Box
-              as={FaTwitter}
+              as={FaPinterest}
               size="20px"
               color={colors.njabDarkPink}
               mx="10px"

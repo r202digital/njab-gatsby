@@ -13,7 +13,7 @@ import Section from "components/Section";
 import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
 import {
   FaFacebookF,
-  FaTwitter,
+  FaPinterest,
   FaInstagram,
   FaMapMarkerAlt,
 } from "react-icons/fa";
@@ -331,8 +331,8 @@ const Contact = ({ meta, blog, contact, global }) => (
                   <ExternalLink href={getUrl(global.instagram)}>
                     <Box as={FaInstagram} size="30px" color="white" />
                   </ExternalLink>
-                  <ExternalLink href={getUrl(global.twitter)}>
-                    <Box as={FaTwitter} size="30px" color="white" />
+                  <ExternalLink href={getUrl(global.pinterest)}>
+                    <Box as={FaPinterest} size="30px" color="white" />
                   </ExternalLink>
                   <ExternalLink href={getUrl(global.facebook)}>
                     <Box as={FaFacebookF} size="30px" color="white" />
@@ -472,7 +472,7 @@ export const query = graphql`
                 url
               }
             }
-            twitter {
+            pinterest {
               ... on PRISMIC__ExternalLink {
                 url
               }
@@ -495,28 +495,6 @@ export const query = graphql`
             page_heading
             page_hero_image
             page_subheading
-          }
-        }
-      }
-
-      allHomepages {
-        edges {
-          node {
-            instagram {
-              ... on PRISMIC__ExternalLink {
-                url
-              }
-            }
-            facebook {
-              ... on PRISMIC__ExternalLink {
-                url
-              }
-            }
-            twitter {
-              ... on PRISMIC__ExternalLink {
-                url
-              }
-            }
           }
         }
       }

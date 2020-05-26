@@ -141,7 +141,7 @@ const Layout = ({
                       url
                     }
                   }
-                  twitter {
+                  pinterest {
                     ... on PRISMIC__ExternalLink {
                       url
                     }

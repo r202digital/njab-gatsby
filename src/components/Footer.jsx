@@ -10,7 +10,7 @@ import Heading from "@chakra-ui/core/dist/Heading";
 import Flex from "@chakra-ui/core/dist/Flex";
 import List, { ListItem } from "@chakra-ui/core/dist/List";
 import ExternalLink from "@chakra-ui/core/dist/Link";
-import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaPinterest } from "react-icons/fa";
 import {
   getPrismicText,
   getPrismicDocumentLink,
@@ -67,7 +67,7 @@ const Footer = ({ data }) => {
   const {
     instagram,
     facebook,
-    twitter,
+    pinterest,
     first_link_column_title,
     first_column_links,
     second_link_column_title,
@@ -127,8 +127,8 @@ const Footer = ({ data }) => {
             <ExternalLink href={getUrl(instagram)} mx="15px" ml="0">
               <Box as={FaInstagram} size="20px" color={colors.njabDarkPink} />
             </ExternalLink>
-            <ExternalLink href={getUrl(twitter)} mx="15px">
-              <Box as={FaTwitter} size="20px" color={colors.njabDarkPink} />
+            <ExternalLink href={getUrl(pinterest)} mx="15px">
+              <Box as={FaPinterest} size="20px" color={colors.njabDarkPink} />
             </ExternalLink>
             <ExternalLink href={getUrl(facebook)} mx="15px">
               <Box as={FaFacebookF} size="20px" color={colors.njabDarkPink} />

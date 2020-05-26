@@ -9,7 +9,7 @@ import Button from "components/_ui/Button";
 import Layout from "components/Layout";
 import DisjointedSlider from "components/DisjointedSlider";
 import Section from "components/Section";
-import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
+import { FaFacebookF, FaPinterest, FaInstagram } from "react-icons/fa";
 import { FiArrowDown, FiArrowUp } from "react-icons/fi";
 import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
 import Mosaic from "components/Mosaic";
@@ -232,7 +232,7 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
                     href={`https://twitter.com/home?status=${fullPath}`}
                   >
                     <Box
-                      as={FaTwitter}
+                      as={FaPinterest}
                       size="20px"
                       color={colors.njabDarkPink}
                     />
@@ -317,7 +317,11 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
                 <ExternalLink
                   href={`https://twitter.com/home?status=${fullPath}`}
                 >
-                  <Box as={FaTwitter} size="20px" color={colors.njabDarkPink} />
+                  <Box
+                    as={FaPinterest}
+                    size="20px"
+                    color={colors.njabDarkPink}
+                  />
                 </ExternalLink>
                 <ExternalLink
                   href={`https://www.facebook.com/sharer/sharer.php?u=${fullPath}`}

@@ -68,7 +68,6 @@ module.exports = {
         precachePages: [`/`, `/work`, `/blog`],
       },
     },
-    `gatsby-plugin-transition-link`,
     `gatsby-plugin-preact`,
     {
       resolve: `gatsby-plugin-html-minifier`,
@@ -86,12 +85,12 @@ module.exports = {
         lang: "en",
       },
     },
-    // {
-    //   resolve: "gatsby-plugin-webpack-bundle-analyser-v2",
-    //   options: {
-    //     devMode: true,
-    //   },
-    // },
+    {
+      resolve: "gatsby-plugin-webpack-bundle-analyser-v2",
+      options: {
+        devMode: true,
+      },
+    },
     {
       resolve: `gatsby-plugin-nprogress`,
       options: {
@@ -102,5 +101,6 @@ module.exports = {
         minimum: 0.4,
       },
     },
+    "gatsby-plugin-workerize-loader",
   ],
 };
