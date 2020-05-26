@@ -19,7 +19,7 @@ import Text from "@chakra-ui/core/dist/Text";
 import Heading from "@chakra-ui/core/dist/Heading";
 import PseudoBox from "@chakra-ui/core/dist/PseudoBox";
 
-import { getPrismicImage, convertImageSharp } from "../../lib/PrismicFunctions";
+import { parsePrismicUrl } from "../../lib/PrismicFunctions";
 
 const PrismicRichText = Loadable({
   loader: () => import("prismic-reactjs"),
@@ -289,7 +289,7 @@ const FourthSection = ({ home, projects, meta, posts }) => {
         height="400px"
         images={home.mosaic.map((item) => ({
           link: item.mosaic_link,
-          image: getPrismicImage(item.mosaic_image),
+          image: parsePrismicUrl(item.mosaic_image.url, 768),
           imageSharp: item.mosaic_imageSharp,
         }))}
       />

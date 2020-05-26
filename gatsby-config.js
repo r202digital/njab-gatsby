@@ -45,11 +45,11 @@ module.exports = {
         icon: `logonjabpink-notext.png`, // This path is relative to the root of the site.
       },
     },
-    // https://www.gatsbyjs.org/packages/gatsby-plugin-google-analytics/
+    https://www.gatsbyjs.org/packages/gatsby-plugin-google-analytics/
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: "",
+        trackingId: "UA-107057776-1",
         head: true,
       },
     },

@@ -13,7 +13,6 @@ import HighlightText from "components/_ui/HighlightText";
 import SectionHeading from "components/_ui/SectionHeading";
 import SectionSubheading from "components/_ui/SectionSubheading";
 import Skeleton from "react-loading-skeleton";
-import { getPrismicImage } from "../lib/PrismicFunctions";
 import Image from "@chakra-ui/core/dist/Image";
 import Box from "@chakra-ui/core/dist/Box";
 import Flex from "@chakra-ui/core/dist/Flex";

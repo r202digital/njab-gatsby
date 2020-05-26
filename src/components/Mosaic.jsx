@@ -16,7 +16,6 @@ const StyledBackground = styled(BackgroundImage)`
   &:before {
     background-size: cover;
     background-position: center;
-    background-color: black;
   }
 `;
 

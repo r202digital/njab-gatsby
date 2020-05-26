@@ -6,8 +6,6 @@ import dimensions from "styles/dimensions";
 import Logo from "components/_ui/Logo";
 import Box from "@chakra-ui/core/dist/Box";
 import IconButton from "@chakra-ui/core/dist/IconButton";
-import Button from "@chakra-ui/core/dist/Button";
-import Input from "@chakra-ui/core/dist/Input";
 import useDisclosure from "@chakra-ui/core/dist/useDisclosure";
 import {
   Drawer,
@@ -21,27 +19,6 @@ import {
 import { MdMenu, MdSearch } from "react-icons/md";
 import BackgroundImage from "gatsby-background-image";
 import GatsbyImage from "gatsby-image";
-
-const HeaderContainer = styled(BackgroundImage)`
-  &.HeaderContainer--dark {
-    color: white;
-  }
-
-  &.HeaderContainer--light {
-    color: #dd8d83;
-  }
-
-  &:before {
-    background-size: ${(props) =>
-      props.backgroundSize ? `${props.backgroundSize} !important` : "initial"};
-    @media (min-width: 768px) {
-      background-position: ${(props) =>
-        props.backgroundPosition && props.backgroundPosition.md
-          ? `${props.backgroundPosition.md} !important`
-          : "initial"};
-    }
-  }
-`;
 
 const HeaderContainerBox = styled(Box)`
   position: relative;

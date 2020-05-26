@@ -20,11 +20,22 @@ import Image from "@chakra-ui/core/dist/Image";
 import Loadable from "react-loadable";
 import theme from "../styles/theme";
 import MessengerCustomerChat from "react-messenger-customer-chat";
-import { PinkNoTextLogo } from "../components/_ui/NjabLogos";
 
 import FontFaceObserver from "fontfaceobserver";
 import "react-micro-modal/dist/index.css";
 import { parsePrismicUrl } from "../lib/PrismicFunctions";
+
+const PinkNoTextLogo = Loadable({
+  loader: () => import("../components/_ui/NjabLogos"),
+  delay: 50,
+  render(loaded, props) {
+    const { PinkNoTextLogo } = loaded;
+    return <PinkNoTextLogo {...props} />;
+  },
+  loading() {
+    return <div />;
+  },
+});
 
 const MicroModal = Loadable({
   loader: () => import("react-micro-modal"),
@@ -196,6 +207,7 @@ const Layout = ({
                 name="p:domain_verify"
                 content="1228088838575c68d8e15366463bb836"
               />
+              <link rel="preconnect" href="https://images.prismic.io" />
             </Helmet>
             <MessengerCustomerChat
               pageId="176927569055665"

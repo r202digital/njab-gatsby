@@ -13,6 +13,7 @@ import { getPrismicImage, convertImageSharp } from "../lib/PrismicFunctions";
 
 const SecondSection = Loadable({
   loader: () => import("../components/home/SecondSection"),
+  delay: 50,
   loading() {
     return <div />;
   },
@@ -20,7 +21,6 @@ const SecondSection = Loadable({
 
 const ThirdSection = Loadable({
   loader: () => import("../components/home/ThirdSection"),
-  delay: 1000,
   loading() {
     return <div />;
   },
@@ -28,7 +28,6 @@ const ThirdSection = Loadable({
 
 const FourthSection = Loadable({
   loader: () => import("../components/home/FourthSection"),
-  delay: 1000,
   loading() {
     return <div />;
   },
@@ -36,7 +35,6 @@ const FourthSection = Loadable({
 
 const FifthSection = Loadable({
   loader: () => import("../components/home/FifthSection"),
-  delay: 1000,
   loading() {
     return <div />;
   },
@@ -44,7 +42,6 @@ const FifthSection = Loadable({
 
 const SixthSection = Loadable({
   loader: () => import("../components/home/SixthSection"),
-  delay: 1000,
   loading() {
     return <div />;
   },

@@ -11,16 +11,16 @@ export const getPrismicDocumentLink = (text) => {
   return `/${uid}`;
 };
 
-export const getPrismicImage = (image) => {
-  return !!image && image.hasOwnProperty("url") ? image.url : placeholder;
-};
-
 export const getUrl = (obj) =>
   !!obj && obj.hasOwnProperty("url") ? obj.url : "";
 
 export const parsePrismicUrl = (url, size) => {
   const newUrl = url.replace(/[?|&][w|h]=\w+/g, "");
   return `${newUrl}&w=${size}`;
+};
+
+export const getPrismicImage = (image) => {
+  return !!image && image.hasOwnProperty("url") ? image.url : placeholder;
 };
 
 export const convertImageSharp = (fluid, prismicImg, maxWidth = 1440) => {

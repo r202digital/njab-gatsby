@@ -1,16 +1,50 @@
 import React from "react";
 import styled from "@emotion/styled";
 import colors from "styles/colors";
-import dimensions from "styles/dimensions";
 import Section from "components/Section";
 import Img from "gatsby-image";
-import BackgroundImage from "gatsby-background-image";
 import Loadable from "react-loadable";
-import Link from "components/_ui/Link";
-import Flex from "@chakra-ui/core/dist/Flex";
-import Box from "@chakra-ui/core/dist/Box";
-import Text from "@chakra-ui/core/dist/Text";
-import PseudoBox from "@chakra-ui/core/dist/PseudoBox";
+
+const Box = Loadable({
+  loader: () => import("@chakra-ui/core/dist/Box"),
+  delay: 10,
+  loading() {
+    return <div />;
+  },
+});
+
+const Link = Loadable({
+  loader: () => import("@chakra-ui/core/dist/Link"),
+  delay: 10,
+  loading() {
+    return <div />;
+  },
+});
+
+const Flex = Loadable({
+  loader: () => import("@chakra-ui/core/dist/Flex"),
+  delay: 10,
+  loading() {
+    return <div />;
+  },
+});
+
+const Text = Loadable({
+  loader: () => import("@chakra-ui/core/dist/Text"),
+  delay: 10,
+  loading() {
+    return <div />;
+  },
+});
+
+const PseudoBox = Loadable({
+  loader: () => import("@chakra-ui/core/dist/PseudoBox"),
+  delay: 10,
+  loading() {
+    return <div />;
+  },
+});
+
 const PrismicRichText = Loadable({
   loader: () => import("prismic-reactjs"),
   delay: 50,

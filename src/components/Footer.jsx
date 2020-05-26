@@ -16,7 +16,19 @@ import {
   getPrismicDocumentLink,
   getUrl,
 } from "../lib/PrismicFunctions";
-import { PinkNoTextLogo } from "../components/_ui/NjabLogos";
+import Loadable from "react-loadable";
+
+const PinkNoTextLogo = Loadable({
+  loader: () => import("../components/_ui/NjabLogos"),
+  delay: 50,
+  render(loaded, props) {
+    const { PinkNoTextLogo } = loaded;
+    return <PinkNoTextLogo {...props} />;
+  },
+  loading() {
+    return <div />;
+  },
+});
 
 const FooterContainer = styled(Box)`
   padding-top: 3.75em;

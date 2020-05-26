@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import colors from "styles/colors";
-import Section from "components/Section";
 import Loadable from "react-loadable";
-import Box from "@chakra-ui/core/dist/Box";
+import { RichText } from "prismic-reactjs";
 
-// import sampleWorker from "../workers/sample";
-
-const PrismicRichText = Loadable({
-  loader: () => import("prismic-reactjs"),
-  delay: 50,
-  render(loaded, props) {
-    const { RichText } = loaded;
-    return <RichText {...props} />;
+const Box = Loadable({
+  loader: () => import("@chakra-ui/core/dist/Box"),
+  delay: 5,
+  loading() {
+    return <div />;
   },
+});
+
+const Section = Loadable({
+  loader: () => import("components/Section"),
+  delay: 5,
   loading() {
     return <div />;
   },
@@ -38,10 +39,7 @@ const StyledRichText = styled(Box)`
   }
 `;
 
-const FirstSection = ({ home, projects, meta, posts }) => {
-  // sampleWorker.search("sample").then((searchResults) => {
-  //   console.log(searchResults);
-  // });
+const FirstSection = ({ home }) => {
   return (
     <Section
       outerProps={{
@@ -56,7 +54,7 @@ const FirstSection = ({ home, projects, meta, posts }) => {
         letterSpacing="1px"
         fontFamily="Montserrat"
       >
-        <PrismicRichText render={home.hero_quote} />
+        <RichText render={home.hero_quote} />
       </StyledRichText>
     </Section>
   );

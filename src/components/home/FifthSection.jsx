@@ -19,7 +19,7 @@ import Text from "@chakra-ui/core/dist/Text";
 import Heading from "@chakra-ui/core/dist/Heading";
 import PseudoBox from "@chakra-ui/core/dist/PseudoBox";
 
-import { getPrismicImage, convertImageSharp } from "../../lib/PrismicFunctions";
+import { parsePrismicUrl } from "../../lib/PrismicFunctions";
 
 const PrismicRichText = Loadable({
   loader: () => import("prismic-reactjs"),
@@ -257,10 +257,10 @@ const PackagesFlex = styled(BackgroundImage)`
   padding: 15px;
 `;
 
-const FourthSection = ({ home, projects, meta, posts }) => {
+const FourthSection = ({ home }) => {
   const newTestimonials = home.testimonial_carousel.map((item) => ({
     title: item.testimonial_title[0].text,
-    image: getPrismicImage(item.testimonial_slide_image),
+    image: parsePrismicUrl(item.testimonial_slide_image.url, 800),
     date: item.testimonial_date[0].text,
     author: item.testimonial_author[0].text,
     quote: item.testimonial_quote[0].text,

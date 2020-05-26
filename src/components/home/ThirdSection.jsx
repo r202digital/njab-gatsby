@@ -1,25 +1,66 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import Helmet from "react-helmet";
-import { graphql } from "gatsby";
 import styled from "@emotion/styled";
 import colors from "styles/colors";
 import dimensions from "styles/dimensions";
 import Section from "components/Section";
-import Layout from "components/Layout";
-import Mosaic from "components/Mosaic";
-import dayjs from "dayjs";
-import Img from "gatsby-image";
-import BackgroundImage from "gatsby-background-image";
 import Loadable from "react-loadable";
-import Link from "components/_ui/Link";
-import Flex from "@chakra-ui/core/dist/Flex";
-import Box from "@chakra-ui/core/dist/Box";
-import Text from "@chakra-ui/core/dist/Text";
-import Heading from "@chakra-ui/core/dist/Heading";
-import PseudoBox from "@chakra-ui/core/dist/PseudoBox";
+import { convertImageSharp } from "../../lib/PrismicFunctions";
 
-import { getPrismicImage, convertImageSharp } from "../../lib/PrismicFunctions";
+const Img = Loadable({
+  loader: () => import("gatsby-image"),
+  delay: 10,
+  loading() {
+    return <div />;
+  },
+});
+
+const BackgroundImage = Loadable({
+  loader: () => import("gatsby-background-image"),
+  delay: 10,
+  loading() {
+    return <div />;
+  },
+});
+
+const Box = Loadable({
+  loader: () => import("@chakra-ui/core/dist/Box"),
+  delay: 10,
+  loading() {
+    return <div />;
+  },
+});
+
+const Link = Loadable({
+  loader: () => import("@chakra-ui/core/dist/Link"),
+  delay: 10,
+  loading() {
+    return <div />;
+  },
+});
+
+const Flex = Loadable({
+  loader: () => import("@chakra-ui/core/dist/Flex"),
+  delay: 10,
+  loading() {
+    return <div />;
+  },
+});
+
+const Text = Loadable({
+  loader: () => import("@chakra-ui/core/dist/Text"),
+  delay: 10,
+  loading() {
+    return <div />;
+  },
+});
+
+const PseudoBox = Loadable({
+  loader: () => import("@chakra-ui/core/dist/PseudoBox"),
+  delay: 10,
+  loading() {
+    return <div />;
+  },
+});
 
 const PrismicRichText = Loadable({
   loader: () => import("prismic-reactjs"),
@@ -382,7 +423,10 @@ const ThirdSection = ({ home, projects, meta, posts }) => {
                 </Flex>
               </HoverBox>
               <PackagesFlex
-                fluid={item.packages_slide_imageSharp.childImageSharp.fluid}
+                fluid={convertImageSharp(
+                  item.packages_slide_imageSharp.childImageSharp.fluid,
+                  item.packages_slide_image.url
+                )}
               >
                 <TextContainer alignSelf="flex-end">{`${
                   index < 10 ? "0" : ""
