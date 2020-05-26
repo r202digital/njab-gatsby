@@ -150,6 +150,7 @@ const Services = ({ services, meta }) => {
                 py="20px"
                 position="relative"
                 paddingRight={{ xs: "10px", md: "80px" }}
+                zIndex="1"
               >
                 <Heading
                   as="h3"
@@ -215,6 +216,7 @@ const Services = ({ services, meta }) => {
                 py="20px"
                 position="relative"
                 paddingLeft={{ xs: "10px", md: "80px" }}
+                zIndex="1"
               >
                 <Heading
                   as="h3"
