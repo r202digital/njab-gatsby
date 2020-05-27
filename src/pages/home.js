@@ -154,7 +154,7 @@ const RenderBody = (props) => {
   );
 };
 
-export default ({ data }) => {
+export default ({ data, ...props }) => {
   //Required check for no data being returned
   const doc = data.prismic.allHomepages.edges.slice(0, 1).pop();
   const projects = data.prismic.allProjects.edges;
@@ -165,6 +165,7 @@ export default ({ data }) => {
 
   return (
     <Layout
+      hasModal
       headerVariant="dark"
       headerChildren={
         <Hero>

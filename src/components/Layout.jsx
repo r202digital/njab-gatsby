@@ -112,6 +112,7 @@ const Layout = ({
   headerVariant = "light",
   headerChildren,
   headerBackground,
+  hasModal = false,
 }) => {
   const [fontAvailable, setFontAvailable] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
@@ -217,52 +218,54 @@ const Layout = ({
               loggedOutGreeting="Hi, I'm Debbie! Can I help you with anything?"
             />
             <ThemeProvider theme={theme}>
-              <MicroModal
-                open={isModalOpen}
-                closeOnAnimationEnd
-                handleClose={() => {
-                  setModalOpen(false);
-                  sessionStorage.setItem("visited", true);
-                }}
-                children={(handleClose) => (
-                  <Flex height="100%">
-                    <Flex
-                      justifyContent="center"
-                      flex="0 0 40%"
-                      overflow="hidden"
-                    >
-                      <Image
-                        objectFit="cover"
-                        height="100%"
-                        src={parsePrismicUrl(modal_side_image.url, 800)}
-                      />
-                    </Flex>
-                    <Box
-                      flex="0 0 60%"
-                      height="100%"
-                      overflowY="scroll"
-                      padding="30px"
-                      backgroundColor={colors.njabLightPink}
-                    >
-                      <Flex>
-                        <Box>
-                          <PrismicHeading render={modal_title} />
-                        </Box>
-                        <StyledClose
-                          aria-label="Modal close"
-                          size="sm"
-                          icon="close"
-                          onClick={handleClose}
+              {hasModal && (
+                <MicroModal
+                  open={isModalOpen}
+                  closeOnAnimationEnd
+                  handleClose={() => {
+                    setModalOpen(false);
+                    sessionStorage.setItem("visited", true);
+                  }}
+                  children={(handleClose) => (
+                    <Flex height="100%">
+                      <Flex
+                        justifyContent="center"
+                        flex="0 0 40%"
+                        overflow="hidden"
+                      >
+                        <Image
+                          objectFit="cover"
+                          height="100%"
+                          src={parsePrismicUrl(modal_side_image.url, 800)}
                         />
                       </Flex>
-                      <Box>
-                        <PrismicRichText render={modal_text} />
-                        <PinkNoTextLogo margin="0 auto" />
+                      <Box
+                        flex="0 0 60%"
+                        height="100%"
+                        overflowY="scroll"
+                        padding="30px"
+                        backgroundColor={colors.njabLightPink}
+                      >
+                        <Flex>
+                          <Box>
+                            <PrismicHeading render={modal_title} />
+                          </Box>
+                          <StyledClose
+                            aria-label="Modal close"
+                            size="sm"
+                            icon="close"
+                            onClick={handleClose}
+                          />
+                        </Flex>
+                        <Box>
+                          <PrismicRichText render={modal_text} />
+                          <PinkNoTextLogo margin="0 auto" />
+                        </Box>
                       </Box>
-                    </Box>
-                  </Flex>
-                )}
-              />
+                    </Flex>
+                  )}
+                />
+              )}
               <LayoutContainer className="div">
                 <Global styles={[globalStyles, typeStyles, logoStyles]} />
                 <div className="Layout">
