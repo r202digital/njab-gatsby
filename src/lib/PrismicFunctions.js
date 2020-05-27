@@ -7,8 +7,8 @@ export const getPrismicText = (text) => {
 export const getPrismicDocumentLink = (text) => {
   const node = text.reduce((total, item) => item);
   const { data } = node.spans.reduce((total, item) => item);
-  const { uid } = data;
-  return `/${uid}`;
+  const { uid, url } = data;
+  return url ? url : uid ? `/${uid}` : "";
 };
 
 export const getUrl = (obj) =>

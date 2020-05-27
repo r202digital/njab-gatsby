@@ -30,6 +30,38 @@ const PinkNoTextLogo = Loadable({
   },
 });
 
+const PrismicRichText = Loadable({
+  loader: () => import("prismic-reactjs"),
+  delay: 50,
+  render(loaded, props) {
+    const { RichText } = loaded;
+    const StyledRichText = styled.div`
+      p {
+        line-height: 1.75;
+        font-size: 14px;
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      h4 {
+        margin: 0;
+      }
+    `;
+    return (
+      <StyledRichText>
+        <RichText {...props} />
+      </StyledRichText>
+    );
+  },
+  loading() {
+    return <div />;
+  },
+});
+
 const FooterContainer = styled(Box)`
   padding-top: 3.75em;
   padding-bottom: 3em;
@@ -75,6 +107,10 @@ const FooterLogo = styled("img")`
   max-width: 40px;
 `;
 
+const StyledLink = styled.a`
+  font-size: 14px;
+`;
+
 const Footer = ({ data }) => {
   const {
     instagram,
@@ -109,7 +145,6 @@ const Footer = ({ data }) => {
             as="h1"
             fontSize="18px"
             letterSpacing="2px"
-            marginBottom="20px"
             fontWeight="400"
             textTransform="uppercase"
             fontFamily={theme.fonts.heading}
@@ -118,13 +153,20 @@ const Footer = ({ data }) => {
             {getPrismicText(first_link_column_title)}
           </Heading>
           <Flex>
-            <List styleType="none" padding="0" mr="15px" flex="1">
+            <List
+              styleType="none"
+              padding="0"
+              mr="15px"
+              flex="1"
+              my="0"
+              mb="10px"
+            >
               {first_column_links.map((item) => {
                 return (
                   <ListItem textAlign={{ xs: "center", md: "initial" }}>
-                    <a href={getPrismicDocumentLink(item.column_link)}>
+                    <StyledLink href={getPrismicDocumentLink(item.column_link)}>
                       {getPrismicText(item.column_link)}
-                    </a>
+                    </StyledLink>
                   </ListItem>
                 );
               })}
@@ -153,7 +195,6 @@ const Footer = ({ data }) => {
             as="h1"
             fontSize="18px"
             letterSpacing="2px"
-            marginBottom="20px"
             fontWeight="400"
             textTransform="uppercase"
             fontFamily={theme.fonts.heading}
@@ -162,13 +203,13 @@ const Footer = ({ data }) => {
             {getPrismicText(second_link_column_title)}
           </Heading>
           <Flex>
-            <List styleType="none" padding="0" mr="15px" flex="1">
+            <List styleType="none" padding="0" mr="15px" flex="1" my="0">
               {second_column_links.map((item) => {
                 return (
                   <ListItem textAlign={{ xs: "center", md: "initial" }}>
-                    <a href={getPrismicDocumentLink(item.column_link)}>
+                    <StyledLink href={getPrismicDocumentLink(item.column_link)}>
                       {getPrismicText(item.column_link)}
-                    </a>
+                    </StyledLink>
                   </ListItem>
                 );
               })}
@@ -181,7 +222,6 @@ const Footer = ({ data }) => {
             as="h1"
             fontSize="18px"
             letterSpacing="2px"
-            marginBottom="20px"
             fontWeight="400"
             textTransform="uppercase"
             fontFamily={theme.fonts.body}
@@ -189,12 +229,7 @@ const Footer = ({ data }) => {
           >
             {getPrismicText(third_column_title)}
           </Heading>
-          <Text
-            fontFamily={theme.fonts.body}
-            display={{ xs: "none", md: "block" }}
-          >
-            {getPrismicText(third_column_rich_text)}
-          </Text>
+          <PrismicRichText render={third_column_rich_text} />
         </Box>
       </Flex>
       <FooterAuthor>© 2020 — Not Just a Box Events</FooterAuthor>
