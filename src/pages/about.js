@@ -354,7 +354,7 @@ const About = ({ meta, about }) => {
               width="100%"
               height="auto"
               gridTemplateColumns={{
-                xs: "repeat(2, 1fr)",
+                xs: "repeat(1, 1fr)",
                 md: "repeat(2, 1fr)",
               }}
               gridTemplateRows={{ xs: "repeat(2, 1fr)", md: "repeat(2, 1fr)" }}
@@ -363,7 +363,7 @@ const About = ({ meta, about }) => {
               textTransform="uppercase"
               color="#626163"
               letterSpacing="2.5px"
-              fontSize="11px"
+              fontSize={{ xs: "10px", md: "11px" }}
               fontWeight="500"
             >
               {about.node.team_checkerboard.map((item, index, checkArr) => {
@@ -381,9 +381,10 @@ const About = ({ meta, about }) => {
 
                 return (
                   <Flex
-                    flexDirection={
-                      firstArr.includes(index) ? "row-reverse" : "row"
-                    }
+                    flexDirection={{
+                      xs: !(index % 2) ? "row" : "row-reverse",
+                      md: firstArr.includes(index) ? "row-reverse" : "row",
+                    }}
                   >
                     <Box flex="0 0 50%">
                       <LazyLoad placeholder={<Skeleton />}>
@@ -409,7 +410,7 @@ const About = ({ meta, about }) => {
                         textTransform="initial"
                         color="white"
                         top="0"
-                        padding="30px"
+                        padding={{ xs: "10px", md: "30px" }}
                         opacity="0"
                         transition="all 0.3s"
                       >
@@ -425,11 +426,12 @@ const About = ({ meta, about }) => {
                         className="details-container"
                         height="80px"
                         justifyContent="flex-end"
-                        pb="20px"
+                        p={{ xs: "10px", md: "30px" }}
+                        pb={{ xs: "10px", md: "20px" }}
                         alignItems="center"
                         flexDirection="column"
                       >
-                        <Box zIndex="2">
+                        <Box zIndex="2" textAlign="center" fontWeight="bold">
                           <PrismicRichText render={item.employee_name} />
                         </Box>
                         <Text
@@ -439,7 +441,8 @@ const About = ({ meta, about }) => {
                           fontFamily="Montserrat"
                           opacity="0"
                           margin="0"
-                          textAlign={{ xs: "center", md: "initial" }}
+                          textAlign="center"
+                          lineHeight="1.5"
                         >
                           <PrismicRichText render={item.employee_position} />
                         </Text>
