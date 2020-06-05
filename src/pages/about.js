@@ -78,6 +78,12 @@ const PhilosophyHeading = styled(SectionHeading)`
   }
 `;
 
+const FirstSectionHeading = styled(SectionHeading)`
+  h3 {
+    font-weight: 700;
+  }
+`;
+
 const PhilosophyText = styled(Text)`
   * {
     text-transform: uppercase;
@@ -246,6 +252,29 @@ const About = ({ meta, about }) => {
               </HighlightText>
             </Flex>
           </Flex>
+        </Section>
+
+        <Section
+          outerProps={{
+            backgroundColor: colors.njabLightPink,
+            textAlign: "center",
+          }}
+        >
+          <Box
+            py="120px"
+            fontSize="14px"
+            letterSpacing="1px"
+            fontFamily="Montserrat"
+            maxWidth={{ md: "70%" }}
+            mx="auto"
+          >
+            <FirstSectionHeading as="h3" color={colors.njabDarkPink}>
+              <PrismicRichText render={about.node.first_section_heading} />
+            </FirstSectionHeading>
+            <Text color="#707073">
+              <PrismicRichText render={about.node.first_section_content} />
+            </Text>
+          </Box>
         </Section>
 
         <LazyLoad placeholder={<Skeleton />}>
@@ -492,6 +521,8 @@ export const query = graphql`
             page_heading_superscript
             page_highlight_text
             page_subheading
+            first_section_content
+            first_section_heading
             philosophy_section_heading
             team_section_heading
             team_section_highlight_text
