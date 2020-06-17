@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Helmet from "react-helmet";
 import { graphql } from "gatsby";
@@ -205,253 +205,277 @@ const PageSubtitle = styled(ScrollLink)`
   }
 `;
 
-const Contact = ({ meta, blog, contact, global }) => (
-  <>
-    <Helmet
-      title={`Our Journal | Not Just a Box Events`}
-      titleTemplate={`%s`}
-      meta={[
-        {
-          name: `description`,
-          content: meta.description,
-        },
-        {
-          property: `og:title`,
-          content: `Our Journal | Not Just a Box Events`,
-        },
-        {
-          property: `og:description`,
-          content: meta.description,
-        },
-        {
-          property: `og:type`,
-          content: `website`,
-        },
-        {
-          name: `twitter:card`,
-          content: `summary`,
-        },
-        {
-          name: `twitter:creator`,
-          content: meta.author,
-        },
-        {
-          name: `twitter:title`,
-          content: meta.title,
-        },
-        {
-          name: `twitter:description`,
-          content: meta.description,
-        },
-      ].concat(meta)}
-    />
-    <Layout
-      headerVariant="dark"
-      headerBackground={{
-        url: getPrismicImage(contact.hero_image),
-        sharp: contact.hero_imageSharp.childImageSharp.fluid,
-        size: "cover",
-        position: { md: "0 calc(50% + 35px)" },
-        highlight:
-          "linear-gradient(180deg,rgba(0,0,0,1) 0%,rgba(255,255,255,0) 100%)",
+const ContactForm = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [body, setBody] = useState("");
+  return (
+    <form
+      onSubmit={async (e) => {
+        e.preventDefault();
+        console.log(name, email, body);
+        axios
+          .post("/api/email", {
+            name: name,
+            email: email,
+            body: body,
+          })
+          .then(function(response) {
+            console.log(response);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
       }}
-      headerChildren={
-        <Container
-          height="calc(70vh - 71px)"
-          justifyContent="flex-end"
-          alignItems="flex-start"
-          textAlign="center"
-          letterSpacing="2px"
-          color="white"
-          paddingBottom="30px"
-        >
-          <Flex flex="1" width="100%" justifyContent="flex-end">
-            <Box flex="1" textAlign="right" py="30px">
-              <DetailsBox my="20px">
-                <Text fontWeight="700" margin="0" fontFamily="Montserrat">
-                  LOCATION
-                </Text>
-                <Text as="em" fontFamily="Montserrat">
-                  <PrismicRichText render={contact.location} />
-                </Text>
-              </DetailsBox>
-
-              <DetailsBox my="20px">
-                <Text fontWeight="700" margin="0" fontFamily="Montserrat">
-                  CONTACT NUMBER
-                </Text>
-                <Text as="em" fontFamily="Montserrat">
-                  <PrismicRichText render={contact.contact_number} />
-                </Text>
-              </DetailsBox>
-
-              <DetailsBox my="20px">
-                <Text fontWeight="700" margin="0" fontFamily="Montserrat">
-                  EMAIL ADDRESS
-                </Text>
-                <Text as="em" fontFamily="Montserrat">
-                  <PrismicRichText render={contact.email_address} />
-                </Text>
-              </DetailsBox>
-            </Box>
-          </Flex>
-          <Flex justifyContent="space-between" width="100%">
-            <Box
-              flex="1"
-              textAlign="left"
-              display={{ xs: "none", md: "initial" }}
-            >
-              <PageTitle>
-                <PrismicRichText render={contact.page_title} />
-              </PageTitle>
-              <Box display={{ xs: "none", md: "initial" }}>
-                <PageSubtitle
-                  to="contact-form"
-                  spy={true}
-                  smooth={true}
-                  offset={-50}
-                  duration={500}
-                >
-                  <Box as={FaChevronDown} size="20px" color="white" />
-                  <PrismicRichText render={contact.page_subtitle} />
-                </PageSubtitle>
-              </Box>
-            </Box>
-            <Box flex="1" textAlign={{ xs: "center", md: "right" }}>
-              <Text fontWeight="700" my="10px" fontFamily="Montserrat">
-                {getPrismicText(contact.follow_us_heading)}
-              </Text>
-              <Text as="em" my="10px" fontFamily="Montserrat" display="block">
-                {getPrismicText(contact.follow_us_text)}
-              </Text>
-              <Box
-                marginLeft="auto"
-                marginRight={{ xs: "auto", md: "0" }}
-                width={{ xs: "50%", md: "30%" }}
-              >
-                <Flex justifyContent="space-between">
-                  <ExternalLink href={getUrl(global.instagram)}>
-                    <Box as={FaInstagram} size="30px" color="white" />
-                  </ExternalLink>
-                  <ExternalLink href={getUrl(global.pinterest)}>
-                    <Box as={FaPinterest} size="30px" color="white" />
-                  </ExternalLink>
-                  <ExternalLink href={getUrl(global.facebook)}>
-                    <Box as={FaFacebookF} size="30px" color="white" />
-                  </ExternalLink>
-                </Flex>
-              </Box>
-              <Box display={{ xs: "initial", md: "none" }}>
-                <PageSubtitle
-                  to="contact-form"
-                  spy={true}
-                  smooth={true}
-                  offset={-50}
-                  duration={500}
-                >
-                  <Box as={FaChevronDown} size="20px" color="white" />
-                  <PrismicRichText render={contact.page_subtitle} />
-                </PageSubtitle>
-              </Box>
-            </Box>
-          </Flex>
-        </Container>
-      }
     >
-      <LazyLoad placeholder={<Skeleton />}>
-        <Section
-          outerProps={{
-            backgroundColor: colors.njabDarkPink,
-            py: "80px",
+      <FormControl marginTop="50px" as="fieldset" border="none">
+        <Flex flexDirection={{ xs: "column", md: "row" }}>
+          <FormInput
+            aria-describedby="your-name"
+            variant="flushed"
+            placeholder="Your Name"
+            onChange={(e) => {
+              e.preventDefault();
+              setName(e.target.value);
+            }}
+            mr={{ md: "15px" }}
+          />
+          <FormInput
+            aria-describedby="your-email"
+            variant="flushed"
+            placeholder="Your Email"
+            onChange={(e) => {
+              e.preventDefault();
+              setEmail(e.target.value);
+            }}
+            ml={{ md: "15px" }}
+          />
+        </Flex>
+        <FormTextarea
+          aria-describedby="your-message"
+          placeholder="Your Message"
+          onChange={(e) => {
+            e.preventDefault();
+            setBody(e.target.value);
           }}
-        >
-          <Flex color="white" justifyContent="center" id="contact-form">
-            <Box
-              width={{ xs: "100%", md: "50%" }}
-              textAlign="center"
-              textTransform="uppercase"
-            >
-              <PseudoBox
-                _after={{
-                  content: "''",
-                  display: "flex",
-                  height: "1px",
-                  width: "50px",
-                  backgroundColor: "#e9c8bc",
-                  margin: "20px auto",
-                }}
-              >
-                <SectionHeading>
-                  <PrismicRichText render={contact.form_heading} />
-                </SectionHeading>
-              </PseudoBox>
-              <SectionSubheading>
-                <PrismicRichText render={contact.form_subheading} />
-              </SectionSubheading>
-              <form
-                onSubmit={async (e) => {
-                  e.preventDefault();
-                  axios
-                    .post("/api/email", {
-                      name: "hi",
-                      email: "sample@sample.com",
-                      body: "HAHAHAHA HEHEHEHE",
-                    })
-                    .then(function(response) {
-                      console.log(response);
-                    })
-                    .catch(function(error) {
-                      console.log(error);
-                    });
-                }}
-              >
-                <FormControl marginTop="50px" as="fieldset" border="none">
-                  <Flex flexDirection={{ xs: "column", md: "row" }}>
-                    <FormInput
-                      aria-describedby="your-name"
-                      variant="flushed"
-                      placeholder="Your Name"
-                      mr={{ md: "15px" }}
-                    />
-                    <FormInput
-                      aria-describedby="your-email"
-                      variant="flushed"
-                      placeholder="Your Email"
-                      ml={{ md: "15px" }}
-                    />
-                  </Flex>
-                  <FormTextarea
-                    aria-describedby="your-message"
-                    placeholder="Your Message"
-                  />
-                  <SubmitButton type="submit">Submit</SubmitButton>
-                </FormControl>
-              </form>
-            </Box>
-          </Flex>
-        </Section>
-        <Box minHeight="600px" height="25vh" width="100%">
-          <GoogleMapReact
-            bootstrapURLKeys={{
-              key: "AIzaSyBX4uSYUZpp9sn1tYjU1OcQBuas9LZkv78",
-            }}
-            defaultCenter={{
-              lat: contact.map_latitude,
-              lng: contact.map_longitude,
-            }}
-            defaultZoom={18}
+        />
+        <SubmitButton type="submit">Submit</SubmitButton>
+      </FormControl>
+    </form>
+  );
+};
+
+const Contact = ({ meta, blog, contact, global }) => {
+  return (
+    <>
+      <Helmet
+        title={`Our Journal | Not Just a Box Events`}
+        titleTemplate={`%s`}
+        meta={[
+          {
+            name: `description`,
+            content: meta.description,
+          },
+          {
+            property: `og:title`,
+            content: `Our Journal | Not Just a Box Events`,
+          },
+          {
+            property: `og:description`,
+            content: meta.description,
+          },
+          {
+            property: `og:type`,
+            content: `website`,
+          },
+          {
+            name: `twitter:card`,
+            content: `summary`,
+          },
+          {
+            name: `twitter:creator`,
+            content: meta.author,
+          },
+          {
+            name: `twitter:title`,
+            content: meta.title,
+          },
+          {
+            name: `twitter:description`,
+            content: meta.description,
+          },
+        ].concat(meta)}
+      />
+      <Layout
+        headerVariant="dark"
+        headerBackground={{
+          url: getPrismicImage(contact.hero_image),
+          sharp: contact.hero_imageSharp.childImageSharp.fluid,
+          size: "cover",
+          position: { md: "0 calc(50% + 35px)" },
+          highlight:
+            "linear-gradient(180deg,rgba(0,0,0,1) 0%,rgba(255,255,255,0) 100%)",
+        }}
+        headerChildren={
+          <Container
+            height="calc(70vh - 71px)"
+            justifyContent="flex-end"
+            alignItems="flex-start"
+            textAlign="center"
+            letterSpacing="2px"
+            color="white"
+            paddingBottom="30px"
           >
-            <MarkerComponent
-              lat={contact.map_latitude + 0.00015}
-              lng={contact.map_longitude - 0.00025}
-              text={"We are here"}
-            />
-          </GoogleMapReact>
-        </Box>
-      </LazyLoad>
-    </Layout>
-  </>
-);
+            <Flex flex="1" width="100%" justifyContent="flex-end">
+              <Box flex="1" textAlign="right" py="30px">
+                <DetailsBox my="20px">
+                  <Text fontWeight="700" margin="0" fontFamily="Montserrat">
+                    LOCATION
+                  </Text>
+                  <Text as="em" fontFamily="Montserrat">
+                    <PrismicRichText render={contact.location} />
+                  </Text>
+                </DetailsBox>
+
+                <DetailsBox my="20px">
+                  <Text fontWeight="700" margin="0" fontFamily="Montserrat">
+                    CONTACT NUMBER
+                  </Text>
+                  <Text as="em" fontFamily="Montserrat">
+                    <PrismicRichText render={contact.contact_number} />
+                  </Text>
+                </DetailsBox>
+
+                <DetailsBox my="20px">
+                  <Text fontWeight="700" margin="0" fontFamily="Montserrat">
+                    EMAIL ADDRESS
+                  </Text>
+                  <Text as="em" fontFamily="Montserrat">
+                    <PrismicRichText render={contact.email_address} />
+                  </Text>
+                </DetailsBox>
+              </Box>
+            </Flex>
+            <Flex justifyContent="space-between" width="100%">
+              <Box
+                flex="1"
+                textAlign="left"
+                display={{ xs: "none", md: "initial" }}
+              >
+                <PageTitle>
+                  <PrismicRichText render={contact.page_title} />
+                </PageTitle>
+                <Box display={{ xs: "none", md: "initial" }}>
+                  <PageSubtitle
+                    to="contact-form"
+                    spy={true}
+                    smooth={true}
+                    offset={-50}
+                    duration={500}
+                  >
+                    <Box as={FaChevronDown} size="20px" color="white" />
+                    <PrismicRichText render={contact.page_subtitle} />
+                  </PageSubtitle>
+                </Box>
+              </Box>
+              <Box flex="1" textAlign={{ xs: "center", md: "right" }}>
+                <Text fontWeight="700" my="10px" fontFamily="Montserrat">
+                  {getPrismicText(contact.follow_us_heading)}
+                </Text>
+                <Text as="em" my="10px" fontFamily="Montserrat" display="block">
+                  {getPrismicText(contact.follow_us_text)}
+                </Text>
+                <Box
+                  marginLeft="auto"
+                  marginRight={{ xs: "auto", md: "0" }}
+                  width={{ xs: "50%", md: "30%" }}
+                >
+                  <Flex justifyContent="space-between">
+                    <ExternalLink href={getUrl(global.instagram)}>
+                      <Box as={FaInstagram} size="30px" color="white" />
+                    </ExternalLink>
+                    <ExternalLink href={getUrl(global.pinterest)}>
+                      <Box as={FaPinterest} size="30px" color="white" />
+                    </ExternalLink>
+                    <ExternalLink href={getUrl(global.facebook)}>
+                      <Box as={FaFacebookF} size="30px" color="white" />
+                    </ExternalLink>
+                  </Flex>
+                </Box>
+                <Box display={{ xs: "initial", md: "none" }}>
+                  <PageSubtitle
+                    to="contact-form"
+                    spy={true}
+                    smooth={true}
+                    offset={-50}
+                    duration={500}
+                  >
+                    <Box as={FaChevronDown} size="20px" color="white" />
+                    <PrismicRichText render={contact.page_subtitle} />
+                  </PageSubtitle>
+                </Box>
+              </Box>
+            </Flex>
+          </Container>
+        }
+      >
+        <LazyLoad placeholder={<Skeleton />}>
+          <Section
+            outerProps={{
+              backgroundColor: colors.njabDarkPink,
+              py: "80px",
+            }}
+          >
+            <Flex color="white" justifyContent="center" id="contact-form">
+              <Box
+                width={{ xs: "100%", md: "50%" }}
+                textAlign="center"
+                textTransform="uppercase"
+              >
+                <PseudoBox
+                  _after={{
+                    content: "''",
+                    display: "flex",
+                    height: "1px",
+                    width: "50px",
+                    backgroundColor: "#e9c8bc",
+                    margin: "20px auto",
+                  }}
+                >
+                  <SectionHeading>
+                    <PrismicRichText render={contact.form_heading} />
+                  </SectionHeading>
+                </PseudoBox>
+                <SectionSubheading>
+                  <PrismicRichText render={contact.form_subheading} />
+                </SectionSubheading>
+                <ContactForm />
+              </Box>
+            </Flex>
+          </Section>
+          <Box minHeight="600px" height="25vh" width="100%">
+            <GoogleMapReact
+              bootstrapURLKeys={{
+                key: "AIzaSyBX4uSYUZpp9sn1tYjU1OcQBuas9LZkv78",
+              }}
+              defaultCenter={{
+                lat: contact.map_latitude,
+                lng: contact.map_longitude,
+              }}
+              defaultZoom={18}
+            >
+              <MarkerComponent
+                lat={contact.map_latitude + 0.00015}
+                lng={contact.map_longitude - 0.00025}
+                text={"We are here"}
+              />
+            </GoogleMapReact>
+          </Box>
+        </LazyLoad>
+      </Layout>
+    </>
+  );
+};
 
 export default ({ data }) => {
   const blog = data.prismic.allBlog_pages.edges.slice(0, 1).pop();
