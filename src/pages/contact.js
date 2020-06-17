@@ -35,6 +35,7 @@ import {
   getUrl,
 } from "../lib/PrismicFunctions";
 import Loadable from "react-loadable";
+const p = require("phin");
 
 const PrismicRichText = Loadable({
   loader: () => import("prismic-reactjs"),
@@ -149,6 +150,7 @@ const SubmitButton = styled(Button)`
   height: auto;
   letter-spacing: 2px;
   font-family: Montserrat;
+  cursor: pointer;
 
   &:hover,
   &:focus {
@@ -387,9 +389,18 @@ const Contact = ({ meta, blog, contact, global }) => (
                 <PrismicRichText render={contact.form_subheading} />
               </SectionSubheading>
               <form
-                onSubmit={(e) => {
+                onSubmit={async (e) => {
                   e.preventDefault();
-                  console.log("lakjsdlakjsd");
+                  const sendEmail = await p({
+                    url: "/api/email",
+                    method: "POST",
+                    data: {
+                      name: "hi",
+                      email: "sample@sample.com",
+                      body: "HAHAHAHA HEHEHEHE",
+                    },
+                  });
+                  console.log(sendEmail);
                 }}
               >
                 <FormControl marginTop="50px" as="fieldset" border="none">
