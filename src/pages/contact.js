@@ -36,6 +36,8 @@ import {
 } from "../lib/PrismicFunctions";
 import Loadable from "react-loadable";
 
+console.log(process.env.GATSBY_SENDGRID);
+
 const PrismicRichText = Loadable({
   loader: () => import("prismic-reactjs"),
   delay: 50,

@@ -251,7 +251,6 @@ const TeamSection = ({ items }) => {
 };
 
 const About = ({ meta, about }) => {
-  console.log(about.node.team_checkerboard);
   return (
     <>
       <Helmet
@@ -485,12 +484,13 @@ const About = ({ meta, about }) => {
               </Box>
             </Flex>
             <AboutSlider>
+              {/* TODO: SPLIT THIS, EVERY 4 TEAM MEMBERS */}
               <div>
                 <TeamSection items={about.node.team_checkerboard} />
               </div>
-              <div>
+              {/* <div>
                 <TeamSection items={about.node.team_checkerboard} />
-              </div>
+              </div> */}
             </AboutSlider>
           </Section>
         </LazyLoad>
