@@ -12,8 +12,8 @@ module.exports = (req, res) => {
   //     html: "<strong>and easy to do anywhere, even with Node.js</strong>",
   //   };
   const msg = {
-    to: "test@example.com",
-    from: "test@example.com",
+    to: "team.r202creatives@gmail.com",
+    from: "njabevents@gmail.com",
     subject: "Sending with Twilio SendGrid is Fun",
     text: "and easy to do anywhere, even with Node.js",
     html: "<strong>and easy to do anywhere, even with Node.js</strong>",
