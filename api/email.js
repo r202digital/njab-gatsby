@@ -10,9 +10,10 @@ module.exports = (req, res) => {
   //     text: "and easy to do anywhere, even with Node.js",
   //     html: "<strong>and easy to do anywhere, even with Node.js</strong>",
   //   };
-  sgMail.send(msg).then(() => {
-    res
-      .status(200)
-      .send(`${process.env.GATSBY_SENDGRID} - Sent email: ${body}`);
-  });
+  res.status(200).send(`${process.env.GATSBY_SENDGRID} - Sent email: ${body}`);
+  //   sgMail.send(msg).then(() => {
+  //     res
+  //       .status(200)
+  //       .send(`${process.env.GATSBY_SENDGRID} - Sent email: ${body}`);
+  //   });
 };
