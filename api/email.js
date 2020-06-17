@@ -11,7 +11,6 @@ module.exports = (req, res) => {
   //     text: "and easy to do anywhere, even with Node.js",
   //     html: "<strong>and easy to do anywhere, even with Node.js</strong>",
   //   };
-  console.log("sample");
   res
     .status(200)
     .send(
