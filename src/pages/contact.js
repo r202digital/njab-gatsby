@@ -395,11 +395,11 @@ const Contact = ({ meta, blog, contact, global }) => (
                     url:
                       "https://njab-gatsby-git-develop.r202digital-team.now.sh/api/email",
                     method: "POST",
-                    data: {
+                    data: JSON.stringify({
                       name: "hi",
                       email: "sample@sample.com",
                       body: "HAHAHAHA HEHEHEHE",
-                    },
+                    }),
                   });
                   console.log(sendEmail);
                 }}
