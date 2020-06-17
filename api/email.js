@@ -4,9 +4,16 @@ sgMail.setApiKey(process.env.GATSBY_SENDGRID);
 
 module.exports = (req, res) => {
   const { body } = req;
+  //   const msg = {
+  //     to: "team.r202creatives@gmail.com",
+  //     from: "test@notjustaboxevents.com",
+  //     subject: "Sending with Twilio SendGrid is Fun",
+  //     text: "and easy to do anywhere, even with Node.js",
+  //     html: "<strong>and easy to do anywhere, even with Node.js</strong>",
+  //   };
   const msg = {
-    to: "team.r202creatives@gmail.com",
-    from: "test@notjustaboxevents.com",
+    to: "test@example.com",
+    from: "test@example.com",
     subject: "Sending with Twilio SendGrid is Fun",
     text: "and easy to do anywhere, even with Node.js",
     html: "<strong>and easy to do anywhere, even with Node.js</strong>",
