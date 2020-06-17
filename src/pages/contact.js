@@ -35,7 +35,7 @@ import {
   getUrl,
 } from "../lib/PrismicFunctions";
 import Loadable from "react-loadable";
-const p = require("phin");
+const axios = require("axios");
 
 const PrismicRichText = Loadable({
   loader: () => import("prismic-reactjs"),
@@ -391,17 +391,18 @@ const Contact = ({ meta, blog, contact, global }) => (
               <form
                 onSubmit={async (e) => {
                   e.preventDefault();
-                  const sendEmail = await p({
-                    url:
-                      "https://njab-gatsby-git-develop.r202digital-team.now.sh/api/email",
-                    method: "POST",
-                    data: JSON.stringify({
+                  axios
+                    .post("/api/email", {
                       name: "hi",
                       email: "sample@sample.com",
                       body: "HAHAHAHA HEHEHEHE",
-                    }),
-                  });
-                  console.log(sendEmail);
+                    })
+                    .then(function(response) {
+                      console.log(response);
+                    })
+                    .catch(function(error) {
+                      console.log(error);
+                    });
                 }}
               >
                 <FormControl marginTop="50px" as="fieldset" border="none">
