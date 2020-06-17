@@ -14,7 +14,9 @@ module.exports = (req, res) => {
   res
     .status(200)
     .send(
-      `${process.env.GATSBY_SENDGRID} ${process.env.SENDGRID_API}- Sent email: ${body}`
+      `${process.env.GATSBY_SENDGRID} ${
+        process.env.SENDGRID_API
+      }- Sent email: ${JSON.stringify(body)}`
     );
   //   sgMail.send(msg).then(() => {
   //     res
