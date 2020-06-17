@@ -15,10 +15,10 @@ module.exports = (req, res) => {
     to: "team.r202creatives@gmail.com",
     from: "njabevents@gmail.com",
     subject: "Sending with Twilio SendGrid is Fun",
-    html: `<p><strong>Name:</strong> NJAB SAMPLE</p>
-      <p><strong>Email:</strong> njab@gmail.com</p>
+    html: `<p><strong>Name:</strong> ${body.name}</p>
+      <p><strong>Email:</strong> ${body.name}</p>
       <p>
-        <strong>Inquiry:</strong> Sample blabla
+        <strong>Inquiry:</strong> ${body.body}
       </p>`,
   };
   sgMail.send(msg).then(() => {
