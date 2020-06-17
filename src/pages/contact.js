@@ -213,7 +213,6 @@ const ContactForm = () => {
     <form
       onSubmit={async (e) => {
         e.preventDefault();
-        console.log(name, email, body);
         axios
           .post("/api/email", {
             name: name,
