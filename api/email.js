@@ -15,8 +15,11 @@ module.exports = (req, res) => {
     to: "team.r202creatives@gmail.com",
     from: "njabevents@gmail.com",
     subject: "Sending with Twilio SendGrid is Fun",
-    text: "and easy to do anywhere, even with Node.js",
-    html: "<strong>and easy to do anywhere, even with Node.js</strong>",
+    html: `<p><strong>Name:</strong> NJAB SAMPLE</p>
+      <p><strong>Email:</strong> njab@gmail.com</p>
+      <p>
+        <strong>Inquiry:</strong> Sample blabla
+      </p>`,
   };
   sgMail.send(msg).then(() => {
     res
