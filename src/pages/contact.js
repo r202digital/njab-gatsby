@@ -35,7 +35,7 @@ import {
   getUrl,
 } from "../lib/PrismicFunctions";
 import Loadable from "react-loadable";
-const p = require("phin").unpromisified;
+const p = require("phin");
 
 const PrismicRichText = Loadable({
   loader: () => import("prismic-reactjs"),
@@ -389,22 +389,19 @@ const Contact = ({ meta, blog, contact, global }) => (
                 <PrismicRichText render={contact.form_subheading} />
               </SectionSubheading>
               <form
-                onSubmit={(e) => {
+                onSubmit={async (e) => {
                   e.preventDefault();
-                  p(
-                    {
-                      url: "/api/email",
-                      method: "POST",
-                      data: {
-                        name: "hi",
-                        email: "sample@sample.com",
-                        body: "HAHAHAHA HEHEHEHE",
-                      },
+                  const sendEmail = await p({
+                    url:
+                      "https://njab-gatsby-git-develop.r202digital-team.now.sh/api/email",
+                    method: "POST",
+                    data: {
+                      name: "hi",
+                      email: "sample@sample.com",
+                      body: "HAHAHAHA HEHEHEHE",
                     },
-                    (err, res) => {
-                      console.log(res);
-                    }
-                  );
+                  });
+                  console.log(sendEmail);
                 }}
               >
                 <FormControl marginTop="50px" as="fieldset" border="none">
