@@ -3,10 +3,5 @@
   "routes": [
     { "handle": "filesystem" },
     { "src": "/.*", "status": 404, "dest": "/404" }
-  ],
-  "build": {
-    "env": {
-      "GOOGLE_MAPS_API": "@njab-map-api"
-    }
-  }
+  ]
 }
