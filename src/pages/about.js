@@ -22,6 +22,7 @@ import Text from "@chakra-ui/core/dist/Text";
 import Grid from "@chakra-ui/core/dist/Grid";
 import Loadable from "react-loadable";
 import GatsbyImage from "gatsby-image";
+import AboutSlider from "components/AboutSlider";
 
 const PrismicRichText = Loadable({
   loader: () => import("prismic-reactjs"),
@@ -100,6 +101,7 @@ const StyledFlex = styled(Flex)`
 `;
 
 const HoverFlex = styled(Flex)`
+  z-index: 1;
   transition: all 0.3s;
 
   &:hover {
@@ -144,7 +146,112 @@ const PhilosophyPicture = styled(GatsbyImage)`
   }
 `;
 
+const TeamSection = ({ items }) => {
+  return (
+    <Grid
+      width="100%"
+      height="auto"
+      gridTemplateColumns={{
+        xs: "repeat(1, 1fr)",
+        md: "repeat(2, 1fr)",
+      }}
+      gridTemplateRows={{
+        xs: "repeat(2, 1fr)",
+        md: "repeat(2, 1fr)",
+      }}
+      gridColumnGap="0px"
+      gridRowGap="0px"
+      textTransform="uppercase"
+      color="#626163"
+      letterSpacing="2.5px"
+      fontSize={{ xs: "10px", md: "11px" }}
+      fontWeight="500"
+    >
+      {items.map((item, index, checkArr) => {
+        const smallerLength = Math.ceil(checkArr.length / 2);
+        const firstArr = [...Array(smallerLength).keys()]
+          .map((x) => ++x)
+          .filter((a) => !(a % 2))
+          .reduce((total, fItem) => {
+            const totalArr = total;
+            totalArr.push(fItem * 2 - 1);
+            totalArr.push(fItem * 2);
+            return totalArr;
+          }, [])
+          .map((x) => --x);
+
+        return (
+          <Flex
+            flexDirection={{
+              xs: !(index % 2) ? "row" : "row-reverse",
+              md: firstArr.includes(index) ? "row-reverse" : "row",
+            }}
+          >
+            <Box flex="0 0 50%">
+              <LazyLoad placeholder={<Skeleton />}>
+                <EmployeePicture
+                  fluid={item.employee_pictureSharp.childImageSharp.fluid}
+                />
+              </LazyLoad>
+            </Box>
+            <HoverFlex
+              justifyContent="center"
+              alignItems="flex-end"
+              position="relative"
+              flex="0 0 50%"
+            >
+              <Box
+                className="description"
+                position="absolute"
+                height="100%"
+                width="100%"
+                backgroundColor={colors.njabDarkPink}
+                textTransform="initial"
+                color="white"
+                top="0"
+                padding={{ xs: "10px", md: "30px" }}
+                opacity="0"
+                transition="all 0.3s"
+              >
+                <Box overflow="scroll" height="calc(100% - 80px)" width="100%">
+                  <PrismicRichText render={item.employee_description} />
+                </Box>
+              </Box>
+              <StyledFlex
+                className="details-container"
+                height="80px"
+                justifyContent="flex-end"
+                p={{ xs: "10px", md: "30px" }}
+                pb={{ xs: "10px", md: "20px" }}
+                alignItems="center"
+                flexDirection="column"
+              >
+                <Box zIndex="2" textAlign="center" fontWeight="bold">
+                  <PrismicRichText render={item.employee_name} />
+                </Box>
+                <Text
+                  zIndex="2"
+                  className="position"
+                  as="em"
+                  fontFamily="Montserrat"
+                  opacity="0"
+                  margin="0"
+                  textAlign="center"
+                  lineHeight="1.5"
+                >
+                  <PrismicRichText render={item.employee_position} />
+                </Text>
+              </StyledFlex>
+            </HoverFlex>
+          </Flex>
+        );
+      })}
+    </Grid>
+  );
+};
+
 const About = ({ meta, about }) => {
+  console.log(about.node.team_checkerboard);
   return (
     <>
       <Helmet
@@ -348,7 +455,6 @@ const About = ({ meta, about }) => {
             </Flex>
           </Section>
         </LazyLoad>
-
         <LazyLoad placeholder={<Skeleton />}>
           <Section
             outerProps={{
@@ -378,109 +484,14 @@ const About = ({ meta, about }) => {
                 </SectionSubheading>
               </Box>
             </Flex>
-
-            <Grid
-              width="100%"
-              height="auto"
-              gridTemplateColumns={{
-                xs: "repeat(1, 1fr)",
-                md: "repeat(2, 1fr)",
-              }}
-              gridTemplateRows={{ xs: "repeat(2, 1fr)", md: "repeat(2, 1fr)" }}
-              gridColumnGap="0px"
-              gridRowGap="0px"
-              textTransform="uppercase"
-              color="#626163"
-              letterSpacing="2.5px"
-              fontSize={{ xs: "10px", md: "11px" }}
-              fontWeight="500"
-            >
-              {about.node.team_checkerboard.map((item, index, checkArr) => {
-                const smallerLength = Math.ceil(checkArr.length / 2);
-                const firstArr = [...Array(smallerLength).keys()]
-                  .map((x) => ++x)
-                  .filter((a) => !(a % 2))
-                  .reduce((total, fItem) => {
-                    const totalArr = total;
-                    totalArr.push(fItem * 2 - 1);
-                    totalArr.push(fItem * 2);
-                    return totalArr;
-                  }, [])
-                  .map((x) => --x);
-
-                return (
-                  <Flex
-                    flexDirection={{
-                      xs: !(index % 2) ? "row" : "row-reverse",
-                      md: firstArr.includes(index) ? "row-reverse" : "row",
-                    }}
-                  >
-                    <Box flex="0 0 50%">
-                      <LazyLoad placeholder={<Skeleton />}>
-                        <EmployeePicture
-                          fluid={
-                            item.employee_pictureSharp.childImageSharp.fluid
-                          }
-                        />
-                      </LazyLoad>
-                    </Box>
-                    <HoverFlex
-                      justifyContent="center"
-                      alignItems="flex-end"
-                      position="relative"
-                      flex="0 0 50%"
-                    >
-                      <Box
-                        className="description"
-                        position="absolute"
-                        height="100%"
-                        width="100%"
-                        backgroundColor={colors.njabDarkPink}
-                        textTransform="initial"
-                        color="white"
-                        top="0"
-                        padding={{ xs: "10px", md: "30px" }}
-                        opacity="0"
-                        transition="all 0.3s"
-                      >
-                        <Box
-                          overflow="scroll"
-                          height="calc(100% - 80px)"
-                          width="100%"
-                        >
-                          <PrismicRichText render={item.employee_description} />
-                        </Box>
-                      </Box>
-                      <StyledFlex
-                        className="details-container"
-                        height="80px"
-                        justifyContent="flex-end"
-                        p={{ xs: "10px", md: "30px" }}
-                        pb={{ xs: "10px", md: "20px" }}
-                        alignItems="center"
-                        flexDirection="column"
-                      >
-                        <Box zIndex="2" textAlign="center" fontWeight="bold">
-                          <PrismicRichText render={item.employee_name} />
-                        </Box>
-                        <Text
-                          zIndex="2"
-                          className="position"
-                          as="em"
-                          fontFamily="Montserrat"
-                          opacity="0"
-                          margin="0"
-                          textAlign="center"
-                          lineHeight="1.5"
-                        >
-                          <PrismicRichText render={item.employee_position} />
-                        </Text>
-                      </StyledFlex>
-                    </HoverFlex>
-                  </Flex>
-                );
-              })}
-            </Grid>
+            <AboutSlider>
+              <div>
+                <TeamSection items={about.node.team_checkerboard} />
+              </div>
+              <div>
+                <TeamSection items={about.node.team_checkerboard} />
+              </div>
+            </AboutSlider>
           </Section>
         </LazyLoad>
       </Layout>
