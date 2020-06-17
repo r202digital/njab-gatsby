@@ -105,3 +105,4 @@ dist
 public
 .env.development
 .env.production
+.env.build

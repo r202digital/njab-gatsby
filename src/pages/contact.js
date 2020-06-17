@@ -36,8 +36,6 @@ import {
 } from "../lib/PrismicFunctions";
 import Loadable from "react-loadable";
 
-console.log(process.env.GATSBY_SENDGRID);
-
 const PrismicRichText = Loadable({
   loader: () => import("prismic-reactjs"),
   delay: 50,
@@ -388,27 +386,34 @@ const Contact = ({ meta, blog, contact, global }) => (
               <SectionSubheading>
                 <PrismicRichText render={contact.form_subheading} />
               </SectionSubheading>
-              <FormControl marginTop="50px" as="fieldset" border="none">
-                <Flex flexDirection={{ xs: "column", md: "row" }}>
-                  <FormInput
-                    aria-describedby="your-name"
-                    variant="flushed"
-                    placeholder="Your Name"
-                    mr={{ md: "15px" }}
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  console.log("lakjsdlakjsd");
+                }}
+              >
+                <FormControl marginTop="50px" as="fieldset" border="none">
+                  <Flex flexDirection={{ xs: "column", md: "row" }}>
+                    <FormInput
+                      aria-describedby="your-name"
+                      variant="flushed"
+                      placeholder="Your Name"
+                      mr={{ md: "15px" }}
+                    />
+                    <FormInput
+                      aria-describedby="your-email"
+                      variant="flushed"
+                      placeholder="Your Email"
+                      ml={{ md: "15px" }}
+                    />
+                  </Flex>
+                  <FormTextarea
+                    aria-describedby="your-message"
+                    placeholder="Your Message"
                   />
-                  <FormInput
-                    aria-describedby="your-email"
-                    variant="flushed"
-                    placeholder="Your Email"
-                    ml={{ md: "15px" }}
-                  />
-                </Flex>
-                <FormTextarea
-                  aria-describedby="your-message"
-                  placeholder="Your Message"
-                />
-                <SubmitButton type="submit">Submit</SubmitButton>
-              </FormControl>
+                  <SubmitButton type="submit">Submit</SubmitButton>
+                </FormControl>
+              </form>
             </Box>
           </Flex>
         </Section>
