@@ -1,4 +1,8 @@
 {
+  "env": {
+    "GATSBY_SENDGRID": "@gatsby_sendgrid",
+    "SENDGRID_API": "@sendgrid_api"
+  },
   "routes": [
     { "handle": "filesystem" },
     { "src": "/.*", "status": 404, "dest": "/404" }
