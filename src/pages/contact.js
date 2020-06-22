@@ -27,6 +27,7 @@ import Textarea from "@chakra-ui/core/dist/Textarea";
 import Button from "@chakra-ui/core/dist/Button";
 import FormControl from "@chakra-ui/core/dist/FormControl";
 import ExternalLink from "@chakra-ui/core/dist/Link";
+import useToast from "@chakra-ui/core/dist/Toast";
 import Container from "../components/Container";
 import GoogleMapReact from "google-map-react";
 import {
@@ -209,10 +210,13 @@ const ContactForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [body, setBody] = useState("");
+  const [loading, setLoading] = useState(false);
+  const toast = useToast();
   return (
     <form
       onSubmit={async (e) => {
         e.preventDefault();
+        setLoading(true);
         axios
           .post("/api/email", {
             name: name,
@@ -220,7 +224,17 @@ const ContactForm = () => {
             body: body,
           })
           .then(function(response) {
-            console.log(response);
+            setName("");
+            setEmail("");
+            setBody("");
+            setLoading(false);
+            toast({
+              title: "Inquiry sent",
+              description: "We'll reach out to you soon.",
+              status: "success",
+              duration: 5000,
+              isClosable: true,
+            });
           })
           .catch(function(error) {
             console.log(error);
@@ -237,6 +251,7 @@ const ContactForm = () => {
               e.preventDefault();
               setName(e.target.value);
             }}
+            value={name}
             mr={{ md: "15px" }}
           />
           <FormInput
@@ -247,6 +262,7 @@ const ContactForm = () => {
               e.preventDefault();
               setEmail(e.target.value);
             }}
+            value={email}
             ml={{ md: "15px" }}
           />
         </Flex>
@@ -257,8 +273,11 @@ const ContactForm = () => {
             e.preventDefault();
             setBody(e.target.value);
           }}
+          value={body}
         />
-        <SubmitButton type="submit">Submit</SubmitButton>
+        <SubmitButton isLoading={loading} type="submit">
+          Submit
+        </SubmitButton>
       </FormControl>
     </form>
   );
