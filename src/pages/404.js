@@ -56,7 +56,7 @@ const NotFoundPage = () => (
       <Text fontWeight="700" letterSpacing="3px">
         OOPS! PAGE NOT FOUND
       </Text>
-      <HomeLink to="/home">Go back to home</HomeLink>
+      <HomeLink to="/">Go back to home</HomeLink>
     </Flex>
   </Layout>
 );
