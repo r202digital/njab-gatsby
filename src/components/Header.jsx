@@ -181,7 +181,9 @@ const Header = ({
       text: item.nav_link[0].text,
       url: item.nav_link[0].spans[0]
         ? data.link_type === "Document"
-          ? `/${data.uid}`
+          ? data.uid === "home"
+            ? "/"
+            : `/${data.uid}`
           : data.url
         : "",
     };
