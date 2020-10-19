@@ -5,7 +5,7 @@ require("dotenv").config({
 module.exports = {
   siteMetadata: {
     title: `Not Just a Box Events`,
-    description: `Not Just a Box Events`,
+    description: `We believe in dreams, planning, and the unique. We invest in ideas and innovate because we are Not Just a Box.`,
     author: `Sidney Ramos <sidney.ramos95@gmail.com>`,
   },
   plugins: [
