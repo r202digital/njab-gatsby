@@ -184,6 +184,10 @@ const Project = ({ project, meta, allProjects, fullPath, home }) => {
             content: meta.description,
           },
           {
+            property: `og:image`,
+            content: project.project_hero_image.url,
+          },
+          {
             property: `og:type`,
             content: `website`,
           },
@@ -350,7 +354,7 @@ const Project = ({ project, meta, allProjects, fullPath, home }) => {
               </Flex>
             </Box>
           </Flex>
-          <WorkLink to={"/portfolio"}>
+          <WorkLink to={"/events"}>
             <Button className="Button--secondary">See other work</Button>
           </WorkLink>
         </Section>
@@ -403,7 +407,7 @@ const Project = ({ project, meta, allProjects, fullPath, home }) => {
                   padding="25px"
                   background="linear-gradient(180deg, rgba(255,255,255,0) 50%, rgba(0,0,0,1) 100%)"
                 >
-                  <SliderLink to={`/work/${item.node._meta.uid}`}>
+                  <SliderLink to={`/events/${item.node._meta.uid}`}>
                     <Heading
                       as="h1"
                       textTransform="uppercase"
@@ -513,7 +517,7 @@ const Project = ({ project, meta, allProjects, fullPath, home }) => {
 };
 
 export default ({ data, path, location }) => {
-  const id = path.replace("/work/", "");
+  const id = path.replace("/events/", "");
   const home = data.prismic.allHomepages.edges.slice(0, 1).pop();
 
   const projectContent = data.prismic.allProjects.edges.filter(

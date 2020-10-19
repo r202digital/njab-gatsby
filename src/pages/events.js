@@ -24,6 +24,7 @@ import List, { ListItem } from "@chakra-ui/core/dist/List";
 import Button from "@chakra-ui/core/dist/Button";
 import { getPrismicImage } from "../lib/PrismicFunctions";
 import Loadable from "react-loadable";
+import preview from "../images/njab/fbimage.png";
 
 const PrismicRichText = Loadable({
   loader: () => import("prismic-reactjs"),
@@ -161,6 +162,10 @@ const Services = ({
           {
             property: `og:description`,
             content: meta.description,
+          },
+          {
+            property: `og:image`,
+            content: preview,
           },
           {
             property: `og:type`,
@@ -320,7 +325,7 @@ const Services = ({
             {newProjects.map((project) => (
               <Box>
                 <PortfolioLink
-                  to={`/work/${project.id}`}
+                  to={`/events/${project.id}`}
                   color="white"
                   width="100%"
                 >
@@ -352,7 +357,7 @@ const Services = ({
                   </SectionHeading>
                 </PseudoBox>
                 <PortfolioLink
-                  to={`/work/${project.id}`}
+                  to={`/events/${project.id}`}
                   textTransform="uppercase"
                   color="white"
                 >

@@ -11,7 +11,7 @@ import Footer from "components/Footer";
 import Header from "components/Header";
 import Helmet from "react-helmet";
 import "styles/fonts.scss";
-import preview from "../images/preview.png";
+import preview from "../images/njab/fbimage.png";
 import ThemeProvider from "@chakra-ui/core/dist/ThemeProvider";
 import IconButton from "@chakra-ui/core/dist/IconButton";
 import Flex from "@chakra-ui/core/dist/Flex";

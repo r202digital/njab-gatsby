@@ -40,15 +40,15 @@ const Arrow = ({ className, style, onClick }) => {
         border="none"
         _hover={{
           background: "transparent",
-          color: "black"
+          color: "black",
         }}
         _active={{
           background: "transparent",
-          color: "black"
+          color: "black",
         }}
         _focus={{
           outline: "none",
-          color: "black"
+          color: "black",
         }}
       >
         PREVIOUS
@@ -161,7 +161,7 @@ export default class DoubleSlider extends React.Component {
           px="50px"
           maxWidth={{ md: "calc(100% - 250px)" }}
           outerContainerProps={{
-            color: "#de8e83"
+            color: "#de8e83",
           }}
           overflow={{ xs: "hidden", md: "visible" }}
           alignItems={{ md: "flex-end" }}
@@ -177,8 +177,8 @@ export default class DoubleSlider extends React.Component {
             speed={500}
             slidesToShow={1}
             slidesToScroll={1}
-            appendDots={dots => <List bottom="-40px">{dots}</List>}
-            ref={slider => (this.secondSlider = slider)}
+            appendDots={(dots) => <List bottom="-40px">{dots}</List>}
+            ref={(slider) => (this.secondSlider = slider)}
             beforeChange={(oldIndex, newIndex) => {
               this.firstSlider.slickGoTo(newIndex);
             }}
@@ -196,7 +196,7 @@ export default class DoubleSlider extends React.Component {
                     textAlign="center"
                     fontFamily="Montserrat"
                   >
-                    <StyledLink to={`/work/${item.id}`}>
+                    <StyledLink to={`/events/${item.id}`}>
                       <Heading
                         as="h1"
                         textTransform="uppercase"
@@ -210,7 +210,7 @@ export default class DoubleSlider extends React.Component {
                         {item.title}
                       </Heading>
                     </StyledLink>
-                    <StyledLink to={`/work/${item.id}`}>
+                    <StyledLink to={`/events/${item.id}`}>
                       <Heading
                         as="h2"
                         textTransform="uppercase"
@@ -233,7 +233,7 @@ export default class DoubleSlider extends React.Component {
                     transform="translateY(-50%)"
                     display={{
                       xs: "none",
-                      md: "flex"
+                      md: "flex",
                     }}
                   >
                     <Text
@@ -266,9 +266,9 @@ export default class DoubleSlider extends React.Component {
           centerMode={true}
           speed={500}
           slidesToScroll={1}
-          appendDots={dots => <List bottom="-40px">{dots}</List>}
+          appendDots={(dots) => <List bottom="-40px">{dots}</List>}
           slidesToShow={1}
-          ref={slider => (this.firstSlider = slider)}
+          ref={(slider) => (this.firstSlider = slider)}
           beforeChange={(oldIndex, newIndex) => {
             this.secondSlider.slickGoTo(newIndex);
           }}
@@ -276,9 +276,9 @@ export default class DoubleSlider extends React.Component {
             {
               breakpoint: 768,
               settings: {
-                centerMode: false
-              }
-            }
+                centerMode: false,
+              },
+            },
           ]}
         >
           {items.map((item, index) => (
@@ -315,7 +315,7 @@ export default class DoubleSlider extends React.Component {
                       width: "50px",
                       backgroundColor: "#e9c8bc",
                       my: "20px",
-                      mx: "auto"
+                      mx: "auto",
                     }}
                     width="75%"
                   >
@@ -361,7 +361,7 @@ export default class DoubleSlider extends React.Component {
                     fontWeight="700"
                     letterSpacing="1px"
                     fontFamily="Montserrat"
-                    to={`/work/${item.id}`}
+                    to={`/events/${item.id}`}
                   >
                     Read More
                   </LinkButton>

@@ -24,6 +24,7 @@ import leftFlower from "../images/njab/flower.png";
 import rightFlower from "../images/njab/flower2.png";
 import { getPrismicText, getPrismicImage } from "../lib/PrismicFunctions";
 import Loadable from "react-loadable";
+import preview from "../images/njab/fbimage.png";
 
 const PrismicRichText = Loadable({
   loader: () => import("prismic-reactjs"),
@@ -103,6 +104,10 @@ const Services = ({ services, meta }) => {
           {
             property: `og:description`,
             content: meta.description,
+          },
+          {
+            property: `og:image`,
+            content: preview,
           },
           {
             property: `og:type`,

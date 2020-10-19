@@ -36,6 +36,7 @@ import {
   getUrl,
 } from "../lib/PrismicFunctions";
 import Loadable from "react-loadable";
+import preview from "../images/njab/fbimage.png";
 const axios = require("axios");
 
 const PrismicRichText = Loadable({
@@ -301,6 +302,10 @@ const Contact = ({ meta, blog, contact, global }) => {
           {
             property: `og:description`,
             content: meta.description,
+          },
+          {
+            property: `og:image`,
+            content: preview,
           },
           {
             property: `og:type`,

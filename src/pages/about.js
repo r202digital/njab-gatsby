@@ -22,6 +22,7 @@ import Text from "@chakra-ui/core/dist/Text";
 import Grid from "@chakra-ui/core/dist/Grid";
 import Loadable from "react-loadable";
 import GatsbyImage from "gatsby-image";
+import preview from "../images/njab/fbimage.png";
 import AboutSlider from "components/AboutSlider";
 
 const PrismicRichText = Loadable({
@@ -268,6 +269,10 @@ const About = ({ meta, about }) => {
           {
             property: `og:description`,
             content: meta.description,
+          },
+          {
+            property: `og:image`,
+            content: preview,
           },
           {
             property: `og:type`,

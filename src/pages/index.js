@@ -8,7 +8,7 @@ import Layout from "components/Layout";
 import Loadable from "react-loadable";
 import Box from "@chakra-ui/core/dist/Box";
 import FirstSection from "../components/home/FirstSection";
-
+import preview from "../images/njab/fbimage.png";
 import { getPrismicImage, convertImageSharp } from "../lib/PrismicFunctions";
 
 const SecondSection = Loadable({
@@ -116,6 +116,10 @@ const RenderBody = (props) => {
           {
             property: `og:description`,
             content: meta.description,
+          },
+          {
+            property: `og:image`,
+            content: preview,
           },
           {
             property: `og:type`,

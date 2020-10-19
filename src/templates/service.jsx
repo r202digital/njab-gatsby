@@ -174,6 +174,10 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
             content: meta.description,
           },
           {
+            property: `og:image`,
+            content: service.service_hero_image.url,
+          },
+          {
             property: `og:type`,
             content: `website`,
           },
@@ -335,7 +339,7 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
               </Flex>
             </Box>
           </Flex>
-          <WorkLink to={"/portfolio"}>
+          <WorkLink to={"/events"}>
             <Button className="Button--secondary">See other work</Button>
           </WorkLink>
         </Section>
@@ -388,7 +392,7 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
                   padding="25px"
                   background="linear-gradient(180deg, rgba(255,255,255,0) 50%, rgba(0,0,0,1) 100%)"
                 >
-                  <SliderLink to={`/work/${item.node._meta.uid}`}>
+                  <SliderLink to={`/events/${item.node._meta.uid}`}>
                     <Heading
                       as="h1"
                       textTransform="uppercase"

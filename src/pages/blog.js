@@ -23,6 +23,7 @@ import List, { ListItem } from "@chakra-ui/core/dist/List";
 import Container from "../components/Container";
 import { getPrismicText, getPrismicImage } from "../lib/PrismicFunctions";
 import Loadable from "react-loadable";
+import preview from "../images/njab/fbimage.png";
 
 const PrismicRichText = Loadable({
   loader: () => import("prismic-reactjs"),
@@ -64,6 +65,10 @@ const Blog = ({ meta, blog, posts, categories }) => {
           {
             property: `og:description`,
             content: meta.description,
+          },
+          {
+            property: `og:image`,
+            content: preview,
           },
           {
             property: `og:type`,

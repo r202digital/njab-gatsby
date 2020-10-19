@@ -192,6 +192,10 @@ const Post = ({ post, meta, blog, allPosts }) => {
             content: meta.description,
           },
           {
+            property: `og:image`,
+            content: blog.page_hero_image.url,
+          },
+          {
             property: `og:type`,
             content: `website`,
           },
