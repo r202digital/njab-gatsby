@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import Helmet from "react-helmet";
 import { graphql } from "gatsby";
 import styled from "@emotion/styled";
 import colors from "styles/colors";
@@ -25,6 +24,7 @@ import Button from "@chakra-ui/core/dist/Button";
 import { getPrismicImage } from "../lib/PrismicFunctions";
 import Loadable from "react-loadable";
 import preview from "../images/njab/fbimage.png";
+import { Title, Meta } from "react-head";
 
 const PrismicRichText = Loadable({
   loader: () => import("prismic-reactjs"),
@@ -147,27 +147,22 @@ const Services = ({
 
   return (
     <>
-      <Helmet>
-        <title>Portfolio | Not Just a Box Events</title>
-        <meta name="title" content={`Portfolio | Not Just a Box Events`} />
-        <meta name="description" content={meta.description} />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://notjustaboxevents.com/" />
-        <meta
-          property="og:title"
-          content={`Portfolio | Not Just a Box Events`}
-        />
-        <meta property="og:description" content={meta.description} />
-        <meta property="og:image" content={preview} />
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://notjustaboxevents.com/" />
-        <meta
-          property="twitter:title"
-          content={`Portfolio | Not Just a Box Events`}
-        />
-        <meta property="twitter:description" content={meta.description} />
-        <meta property="twitter:image" content={preview} />
-      </Helmet>
+      <Title>Portfolio | Not Just a Box Events</Title>
+      <Meta name="title" content={`Portfolio | Not Just a Box Events`} />
+      <Meta name="description" content={meta.description} />
+      <Meta property="og:type" content="website" />
+      <Meta property="og:url" content="https://notjustaboxevents.com/" />
+      <Meta property="og:title" content={`Portfolio | Not Just a Box Events`} />
+      <Meta property="og:description" content={meta.description} />
+      <Meta property="og:image" content={preview} />
+      <Meta property="twitter:card" content="summary_large_image" />
+      <Meta property="twitter:url" content="https://notjustaboxevents.com/" />
+      <Meta
+        property="twitter:title"
+        content={`Portfolio | Not Just a Box Events`}
+      />
+      <Meta property="twitter:description" content={meta.description} />
+      <Meta property="twitter:image" content={preview} />
       <Layout>
         <Section fullWidth mb="40px" maxWidth="initial">
           <HeaderDoubleSlider items={featuredProjects} />

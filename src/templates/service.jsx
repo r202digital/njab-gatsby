@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
-import Helmet from "react-helmet";
 import styled from "@emotion/styled";
 import colors from "styles/colors";
 import Link from "components/_ui/Link";
@@ -24,6 +23,7 @@ import ExternalLink from "@chakra-ui/core/dist/Link";
 
 import { getPrismicImage } from "../lib/PrismicFunctions";
 import Loadable from "react-loadable";
+import { Title, Meta } from "react-head";
 
 const PrismicRichText = Loadable({
   loader: () => import("prismic-reactjs"),
@@ -157,75 +157,28 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
   const bottomRef = useRef(null);
   return (
     <>
-      {/* <Helmet
-        title={`${service.service_title[0].text} | Not Just a Box Events`}
-        titleTemplate={`%s`}
-        meta={[
-          {
-            name: `description`,
-            content: meta.description,
-          },
-          {
-            property: `og:title`,
-            content: `${service.service_title[0].text} | Not Just a Box Events`,
-          },
-          {
-            property: `og:description`,
-            content: meta.description,
-          },
-          {
-            property: `og:image`,
-            content: service.service_hero_image.url,
-          },
-          {
-            property: `og:type`,
-            content: `website`,
-          },
-          {
-            name: `twitter:card`,
-            content: `summary`,
-          },
-          {
-            name: `twitter:creator`,
-            content: meta.author,
-          },
-          {
-            name: `twitter:title`,
-            content: meta.title,
-          },
-          {
-            name: `twitter:description`,
-            content: meta.description,
-          },
-        ].concat(meta)}
-      /> */}
-      <Helmet>
-        <title>{service.service_title[0].text} | Not Just a Box Events</title>
-        <meta
-          name="title"
-          content={`${service.service_title[0].text} | Not Just a Box Events`}
-        />
-        <meta name="description" content={meta.description} />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://notjustaboxevents.com/" />
-        <meta
-          property="og:title"
-          content={`${service.service_title[0].text} | Not Just a Box Events`}
-        />
-        <meta property="og:description" content={meta.description} />
-        <meta property="og:image" content={service.service_hero_image.url} />
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://notjustaboxevents.com/" />
-        <meta
-          property="twitter:title"
-          content={`${service.service_title[0].text} | Not Just a Box Events`}
-        />
-        <meta property="twitter:description" content={meta.description} />
-        <meta
-          property="twitter:image"
-          content={service.service_hero_image.url}
-        />
-      </Helmet>
+      <Title>{service.service_title[0].text} | Not Just a Box Events</Title>
+      <Meta
+        name="title"
+        content={`${service.service_title[0].text} | Not Just a Box Events`}
+      />
+      <Meta name="description" content={meta.description} />
+      <Meta property="og:type" content="website" />
+      <Meta property="og:url" content="https://notjustaboxevents.com/" />
+      <Meta
+        property="og:title"
+        content={`${service.service_title[0].text} | Not Just a Box Events`}
+      />
+      <Meta property="og:description" content={meta.description} />
+      <Meta property="og:image" content={service.service_hero_image.url} />
+      <Meta property="twitter:card" content="summary_large_image" />
+      <Meta property="twitter:url" content="https://notjustaboxevents.com/" />
+      <Meta
+        property="twitter:title"
+        content={`${service.service_title[0].text} | Not Just a Box Events`}
+      />
+      <Meta property="twitter:description" content={meta.description} />
+      <Meta property="twitter:image" content={service.service_hero_image.url} />
       <Layout>
         <Section flexDirection="row" flexWrap={{ xs: "wrap", md: "nowrap" }}>
           <Box flex={{ xs: "1 0 100%", md: "1 1 50%" }} paddingRight="5%">

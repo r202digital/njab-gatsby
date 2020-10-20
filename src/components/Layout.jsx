@@ -9,7 +9,6 @@ import logoStyles from "styles/logo";
 import colors from "styles/colors";
 import Footer from "components/Footer";
 import Header from "components/Header";
-import Helmet from "react-helmet";
 import "styles/fonts.scss";
 import preview from "../images/njab/fbimage.png";
 import ThemeProvider from "@chakra-ui/core/dist/ThemeProvider";
@@ -24,6 +23,7 @@ import MessengerCustomerChat from "react-messenger-customer-chat";
 import FontFaceObserver from "fontfaceobserver";
 import "react-micro-modal/dist/index.css";
 import { parsePrismicUrl } from "../lib/PrismicFunctions";
+import { Link, Meta } from "react-head";
 
 const PinkNoTextLogo = Loadable({
   loader: () => import("../components/_ui/NjabLogos"),
@@ -203,13 +203,11 @@ const Layout = ({
 
         return (
           <>
-            <Helmet>
-              <meta
-                name="p:domain_verify"
-                content="1228088838575c68d8e15366463bb836"
-              />
-              <link rel="preconnect" href="https://images.prismic.io" />
-            </Helmet>
+            <Meta
+              name="p:domain_verify"
+              content="1228088838575c68d8e15366463bb836"
+            />
+            <Link rel="preconnect" href="https://images.prismic.io" />
             <MessengerCustomerChat
               pageId="176927569055665"
               appId="1678638095724206"

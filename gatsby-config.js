@@ -9,7 +9,7 @@ module.exports = {
     author: `Sidney Ramos <sidney.ramos95@gmail.com>`,
   },
   plugins: [
-    `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-react-head`,
     `gatsby-plugin-catch-links`,
     `gatsby-plugin-sass`,
     `gatsby-plugin-resolve-src`,

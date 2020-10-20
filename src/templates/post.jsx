@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Helmet from "react-helmet";
 import dayjs from "dayjs";
 import { graphql } from "gatsby";
 import styled from "@emotion/styled";
@@ -27,6 +26,7 @@ import Text from "@chakra-ui/core/dist/Text";
 import Container from "../components/Container";
 import { getPrismicImage } from "../lib/PrismicFunctions";
 import Loadable from "react-loadable";
+import { Title, Meta } from "react-head";
 
 const PrismicRichText = Loadable({
   loader: () => import("prismic-reactjs"),
@@ -175,72 +175,28 @@ const StyledPseudoBox = styled(PseudoBox)`
 const Post = ({ post, meta, blog, allPosts }) => {
   return (
     <>
-      {/* <Helmet
-        title={`${post.post_title[0].text} | Not Just a Box Eecnts`}
-        titleTemplate={`%s`}
-        meta={[
-          {
-            name: `description`,
-            content: meta.description,
-          },
-          {
-            property: `og:title`,
-            content: `${post.post_title[0].text} | Not Just a Box Eecnts`,
-          },
-          {
-            property: `og:description`,
-            content: meta.description,
-          },
-          {
-            property: `og:image`,
-            content: blog.page_hero_image.url,
-          },
-          {
-            property: `og:type`,
-            content: `website`,
-          },
-          {
-            name: `twitter:card`,
-            content: `summary`,
-          },
-          {
-            name: `twitter:creator`,
-            content: meta.author,
-          },
-          {
-            name: `twitter:title`,
-            content: meta.title,
-          },
-          {
-            name: `twitter:description`,
-            content: meta.description,
-          },
-        ].concat(meta)}
-      /> */}
-      <Helmet>
-        <title>{post.post_title[0].text} | Not Just a Box Events</title>
-        <meta
-          name="title"
-          content={`${post.post_title[0].text} | Not Just a Box Events`}
-        />
-        <meta name="description" content={meta.description} />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://notjustaboxevents.com/" />
-        <meta
-          property="og:title"
-          content={`${post.post_title[0].text} | Not Just a Box Events`}
-        />
-        <meta property="og:description" content={meta.description} />
-        <meta property="og:image" content={blog.page_hero_image.url} />
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://notjustaboxevents.com/" />
-        <meta
-          property="twitter:title"
-          content={`${post.post_title[0].text} | Not Just a Box Events`}
-        />
-        <meta property="twitter:description" content={meta.description} />
-        <meta property="twitter:image" content={blog.page_hero_image.url} />
-      </Helmet>
+      <Title>{post.post_title[0].text} | Not Just a Box Events</Title>
+      <Meta
+        name="title"
+        content={`${post.post_title[0].text} | Not Just a Box Events`}
+      />
+      <Meta name="description" content={meta.description} />
+      <Meta property="og:type" content="website" />
+      <Meta property="og:url" content="https://notjustaboxevents.com/" />
+      <Meta
+        property="og:title"
+        content={`${post.post_title[0].text} | Not Just a Box Events`}
+      />
+      <Meta property="og:description" content={meta.description} />
+      <Meta property="og:image" content={blog.page_hero_image.url} />
+      <Meta property="twitter:card" content="summary_large_image" />
+      <Meta property="twitter:url" content="https://notjustaboxevents.com/" />
+      <Meta
+        property="twitter:title"
+        content={`${post.post_title[0].text} | Not Just a Box Events`}
+      />
+      <Meta property="twitter:description" content={meta.description} />
+      <Meta property="twitter:image" content={blog.page_hero_image.url} />
       <Layout
         headerVariant="dark"
         headerBackground={{
