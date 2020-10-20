@@ -175,7 +175,7 @@ const StyledPseudoBox = styled(PseudoBox)`
 const Post = ({ post, meta, blog, allPosts }) => {
   return (
     <>
-      <Helmet
+      {/* <Helmet
         title={`${post.post_title[0].text} | Not Just a Box Eecnts`}
         titleTemplate={`%s`}
         meta={[
@@ -216,7 +216,31 @@ const Post = ({ post, meta, blog, allPosts }) => {
             content: meta.description,
           },
         ].concat(meta)}
-      />
+      /> */}
+      <Helmet>
+        <title>{post.post_title[0].text} | Not Just a Box Events</title>
+        <meta
+          name="title"
+          content={`${post.post_title[0].text} | Not Just a Box Events`}
+        />
+        <meta name="description" content={meta.description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://notjustaboxevents.com/" />
+        <meta
+          property="og:title"
+          content={`${post.post_title[0].text} | Not Just a Box Events`}
+        />
+        <meta property="og:description" content={meta.description} />
+        <meta property="og:image" content={blog.page_hero_image.url} />
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://notjustaboxevents.com/" />
+        <meta
+          property="twitter:title"
+          content={`${post.post_title[0].text} | Not Just a Box Events`}
+        />
+        <meta property="twitter:description" content={meta.description} />
+        <meta property="twitter:image" content={blog.page_hero_image.url} />
+      </Helmet>
       <Layout
         headerVariant="dark"
         headerBackground={{

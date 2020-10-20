@@ -147,48 +147,27 @@ const Services = ({
 
   return (
     <>
-      <Helmet
-        title={`Portfolio | Not Just a Box Events`}
-        titleTemplate={`%s`}
-        meta={[
-          {
-            name: `description`,
-            content: meta.description,
-          },
-          {
-            property: `og:title`,
-            content: `Portfolio | Not Just a Box Events`,
-          },
-          {
-            property: `og:description`,
-            content: meta.description,
-          },
-          {
-            property: `og:image`,
-            content: preview,
-          },
-          {
-            property: `og:type`,
-            content: `website`,
-          },
-          {
-            name: `twitter:card`,
-            content: `summary`,
-          },
-          {
-            name: `twitter:creator`,
-            content: meta.author,
-          },
-          {
-            name: `twitter:title`,
-            content: meta.title,
-          },
-          {
-            name: `twitter:description`,
-            content: meta.description,
-          },
-        ].concat(meta)}
-      />
+      <Helmet>
+        <title>Portfolio | Not Just a Box Events</title>
+        <meta name="title" content={`Portfolio | Not Just a Box Events`} />
+        <meta name="description" content={meta.description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://notjustaboxevents.com/" />
+        <meta
+          property="og:title"
+          content={`Portfolio | Not Just a Box Events`}
+        />
+        <meta property="og:description" content={meta.description} />
+        <meta property="og:image" content={preview} />
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://notjustaboxevents.com/" />
+        <meta
+          property="twitter:title"
+          content={`Portfolio | Not Just a Box Events`}
+        />
+        <meta property="twitter:description" content={meta.description} />
+        <meta property="twitter:image" content={preview} />
+      </Helmet>
       <Layout>
         <Section fullWidth mb="40px" maxWidth="initial">
           <HeaderDoubleSlider items={featuredProjects} />

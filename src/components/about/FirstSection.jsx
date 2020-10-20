@@ -140,44 +140,6 @@ const PhilosophyPicture = styled(GatsbyImage)`
 const About = ({ meta, about }) => {
   return (
     <>
-      <Helmet
-        title={`About | Not Just a Box Events`}
-        titleTemplate={`%s`}
-        meta={[
-          {
-            name: `description`,
-            content: meta.description,
-          },
-          {
-            property: `og:title`,
-            content: `About | Not Just a Box Events`,
-          },
-          {
-            property: `og:description`,
-            content: meta.description,
-          },
-          {
-            property: `og:type`,
-            content: `website`,
-          },
-          {
-            name: `twitter:card`,
-            content: `summary`,
-          },
-          {
-            name: `twitter:creator`,
-            content: meta.author,
-          },
-          {
-            name: `twitter:title`,
-            content: meta.title,
-          },
-          {
-            name: `twitter:description`,
-            content: meta.description,
-          },
-        ].concat(meta)}
-      />
       <Layout>
         <Section
           outerProps={{

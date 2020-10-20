@@ -101,48 +101,21 @@ const RenderBody = (props) => {
 
   return (
     <>
-      <Helmet
-        title={meta.title}
-        titleTemplate={`%s`}
-        meta={[
-          {
-            name: `description`,
-            content: meta.description,
-          },
-          {
-            property: `og:title`,
-            content: meta.title,
-          },
-          {
-            property: `og:description`,
-            content: meta.description,
-          },
-          {
-            property: `og:image`,
-            content: preview,
-          },
-          {
-            property: `og:type`,
-            content: `website`,
-          },
-          {
-            name: `twitter:card`,
-            content: `summary`,
-          },
-          {
-            name: `twitter:creator`,
-            content: meta.author,
-          },
-          {
-            name: `twitter:title`,
-            content: meta.title,
-          },
-          {
-            name: `twitter:description`,
-            content: meta.description,
-          },
-        ].concat(meta)}
-      />
+      <Helmet>
+        <title>Not Just a Box Events</title>
+        <meta name="title" content={`Not Just a Box Events`} />
+        <meta name="description" content={meta.description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://notjustaboxevents.com/" />
+        <meta property="og:title" content={`Not Just a Box Events`} />
+        <meta property="og:description" content={meta.description} />
+        <meta property="og:image" content={preview} />
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://notjustaboxevents.com/" />
+        <meta property="twitter:title" content={`Not Just a Box Events`} />
+        <meta property="twitter:description" content={meta.description} />
+        <meta property="twitter:image" content={preview} />
+      </Helmet>
       <FirstSection {...props} />
 
       <SecondSection {...props} />

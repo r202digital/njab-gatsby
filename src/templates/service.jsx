@@ -157,7 +157,7 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
   const bottomRef = useRef(null);
   return (
     <>
-      <Helmet
+      {/* <Helmet
         title={`${service.service_title[0].text} | Not Just a Box Events`}
         titleTemplate={`%s`}
         meta={[
@@ -198,7 +198,34 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
             content: meta.description,
           },
         ].concat(meta)}
-      />
+      /> */}
+      <Helmet>
+        <title>{service.service_title[0].text} | Not Just a Box Events</title>
+        <meta
+          name="title"
+          content={`${service.service_title[0].text} | Not Just a Box Events`}
+        />
+        <meta name="description" content={meta.description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://notjustaboxevents.com/" />
+        <meta
+          property="og:title"
+          content={`${service.service_title[0].text} | Not Just a Box Events`}
+        />
+        <meta property="og:description" content={meta.description} />
+        <meta property="og:image" content={service.service_hero_image.url} />
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://notjustaboxevents.com/" />
+        <meta
+          property="twitter:title"
+          content={`${service.service_title[0].text} | Not Just a Box Events`}
+        />
+        <meta property="twitter:description" content={meta.description} />
+        <meta
+          property="twitter:image"
+          content={service.service_hero_image.url}
+        />
+      </Helmet>
       <Layout>
         <Section flexDirection="row" flexWrap={{ xs: "wrap", md: "nowrap" }}>
           <Box flex={{ xs: "1 0 100%", md: "1 1 50%" }} paddingRight="5%">
