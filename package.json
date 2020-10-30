@@ -101,6 +101,7 @@
     "develop-now": "now dev --listen 1234",
     "format": "prettier --write src/**/*.{js,jsx}",
     "start": "npm run develop",
+    "start:prod": "yarn build && yarn serve",
     "deploy": "now --prod",
     "serve": "gatsby serve",
     "preload-fonts": "gatsby-preload-fonts",

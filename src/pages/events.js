@@ -24,7 +24,6 @@ import Button from "@chakra-ui/core/dist/Button";
 import { getPrismicImage } from "../lib/PrismicFunctions";
 import Loadable from "react-loadable";
 import preview from "../images/njab/fbimage.png";
-import { Title, Meta } from "react-head";
 
 const PrismicRichText = Loadable({
   loader: () => import("prismic-reactjs"),
@@ -147,23 +146,13 @@ const Services = ({
 
   return (
     <>
-      <Title>Portfolio | Not Just a Box Events</Title>
-      <Meta name="title" content={`Portfolio | Not Just a Box Events`} />
-      <Meta name="description" content={meta.description} />
-      <Meta property="og:type" content="website" />
-      <Meta property="og:url" content="https://notjustaboxevents.com/" />
-      <Meta property="og:title" content={`Portfolio | Not Just a Box Events`} />
-      <Meta property="og:description" content={meta.description} />
-      <Meta property="og:image" content={preview} />
-      <Meta property="twitter:card" content="summary_large_image" />
-      <Meta property="twitter:url" content="https://notjustaboxevents.com/" />
-      <Meta
-        property="twitter:title"
-        content={`Portfolio | Not Just a Box Events`}
-      />
-      <Meta property="twitter:description" content={meta.description} />
-      <Meta property="twitter:image" content={preview} />
-      <Layout>
+      <Layout
+        meta={{
+          title: `Portfolio | Not Just a Box Events`,
+          description: meta.description,
+          image: preview,
+        }}
+      >
         <Section fullWidth mb="40px" maxWidth="initial">
           <HeaderDoubleSlider items={featuredProjects} />
         </Section>

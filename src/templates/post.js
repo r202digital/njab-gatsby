@@ -26,7 +26,6 @@ import Text from "@chakra-ui/core/dist/Text";
 import Container from "../components/Container";
 import { getPrismicImage } from "../lib/PrismicFunctions";
 import Loadable from "react-loadable";
-import { Title, Meta } from "react-head";
 
 const PrismicRichText = Loadable({
   loader: () => import("prismic-reactjs"),
@@ -175,29 +174,12 @@ const StyledPseudoBox = styled(PseudoBox)`
 const Post = ({ post, meta, blog, allPosts }) => {
   return (
     <>
-      <Title>{post.post_title[0].text} | Not Just a Box Events</Title>
-      <Meta
-        name="title"
-        content={`${post.post_title[0].text} | Not Just a Box Events`}
-      />
-      <Meta name="description" content={meta.description} />
-      <Meta property="og:type" content="website" />
-      <Meta property="og:url" content="https://notjustaboxevents.com/" />
-      <Meta
-        property="og:title"
-        content={`${post.post_title[0].text} | Not Just a Box Events`}
-      />
-      <Meta property="og:description" content={meta.description} />
-      <Meta property="og:image" content={blog.page_hero_image.url} />
-      <Meta property="twitter:card" content="summary_large_image" />
-      <Meta property="twitter:url" content="https://notjustaboxevents.com/" />
-      <Meta
-        property="twitter:title"
-        content={`${post.post_title[0].text} | Not Just a Box Events`}
-      />
-      <Meta property="twitter:description" content={meta.description} />
-      <Meta property="twitter:image" content={blog.page_hero_image.url} />
       <Layout
+        meta={{
+          title: `${post.post_title[0].text} | Not Just a Box Events`,
+          description: meta.description,
+          image: blog.page_hero_image.url,
+        }}
         headerVariant="dark"
         headerBackground={{
           url: getPrismicImage(blog.page_hero_image),

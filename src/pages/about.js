@@ -23,7 +23,6 @@ import Loadable from "react-loadable";
 import GatsbyImage from "gatsby-image";
 import preview from "../images/njab/fbimage.png";
 import AboutSlider from "components/AboutSlider";
-import { Title, Meta } from "react-head";
 
 const PrismicRichText = Loadable({
   loader: () => import("prismic-reactjs"),
@@ -254,23 +253,13 @@ const TeamSection = ({ items }) => {
 const About = ({ meta, about }) => {
   return (
     <>
-      <Title>Our Story | Not Just a Box Events</Title>
-      <Meta name="title" content={`Our Story | Not Just a Box Events`} />
-      <Meta name="description" content={meta.description} />
-      <Meta property="og:type" content="website" />
-      <Meta property="og:url" content="https://notjustaboxevents.com/" />
-      <Meta property="og:title" content={`Our Story | Not Just a Box Events`} />
-      <Meta property="og:description" content={meta.description} />
-      <Meta property="og:image" content={preview} />
-      <Meta property="twitter:card" content="summary_large_image" />
-      <Meta property="twitter:url" content="https://notjustaboxevents.com/" />
-      <Meta
-        property="twitter:title"
-        content={`Our Story | Not Just a Box Events`}
-      />
-      <Meta property="twitter:description" content={meta.description} />
-      <Meta property="twitter:image" content={preview} />
-      <Layout>
+      <Layout
+        meta={{
+          title: `Our Story | Not Just a Box Events`,
+          description: meta.description,
+          image: preview,
+        }}
+      >
         <Section
           outerProps={{
             pt: { xs: "0", md: "50px" },

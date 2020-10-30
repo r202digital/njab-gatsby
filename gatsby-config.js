@@ -9,7 +9,6 @@ module.exports = {
     author: `Sidney Ramos <sidney.ramos95@gmail.com>`,
   },
   plugins: [
-    `gatsby-plugin-react-head`,
     `gatsby-plugin-catch-links`,
     `gatsby-plugin-sass`,
     `gatsby-plugin-resolve-src`,
@@ -62,12 +61,12 @@ module.exports = {
         extensions: ["css", "html", "js", "svg", "png", "ttf"],
       },
     },
-    {
-      resolve: `gatsby-plugin-offline`,
-      options: {
-        precachePages: [`/`, `/events`, `/blog`],
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-offline`,
+    //   options: {
+    //     precachePages: [`/`, `/events`, `/blog`],
+    //   },
+    // },
     `gatsby-plugin-preact`,
     {
       resolve: `gatsby-plugin-html-minifier`,
@@ -101,6 +100,7 @@ module.exports = {
         minimum: 0.4,
       },
     },
-    "gatsby-plugin-workerize-loader",
+    // "gatsby-plugin-workerize-loader",
+    `gatsby-plugin-react-head`,
   ],
 };

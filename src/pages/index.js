@@ -9,7 +9,6 @@ import Box from "@chakra-ui/core/dist/Box";
 import FirstSection from "../components/home/FirstSection";
 import preview from "../images/njab/fbimage.png";
 import { getPrismicImage, convertImageSharp } from "../lib/PrismicFunctions";
-import { Title, Meta } from "react-head";
 
 const SecondSection = Loadable({
   loader: () => import("../components/home/SecondSection"),
@@ -101,19 +100,6 @@ const RenderBody = (props) => {
 
   return (
     <>
-      <Title>Not Just a Box Events</Title>
-      <Meta name="title" content={`Not Just a Box Events`} />
-      <Meta name="description" content={meta.description} />
-      <Meta property="og:type" content="website" />
-      <Meta property="og:url" content="https://notjustaboxevents.com/" />
-      <Meta property="og:title" content={`Not Just a Box Events`} />
-      <Meta property="og:description" content={meta.description} />
-      <Meta property="og:image" content={preview} />
-      <Meta property="twitter:card" content="summary_large_image" />
-      <Meta property="twitter:url" content="https://notjustaboxevents.com/" />
-      <Meta property="twitter:title" content={`Not Just a Box Events`} />
-      <Meta property="twitter:description" content={meta.description} />
-      <Meta property="twitter:image" content={preview} />
       <FirstSection {...props} />
 
       <SecondSection {...props} />
@@ -140,6 +126,11 @@ export default ({ data, ...props }) => {
 
   return (
     <Layout
+      meta={{
+        title: `Not Just a Box Events`,
+        description: meta.description,
+        image: preview,
+      }}
       hasModal
       headerVariant="dark"
       headerChildren={

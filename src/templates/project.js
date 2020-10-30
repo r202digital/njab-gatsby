@@ -14,16 +14,18 @@ import { Link as ScrollLink, animateScroll as scroll } from "react-scroll";
 import Mosaic from "components/Mosaic";
 
 import Image from "@chakra-ui/core/dist/Image";
+import List, { ListItem } from "@chakra-ui/core/dist/List";
 import Flex from "@chakra-ui/core/dist/Flex";
+import Grid from "@chakra-ui/core/dist/Grid";
 import Heading from "@chakra-ui/core/dist/Heading";
 import PseudoBox from "@chakra-ui/core/dist/PseudoBox";
 import Box from "@chakra-ui/core/dist/Box";
 import Text from "@chakra-ui/core/dist/Text";
+import Icon from "@chakra-ui/core/dist/Icon";
 import ExternalLink from "@chakra-ui/core/dist/Link";
-
 import { getPrismicImage } from "../lib/PrismicFunctions";
+import dayjs from "dayjs";
 import Loadable from "react-loadable";
-import { Title, Meta } from "react-head";
 
 const PrismicRichText = Loadable({
   loader: () => import("prismic-reactjs"),
@@ -37,7 +39,7 @@ const PrismicRichText = Loadable({
   },
 });
 
-const ServiceHeroContainer = styled(Box)`
+const ProjectHeroContainer = styled(Box)`
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -53,7 +55,7 @@ const ServiceHeroContainer = styled(Box)`
   }
 `;
 
-const ServiceTitle = styled("div")`
+const ProjectTitle = styled("div")`
   margin: 0;
   text-transform: uppercase;
   font-size: 15px;
@@ -67,7 +69,7 @@ const ServiceTitle = styled("div")`
   }
 `;
 
-const ServiceSubtitle = styled("div")`
+const ProjectSubtitle = styled("div")`
   margin: 0;
   text-transform: uppercase;
   font-size: 15px;
@@ -82,7 +84,7 @@ const ServiceSubtitle = styled("div")`
   }
 `;
 
-const ServiceBody = styled("div")`
+const ProjectBody = styled("div")`
   margin: 0;
 
   .block-img {
@@ -126,6 +128,11 @@ const SliderLink = styled(Link)`
   }
 `;
 
+const StyledDate = styled.p`
+  color: ${colors.njabDarkPink};
+  font-size: 14px;
+`;
+
 const StyledText = styled(Text)`
   font-family: Montserrat;
   letter-spacing: 1px;
@@ -153,44 +160,33 @@ const FeaturedSubheading = styled(Box)`
   }
 `;
 
-const Service = ({ service, meta, allServices, fullPath, home }) => {
+const Project = ({ project, meta, allProjects, fullPath, home }) => {
   const bottomRef = useRef(null);
   return (
     <>
-      <Title>{service.service_title[0].text} | Not Just a Box Events</Title>
-      <Meta
-        name="title"
-        content={`${service.service_title[0].text} | Not Just a Box Events`}
-      />
-      <Meta name="description" content={meta.description} />
-      <Meta property="og:type" content="website" />
-      <Meta property="og:url" content="https://notjustaboxevents.com/" />
-      <Meta
-        property="og:title"
-        content={`${service.service_title[0].text} | Not Just a Box Events`}
-      />
-      <Meta property="og:description" content={meta.description} />
-      <Meta property="og:image" content={service.service_hero_image.url} />
-      <Meta property="twitter:card" content="summary_large_image" />
-      <Meta property="twitter:url" content="https://notjustaboxevents.com/" />
-      <Meta
-        property="twitter:title"
-        content={`${service.service_title[0].text} | Not Just a Box Events`}
-      />
-      <Meta property="twitter:description" content={meta.description} />
-      <Meta property="twitter:image" content={service.service_hero_image.url} />
-      <Layout>
+      <Layout
+        meta={{
+          title: `${project.project_title[0].text} | Not Just a Box Events`,
+          description: meta.description,
+          image: project.project_hero_image.url,
+        }}
+      >
         <Section flexDirection="row" flexWrap={{ xs: "wrap", md: "nowrap" }}>
           <Box flex={{ xs: "1 0 100%", md: "1 1 50%" }} paddingRight="5%">
-            <ServiceTitle>
-              <PrismicRichText render={service.service_title} />
-            </ServiceTitle>
-            <ServiceSubtitle>
-              <PrismicRichText render={service.service_subtitle} />
-            </ServiceSubtitle>
-            <ServiceBody>
+            <ProjectTitle>
+              <PrismicRichText render={project.project_title} />
+            </ProjectTitle>
+            <ProjectSubtitle>
+              <PrismicRichText render={project.project_subtitle} />
+            </ProjectSubtitle>
+            <Text as="em" mb="50px" fontFamily="Montserrat" display="block">
+              <StyledDate>
+                {dayjs(project.post_date).format("MMMM DD, YYYY")}
+              </StyledDate>
+            </Text>
+            <ProjectBody>
               <StyledText>
-                <PrismicRichText render={service.service_description} />
+                <PrismicRichText render={project.project_description} />
               </StyledText>
               <Box display="table" mb="50px">
                 <Text
@@ -200,7 +196,7 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
                   letterSpacing="2px"
                   display="table"
                 >
-                  SHARE THIS SERVICE{" "}
+                  SHARE THIS PROJECT{" "}
                 </Text>
                 <Flex width="100%" justifyContent="space-between">
                   <ExternalLink
@@ -256,23 +252,23 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
                   </Text>
                 </Flex>
               </ScrollLink>
-            </ServiceBody>
+            </ProjectBody>
           </Box>
           <Box width="100%" flex={{ xs: "1 0 100%", md: "1 1 50%" }}>
-            {service.service_hero_image && (
-              <ServiceHeroContainer width="100%">
+            {project.project_hero_image && (
+              <ProjectHeroContainer width="100%">
                 <Image
-                  src={getPrismicImage(service.service_hero_image)}
-                  alt={service.service_title}
+                  src={getPrismicImage(project.project_hero_image)}
+                  alt={project.project_title}
                   width="100%"
                 />
-                {service.images.map((item, index) => (
+                {project.images.map((item, index) => (
                   <Image
                     src={getPrismicImage(item.gallery_image)}
                     alt={`image-${index}`}
                   />
                 ))}
-              </ServiceHeroContainer>
+              </ProjectHeroContainer>
             )}
           </Box>
         </Section>
@@ -286,7 +282,7 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
                 letterSpacing="2px"
                 display="table"
               >
-                SHARE THIS SERVICE{" "}
+                SHARE THIS PROJECT{" "}
               </Text>
               <Flex width="100%" justifyContent="space-between">
                 <ExternalLink
@@ -343,7 +339,7 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
               fontFamily="Montserrat"
               color="white"
             >
-              Other Services
+              Similar Stories
             </Heading>
           </Box>
           <RelatedSlider
@@ -352,7 +348,7 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
             infinite={false}
             dots={false}
           >
-            {allServices.map((item, index) => (
+            {allProjects.map((item, index) => (
               <PseudoBox
                 height="400px"
                 justifyContent="center"
@@ -381,7 +377,7 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
                       marginBottom="5px"
                       fontFamily="Montserrat"
                     >
-                      {item.node.service_title.map((i) => i.text)}
+                      {item.node.project_title.map((i) => i.text)}
                     </Heading>
                     <Text
                       fontFamily="Montserrat"
@@ -390,13 +386,13 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
                       marginBottom="10px"
                       fontSize="12px"
                     >
-                      {item.node.service_preview_description[0].text}
+                      {item.node.project_preview_description[0].text}
                     </Text>
                   </SliderLink>
                 </Flex>
                 <Image
                   // px="15px"
-                  src={getPrismicImage(item.node.service_hero_image)}
+                  src={getPrismicImage(item.node.project_hero_image)}
                   position="absolute"
                   top="0"
                   zIndex="-1"
@@ -482,49 +478,49 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
 };
 
 export default ({ data, path, location }) => {
-  const id = path.replace("/service/", "");
+  const id = path.replace("/events/", "");
   const home = data.prismic.allHomepages.edges.slice(0, 1).pop();
 
-  const serviceContent = data.prismic.allServices.edges.filter(
+  const projectContent = data.prismic.allProjects.edges.filter(
     (edge) => edge.node._meta.uid === id
   )[0];
 
-  const allServices = data.prismic.allServices.edges
+  const allProjects = data.prismic.allProjects.edges
     .filter((edge) => edge.node._meta.uid !== id)
     .slice(0, 5);
 
   const meta = data.site.siteMetadata;
 
-  if (!serviceContent || !home || !allServices) return null;
+  if (!projectContent || !home || !allProjects) return null;
   return (
-    <Service
+    <Project
       fullPath={location.href}
-      service={serviceContent.node}
+      project={projectContent.node}
       home={home.node}
       meta={meta}
-      allServices={allServices}
+      allProjects={allProjects}
     />
   );
 };
 
-Service.propTypes = {
-  service: PropTypes.object.isRequired,
+Project.propTypes = {
+  project: PropTypes.object.isRequired,
 };
 
 export const query = graphql`
-  query ServiceQuery {
+  query ProjectQuery {
     prismic {
-      allServices {
+      allProjects {
         edges {
           node {
-            service_title
-            service_subtitle
-            service_preview_description
-            service_preview_thumbnail
-            service_category
-            service_post_date
-            service_hero_image
-            service_description
+            project_title
+            project_subtitle
+            project_preview_description
+            project_preview_thumbnail
+            project_category
+            project_post_date
+            project_hero_image
+            project_description
             images {
               gallery_image
             }

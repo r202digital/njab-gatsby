@@ -23,7 +23,6 @@ import Container from "../components/Container";
 import { getPrismicText, getPrismicImage } from "../lib/PrismicFunctions";
 import Loadable from "react-loadable";
 import preview from "../images/njab/fbimage.png";
-import { Title, Meta } from "react-head";
 
 const PrismicRichText = Loadable({
   loader: () => import("prismic-reactjs"),
@@ -50,26 +49,12 @@ const Blog = ({ meta, blog, posts, categories }) => {
   });
   return (
     <>
-      <Title>Our Journal | Not Just a Box Events</Title>
-      <Meta name="title" content={`Our Journal | Not Just a Box Events`} />
-      <Meta name="description" content={meta.description} />
-      <Meta property="og:type" content="website" />
-      <Meta property="og:url" content="https://notjustaboxevents.com/" />
-      <Meta
-        property="og:title"
-        content={`Our Journal | Not Just a Box Events`}
-      />
-      <Meta property="og:description" content={meta.description} />
-      <Meta property="og:image" content={preview} />
-      <Meta property="twitter:card" content="summary_large_image" />
-      <Meta property="twitter:url" content="https://notjustaboxevents.com/" />
-      <Meta
-        property="twitter:title"
-        content={`Our Journal | Not Just a Box Events`}
-      />
-      <Meta property="twitter:description" content={meta.description} />
-      <Meta property="twitter:image" content={preview} />
       <Layout
+        meta={{
+          title: `Our Journal | Not Just a Box Events`,
+          description: meta.description,
+          image: preview,
+        }}
         headerVariant="dark"
         headerBackground={{
           url: getPrismicImage(blog.page_hero_image),

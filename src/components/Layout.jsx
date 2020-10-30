@@ -23,7 +23,7 @@ import MessengerCustomerChat from "react-messenger-customer-chat";
 import FontFaceObserver from "fontfaceobserver";
 import "react-micro-modal/dist/index.css";
 import { parsePrismicUrl } from "../lib/PrismicFunctions";
-import { Link, Meta } from "react-head";
+import { Link, Meta, Title } from "react-head";
 
 const PinkNoTextLogo = Loadable({
   loader: () => import("../components/_ui/NjabLogos"),
@@ -113,6 +113,7 @@ const Layout = ({
   headerChildren,
   headerBackground,
   hasModal = false,
+  meta,
 }) => {
   const [fontAvailable, setFontAvailable] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
@@ -175,6 +176,8 @@ const Layout = ({
         }
       `}
       render={(data) => {
+        console.log(meta);
+
         var font = new FontFaceObserver("Montserrat", {
           weight: 400,
         });
@@ -203,11 +206,6 @@ const Layout = ({
 
         return (
           <>
-            <Meta
-              name="p:domain_verify"
-              content="1228088838575c68d8e15366463bb836"
-            />
-            <Link rel="preconnect" href="https://images.prismic.io" />
             <MessengerCustomerChat
               pageId="176927569055665"
               appId="1678638095724206"
@@ -273,6 +271,39 @@ const Layout = ({
                     navLinks={nav_links}
                     background={headerBackground}
                   >
+                    <Meta
+                      name="p:domain_verify"
+                      content="1228088838575c68d8e15366463bb836"
+                    />
+                    <Link rel="preconnect" href="https://images.prismic.io" />
+                    <Title>{meta.title}</Title>
+                    <Meta name="title" content={meta.title} />
+                    <Meta name="description" content={meta.description} />
+                    <Meta property="og:type" content="website" />
+                    <Meta
+                      property="og:url"
+                      content="https://notjustaboxevents.com/"
+                    />
+                    <Meta property="og:title" content={meta.title} />
+                    <Meta
+                      property="og:description"
+                      content={meta.description}
+                    />
+                    <Meta property="og:image" content={meta.image} />
+                    <Meta
+                      property="twitter:card"
+                      content="summary_large_image"
+                    />
+                    <Meta
+                      property="twitter:url"
+                      content="https://notjustaboxevents.com/"
+                    />
+                    <Meta property="twitter:title" content={meta.title} />
+                    <Meta
+                      property="twitter:description"
+                      content={meta.description}
+                    />
+                    <Meta property="twitter:image" content={meta.imagge} />
                     {headerChildren}
                   </Header>
                   <main className="Layout__content">{children}</main>

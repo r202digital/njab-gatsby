@@ -9,6 +9,7 @@ import Heading from "@chakra-ui/core/dist/Heading";
 import Grid from "@chakra-ui/core/dist/Grid";
 import Image from "@chakra-ui/core/dist/Image";
 import Link from "components/_ui/Link";
+import preview from "../images/njab/fbimage.png";
 
 const UnderlineBox = styled(Box)`
   position: relative;
@@ -39,7 +40,13 @@ const HomeLink = styled(Link)`
 `;
 
 const NotFoundPage = () => (
-  <Layout>
+  <Layout
+    meta={{
+      title: `Page Not Found | Not Just a Box Events`,
+      description: `This pagge does not exist`,
+      image: preview,
+    }}
+  >
     <Flex
       direction="column"
       alignItems="center"
