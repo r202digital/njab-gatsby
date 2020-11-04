@@ -281,10 +281,6 @@ const Layout = ({
                   <Meta name="title" content={meta.title} />
                   <Meta name="description" content={meta.description} />
                   <Meta property="og:type" content="website" />
-                  <Meta
-                    property="og:url"
-                    content="https://notjustaboxevents.com/"
-                  />
                   <Meta property="og:title" content={meta.title} />
                   <Meta property="og:description" content={meta.description} />
                   <Meta property="og:image" content={meta.image} />
