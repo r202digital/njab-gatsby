@@ -43,7 +43,7 @@ const NotFoundPage = () => (
   <Layout
     meta={{
       title: `Page Not Found | Not Just a Box Events`,
-      description: `This pagge does not exist`,
+      description: `This page does not exist`,
       image: preview,
     }}
   >

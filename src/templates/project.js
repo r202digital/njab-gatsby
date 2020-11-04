@@ -477,21 +477,9 @@ const Project = ({ project, meta, allProjects, fullPath, home }) => {
   );
 };
 
-export default ({ data, path, location }) => {
-  const id = path.replace("/events/", "");
-  const home = data.prismic.allHomepages.edges.slice(0, 1).pop();
+export default ({ location, ...props }) => {
+  const { home, projectContent, allProjects, meta } = props.pathContext;
 
-  const projectContent = data.prismic.allProjects.edges.filter(
-    (edge) => edge.node._meta.uid === id
-  )[0];
-
-  const allProjects = data.prismic.allProjects.edges
-    .filter((edge) => edge.node._meta.uid !== id)
-    .slice(0, 5);
-
-  const meta = data.site.siteMetadata;
-
-  if (!projectContent || !home || !allProjects) return null;
   return (
     <Project
       fullPath={location.href}
@@ -502,114 +490,3 @@ export default ({ data, path, location }) => {
     />
   );
 };
-
-Project.propTypes = {
-  project: PropTypes.object.isRequired,
-};
-
-export const query = graphql`
-  query ProjectQuery {
-    prismic {
-      allProjects {
-        edges {
-          node {
-            project_title
-            project_subtitle
-            project_preview_description
-            project_preview_thumbnail
-            project_category
-            project_post_date
-            project_hero_image
-            project_description
-            images {
-              gallery_image
-            }
-            _meta {
-              uid
-            }
-          }
-        }
-      }
-
-      allHomepages {
-        edges {
-          node {
-            mosaic {
-              mosaic_image
-              mosaic_imageSharp {
-                childImageSharp {
-                  fluid(quality: 100) {
-                    ...GatsbyImageSharpFluid
-                  }
-                }
-              }
-              mosaic_link {
-                ... on PRISMIC__ExternalLink {
-                  url
-                }
-                ... on PRISMIC_Service {
-                  _meta {
-                    uid
-                    type
-                  }
-                }
-                ... on PRISMIC_Portfolio_page {
-                  _meta {
-                    uid
-                    type
-                  }
-                }
-                ... on PRISMIC_Post {
-                  _meta {
-                    type
-                    uid
-                  }
-                }
-                ... on PRISMIC_Project {
-                  _meta {
-                    uid
-                    type
-                  }
-                }
-                ... on PRISMIC_Contact_page {
-                  _meta {
-                    type
-                    uid
-                  }
-                }
-                ... on PRISMIC_Blog_page {
-                  _meta {
-                    type
-                    uid
-                  }
-                }
-                ... on PRISMIC_About_page {
-                  _meta {
-                    type
-                    uid
-                  }
-                }
-                ... on PRISMIC_Services_page {
-                  _meta {
-                    type
-                    uid
-                  }
-                }
-              }
-            }
-            mosaic_heading
-            mosaic_subheading
-            mosaic_highlight_text
-          }
-        }
-      }
-    }
-    site {
-      siteMetadata {
-        title
-        description
-        author
-      }
-    }
-  }
-`;

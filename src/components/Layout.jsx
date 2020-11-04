@@ -176,7 +176,7 @@ const Layout = ({
         }
       `}
       render={(data) => {
-        console.log(meta);
+        // console.log(meta);
 
         var font = new FontFaceObserver("Montserrat", {
           weight: 400,
@@ -213,8 +213,8 @@ const Layout = ({
               loggedInGreeting="Hi, I'm Debbie! Can I help you with anything?"
               loggedOutGreeting="Hi, I'm Debbie! Can I help you with anything?"
             />
-            <ThemeProvider theme={theme}>
-              {hasModal && (
+            {hasModal && (
+              <ThemeProvider theme={theme}>
                 <MicroModal
                   open={isModalOpen}
                   closeOnAnimationEnd
@@ -261,56 +261,52 @@ const Layout = ({
                     </Flex>
                   )}
                 />
-              )}
-              <LayoutContainer className="div">
-                <Global styles={[globalStyles, typeStyles, logoStyles]} />
-                <div className="Layout">
-                  <Header
-                    fontAvailable={fontAvailable}
-                    variant={headerVariant}
-                    navLinks={nav_links}
-                    background={headerBackground}
-                  >
-                    <Meta
-                      name="p:domain_verify"
-                      content="1228088838575c68d8e15366463bb836"
-                    />
-                    <Link rel="preconnect" href="https://images.prismic.io" />
-                    <Title>{meta.title}</Title>
-                    <Meta name="title" content={meta.title} />
-                    <Meta name="description" content={meta.description} />
-                    <Meta property="og:type" content="website" />
-                    <Meta
-                      property="og:url"
-                      content="https://notjustaboxevents.com/"
-                    />
-                    <Meta property="og:title" content={meta.title} />
-                    <Meta
-                      property="og:description"
-                      content={meta.description}
-                    />
-                    <Meta property="og:image" content={meta.image} />
-                    <Meta
-                      property="twitter:card"
-                      content="summary_large_image"
-                    />
-                    <Meta
-                      property="twitter:url"
-                      content="https://notjustaboxevents.com/"
-                    />
-                    <Meta property="twitter:title" content={meta.title} />
-                    <Meta
-                      property="twitter:description"
-                      content={meta.description}
-                    />
-                    <Meta property="twitter:image" content={meta.imagge} />
-                    {headerChildren}
-                  </Header>
+              </ThemeProvider>
+            )}
+            <LayoutContainer className="div">
+              <Global styles={[globalStyles, typeStyles, logoStyles]} />
+              <div className="Layout">
+                <Header
+                  fontAvailable={fontAvailable}
+                  variant={headerVariant}
+                  navLinks={nav_links}
+                  background={headerBackground}
+                >
+                  <Meta
+                    name="p:domain_verify"
+                    content="1228088838575c68d8e15366463bb836"
+                  />
+                  <Link rel="preconnect" href="https://images.prismic.io" />
+                  <Title>{meta.title}</Title>
+                  <Meta name="title" content={meta.title} />
+                  <Meta name="description" content={meta.description} />
+                  <Meta property="og:type" content="website" />
+                  <Meta
+                    property="og:url"
+                    content="https://notjustaboxevents.com/"
+                  />
+                  <Meta property="og:title" content={meta.title} />
+                  <Meta property="og:description" content={meta.description} />
+                  <Meta property="og:image" content={meta.image} />
+                  <Meta property="twitter:card" content="summary_large_image" />
+                  <Meta
+                    property="twitter:url"
+                    content="https://notjustaboxevents.com/"
+                  />
+                  <Meta property="twitter:title" content={meta.title} />
+                  <Meta
+                    property="twitter:description"
+                    content={meta.description}
+                  />
+                  <Meta property="twitter:image" content={meta.image} />
+                  {headerChildren}
+                </Header>
+                <ThemeProvider theme={theme}>
                   <main className="Layout__content">{children}</main>
                   <Footer data={footerInfo} />
-                </div>
-              </LayoutContainer>
-            </ThemeProvider>
+                </ThemeProvider>
+              </div>
+            </LayoutContainer>
           </>
         );
       }}

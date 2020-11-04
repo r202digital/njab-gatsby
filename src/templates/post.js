@@ -26,6 +26,7 @@ import Text from "@chakra-ui/core/dist/Text";
 import Container from "../components/Container";
 import { getPrismicImage } from "../lib/PrismicFunctions";
 import Loadable from "react-loadable";
+import { Meta, Title } from "react-head";
 
 const PrismicRichText = Loadable({
   loader: () => import("prismic-reactjs"),
@@ -466,22 +467,9 @@ const Post = ({ post, meta, blog, allPosts }) => {
   );
 };
 
-export default ({ data, path }) => {
-  const id = path.replace("/blog/", "");
+export default (props) => {
+  const { postContent, blog, allPosts, meta } = props.pathContext;
 
-  const postContent = data.prismic.allPosts.edges.filter(
-    (edge) => edge.node._meta.uid === id
-  )[0];
-
-  const allPosts = data.prismic.allPosts.edges
-    .filter((edge) => edge.node._meta.uid !== id)
-    .slice(0, 5);
-
-  const blog = data.prismic.allBlog_pages.edges.slice(0, 1).pop();
-
-  if (!postContent) return null;
-
-  const meta = data.site.siteMetadata;
   return (
     <Post
       post={postContent.node}
@@ -491,56 +479,3 @@ export default ({ data, path }) => {
     />
   );
 };
-
-Post.propTypes = {
-  post: PropTypes.object.isRequired,
-  meta: PropTypes.object.isRequired,
-};
-
-export const query = graphql`
-  query PostQuery {
-    prismic {
-      allPosts {
-        edges {
-          node {
-            post_title
-            post_hero_image
-            post_hero_annotation
-            post_date
-            post_category
-            post_body
-            post_author
-            post_preview_description
-            _meta {
-              uid
-            }
-          }
-        }
-      }
-
-      allBlog_pages {
-        edges {
-          node {
-            page_heading
-            page_hero_image
-            page_hero_imageSharp {
-              childImageSharp {
-                fluid(quality: 100) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
-            }
-            page_subheading
-          }
-        }
-      }
-    }
-    site {
-      siteMetadata {
-        title
-        description
-        author
-      }
-    }
-  }
-`;

@@ -464,21 +464,24 @@ const Service = ({ service, meta, allServices, fullPath, home }) => {
   );
 };
 
-export default ({ data, path, location }) => {
-  const id = path.replace("/service/", "");
-  const home = data.prismic.allHomepages.edges.slice(0, 1).pop();
+export default ({ location, pathContext }) => {
+  // const id = path.replace("/service/", "");
+  // const home = data.prismic.allHomepages.edges.slice(0, 1).pop();
 
-  const serviceContent = data.prismic.allServices.edges.filter(
-    (edge) => edge.node._meta.uid === id
-  )[0];
+  // const serviceContent = data.prismic.allServices.edges.filter(
+  //   (edge) => edge.node._meta.uid === id
+  // )[0];
 
-  const allServices = data.prismic.allServices.edges
-    .filter((edge) => edge.node._meta.uid !== id)
-    .slice(0, 5);
+  // const allServices = data.prismic.allServices.edges
+  //   .filter((edge) => edge.node._meta.uid !== id)
+  //   .slice(0, 5);
 
-  const meta = data.site.siteMetadata;
+  // const meta = data.site.siteMetadata;
 
-  if (!serviceContent || !home || !allServices) return null;
+  // if (!serviceContent || !home || !allServices) return null;
+
+  const { home, allServices, serviceContent, meta } = pathContext;
+
   return (
     <Service
       fullPath={location.href}
@@ -489,114 +492,3 @@ export default ({ data, path, location }) => {
     />
   );
 };
-
-Service.propTypes = {
-  service: PropTypes.object.isRequired,
-};
-
-export const query = graphql`
-  query ServiceQuery {
-    prismic {
-      allServices {
-        edges {
-          node {
-            service_title
-            service_subtitle
-            service_preview_description
-            service_preview_thumbnail
-            service_category
-            service_post_date
-            service_hero_image
-            service_description
-            images {
-              gallery_image
-            }
-            _meta {
-              uid
-            }
-          }
-        }
-      }
-
-      allHomepages {
-        edges {
-          node {
-            mosaic {
-              mosaic_image
-              mosaic_imageSharp {
-                childImageSharp {
-                  fluid(quality: 100) {
-                    ...GatsbyImageSharpFluid
-                  }
-                }
-              }
-              mosaic_link {
-                ... on PRISMIC__ExternalLink {
-                  url
-                }
-                ... on PRISMIC_Service {
-                  _meta {
-                    uid
-                    type
-                  }
-                }
-                ... on PRISMIC_Portfolio_page {
-                  _meta {
-                    uid
-                    type
-                  }
-                }
-                ... on PRISMIC_Post {
-                  _meta {
-                    type
-                    uid
-                  }
-                }
-                ... on PRISMIC_Project {
-                  _meta {
-                    uid
-                    type
-                  }
-                }
-                ... on PRISMIC_Contact_page {
-                  _meta {
-                    type
-                    uid
-                  }
-                }
-                ... on PRISMIC_Blog_page {
-                  _meta {
-                    type
-                    uid
-                  }
-                }
-                ... on PRISMIC_About_page {
-                  _meta {
-                    type
-                    uid
-                  }
-                }
-                ... on PRISMIC_Services_page {
-                  _meta {
-                    type
-                    uid
-                  }
-                }
-              }
-            }
-            mosaic_heading
-            mosaic_subheading
-            mosaic_highlight_text
-          }
-        }
-      }
-    }
-    site {
-      siteMetadata {
-        title
-        description
-        author
-      }
-    }
-  }
-`;
