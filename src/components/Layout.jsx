@@ -206,13 +206,6 @@ const Layout = ({
 
         return (
           <>
-            <MessengerCustomerChat
-              pageId="176927569055665"
-              appId="1678638095724206"
-              themeColor="#ea7674"
-              loggedInGreeting="Hi, I'm Debbie! Can I help you with anything?"
-              loggedOutGreeting="Hi, I'm Debbie! Can I help you with anything?"
-            />
             {hasModal && (
               <ThemeProvider theme={theme}>
                 <MicroModal
@@ -264,6 +257,13 @@ const Layout = ({
               </ThemeProvider>
             )}
             <LayoutContainer className="div">
+              <MessengerCustomerChat
+                pageId="176927569055665"
+                appId="1678638095724206"
+                themeColor="#ea7674"
+                loggedInGreeting="Hi, I'm Debbie! Can I help you with anything?"
+                loggedOutGreeting="Hi, I'm Debbie! Can I help you with anything?"
+              />
               <Global styles={[globalStyles, typeStyles, logoStyles]} />
               <div className="Layout">
                 <Header
