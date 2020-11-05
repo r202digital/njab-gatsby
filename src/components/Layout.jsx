@@ -117,9 +117,11 @@ const Layout = ({
 }) => {
   const [fontAvailable, setFontAvailable] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
+  // const [loadMessenger, setLoadMessenger] = useState(false);
 
   useEffect(() => {
     setModalOpen(!sessionStorage.getItem("visited"));
+    // setLoadMessenger(true);
   }, []);
 
   return (
@@ -257,13 +259,15 @@ const Layout = ({
               </ThemeProvider>
             )}
             <LayoutContainer className="div">
-              <MessengerCustomerChat
-                pageId="176927569055665"
-                appId="1678638095724206"
-                themeColor="#ea7674"
-                loggedInGreeting="Hi, I'm Debbie! Can I help you with anything?"
-                loggedOutGreeting="Hi, I'm Debbie! Can I help you with anything?"
-              />
+              {/* {loadMessenger && (
+                <MessengerCustomerChat
+                  pageId="176927569055665"
+                  appId="1678638095724206"
+                  themeColor="#ea7674"
+                  loggedInGreeting="Hi, I'm Debbie! Can I help you with anything?"
+                  loggedOutGreeting="Hi, I'm Debbie! Can I help you with anything?"
+                />
+              )} */}
               <Global styles={[globalStyles, typeStyles, logoStyles]} />
               <div className="Layout">
                 <Header
