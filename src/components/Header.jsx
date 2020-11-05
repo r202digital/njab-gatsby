@@ -192,6 +192,8 @@ const Header = ({
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
 
+  console.log(isOpen);
+
   return (
     <HeaderContainerWrapper
       className={`HeaderContainer--${variant}`}

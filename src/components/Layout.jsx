@@ -207,56 +207,54 @@ const Layout = ({
         } = node;
 
         return (
-          <>
+          <ThemeProvider theme={theme}>
             {hasModal && (
-              <ThemeProvider theme={theme}>
-                <MicroModal
-                  open={isModalOpen}
-                  closeOnAnimationEnd
-                  handleClose={() => {
-                    setModalOpen(false);
-                    sessionStorage.setItem("visited", true);
-                  }}
-                  children={(handleClose) => (
-                    <Flex height="100%">
-                      <Flex
-                        justifyContent="center"
-                        flex="0 0 40%"
-                        overflow="hidden"
-                      >
-                        <Image
-                          objectFit="cover"
-                          height="100%"
-                          src={parsePrismicUrl(modal_side_image.url, 800)}
+              <MicroModal
+                open={isModalOpen}
+                closeOnAnimationEnd
+                handleClose={() => {
+                  setModalOpen(false);
+                  sessionStorage.setItem("visited", true);
+                }}
+                children={(handleClose) => (
+                  <Flex height="100%">
+                    <Flex
+                      justifyContent="center"
+                      flex="0 0 40%"
+                      overflow="hidden"
+                    >
+                      <Image
+                        objectFit="cover"
+                        height="100%"
+                        src={parsePrismicUrl(modal_side_image.url, 800)}
+                      />
+                    </Flex>
+                    <Box
+                      flex="0 0 60%"
+                      height="100%"
+                      overflowY="scroll"
+                      padding="30px"
+                      backgroundColor={colors.njabLightPink}
+                    >
+                      <Flex>
+                        <Box>
+                          <PrismicHeading render={modal_title} />
+                        </Box>
+                        <StyledClose
+                          aria-label="Modal close"
+                          size="sm"
+                          icon="close"
+                          onClick={handleClose}
                         />
                       </Flex>
-                      <Box
-                        flex="0 0 60%"
-                        height="100%"
-                        overflowY="scroll"
-                        padding="30px"
-                        backgroundColor={colors.njabLightPink}
-                      >
-                        <Flex>
-                          <Box>
-                            <PrismicHeading render={modal_title} />
-                          </Box>
-                          <StyledClose
-                            aria-label="Modal close"
-                            size="sm"
-                            icon="close"
-                            onClick={handleClose}
-                          />
-                        </Flex>
-                        <Box>
-                          <PrismicRichText render={modal_text} />
-                          <PinkNoTextLogo margin="0 auto" />
-                        </Box>
+                      <Box>
+                        <PrismicRichText render={modal_text} />
+                        <PinkNoTextLogo margin="0 auto" />
                       </Box>
-                    </Flex>
-                  )}
-                />
-              </ThemeProvider>
+                    </Box>
+                  </Flex>
+                )}
+              />
             )}
             <LayoutContainer className="div">
               {/* {loadMessenger && (
@@ -301,13 +299,11 @@ const Layout = ({
                   <Meta property="twitter:image" content={meta.image} />
                   {headerChildren}
                 </Header>
-                <ThemeProvider theme={theme}>
-                  <main className="Layout__content">{children}</main>
-                  <Footer data={footerInfo} />
-                </ThemeProvider>
+                <main className="Layout__content">{children}</main>
+                <Footer data={footerInfo} />
               </div>
             </LayoutContainer>
-          </>
+          </ThemeProvider>
         );
       }}
     />
