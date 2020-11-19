@@ -248,8 +248,7 @@ const Post = ({ post, meta, blog, allPosts }) => {
               >
                 {`OUR JOURNAL > ${post.post_category.map(
                   (category) => `${category.text} `
-                )} > `}
-                {dayjs(post.post_date).format("MMDDYY")}
+                )} > ${post.post_title}`}
               </Text>
             </Grid>
           </Container>
