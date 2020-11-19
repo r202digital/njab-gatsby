@@ -179,7 +179,7 @@ const Post = ({ post, meta, blog, allPosts }) => {
         meta={{
           title: `${post.post_title[0].text} | Not Just a Box Events`,
           description: meta.description,
-          image: blog.page_hero_image.url,
+          image: post.post_hero_image.url,
         }}
         headerVariant="dark"
         headerBackground={{
