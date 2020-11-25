@@ -248,7 +248,7 @@ const Post = ({ post, meta, blog, allPosts }) => {
               >
                 {`OUR JOURNAL > ${post.post_category.map(
                   (category) => `${category.text} `
-                )} > ${post.post_title}`}
+                )} > ${post.post_title[0].text}`}
               </Text>
             </Grid>
           </Container>
