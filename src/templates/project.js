@@ -399,6 +399,7 @@ const Project = ({ project, meta, allProjects, fullPath, home }) => {
                   style={{
                     filter: "brightness(0.7)",
                   }}
+                  width="100%"
                 />
               </PseudoBox>
             ))}
