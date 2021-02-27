@@ -427,21 +427,12 @@ const Project = ({ project, meta, allProjects, fullPath, home }) => {
                 mx: "auto",
               }}
             >
-              <FeaturedHeading>
-                <Heading
-                  as="h1"
-                  fontFamily="Montserrat"
-                  textTransform="uppercase"
-                >
-                  Lorem Ipsum
-                </Heading>
-              </FeaturedHeading>
+              <FeaturedSubheading>
+                <Text as="p" fontFamily="Montserrat" textTransform="uppercase">
+                  Follow Us on Instagram
+                </Text>
+              </FeaturedSubheading>
             </PseudoBox>
-            <FeaturedSubheading>
-              <Text as="p" fontFamily="Montserrat" textTransform="uppercase">
-                Follow Us
-              </Text>
-            </FeaturedSubheading>
           </Flex>
           <Mosaic
             height="400px"

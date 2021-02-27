@@ -48,6 +48,15 @@ const globalStyles = css`
     }
   }
 
+  .block-img {
+    display: flex;
+    justify-content: center;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
   /*
     A workaround for forcing accessibility wrappers
     to have a 100% height.
