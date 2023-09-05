@@ -117,5 +117,8 @@
   },
   "resolutions": {
     "serialize-javascript": "^2.1.1"
+  },
+  "engines": {
+    "node": "^18"
   }
 }
